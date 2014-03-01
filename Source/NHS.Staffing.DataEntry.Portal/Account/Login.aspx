@@ -52,23 +52,12 @@
                                 <asp:Image runat="server" ImageUrl="~/Images/lock.png" />
                             </span>
                         </fieldset>
-                        <p class="submitButton">
-                            <asp:Button ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="LoginUserValidationGroup" />
-                        </p>
+                        <span>
+                            <asp:Button CssClass="submitButton" ID="LoginButton" runat="server" CommandName="Login" Text="Log In" ValidationGroup="LoginUserValidationGroup" />
+                        </span>
                     </div>
                 </LayoutTemplate>
             </asp:Login>
         </div>
     </div>
 </asp:Content>
-<%--            <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </div>--%>

@@ -24,18 +24,36 @@
                 <span runat="server" class="NHS_name" id="NhsName">NHS Trust</span>
             </div>
         </div>
-        <div class="navigationBar" id="NavigationBar">
-            <asp:Menu ID="NavigationMenu" Visible="true" runat="server" CssClass="menu" EnableViewState="false"
-                IncludeStyleBlock="false" Orientation="Horizontal">
-                <Items>
-                    <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
-                    <asp:MenuItem NavigateUrl="~/About.aspx" Text="About" />
-                </Items>
-            </asp:Menu>
+        <div class="navigationBar" id="NavigationBar" runat="server" visible="true">
+            <span class="navigationBarItems">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
+                        <asp:MenuItem NavigateUrl="~/Shifts/EarlyShift.aspx" Text="Early Shift" />
+                        <asp:MenuItem NavigateUrl="~/Shifts/LateShift.aspx" Text="Late Shift" />
+                        <asp:MenuItem NavigateUrl="~/Shifts/NightShift.aspx" Text="Night Shift" />
+                    </Items>
+                </asp:Menu>
+            </span><span class="loginDisplay">
+                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
+                    <AnonymousTemplate>
+                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
+                        ]
+                    </AnonymousTemplate>
+                    <LoggedInTemplate>
+                        Welcome <span class="bold">
+                            <asp:LoginName ID="HeadLoginName" runat="server" />
+                        </span>! [
+                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
+                            LogoutPageUrl="~/Account/Login.aspx" />
+                        ]
+                    </LoggedInTemplate>
+                </asp:LoginView>
+            </span>
         </div>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-    </div>
     </form>
 </body>
 </html>

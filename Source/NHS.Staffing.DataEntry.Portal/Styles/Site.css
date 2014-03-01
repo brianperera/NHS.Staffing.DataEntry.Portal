@@ -45,7 +45,6 @@ p
 
 h1, h2, h3, h4, h5, h6
 {
-    font-size: 1.5em;
     color: #666666;
     font-variant: small-caps;
     text-transform: none;
@@ -55,15 +54,18 @@ h1, h2, h3, h4, h5, h6
 
 h1
 {
-    font-size: 1.6em;
     padding-bottom: 0px;
     margin-bottom: 0px;
 }
 
 h2
 {
-    font-size: 1.5em;
-    font-weight: 600;
+    color: #2679B5;
+    font-size: 24px !important;
+    font-weight: lighter;
+    line-height: 40px;
+    margin: 0 8px;
+    padding: 0;
 }
 
 h3
@@ -86,6 +88,12 @@ first child of the left and right table columns */
 .rightColumn > h1, .rightColumn > h2, .leftColumn > h1, .leftColumn > h2
 {
     margin-top: 0px;
+}
+
+.pageHeader
+{
+    border-bottom: 1px dotted #E2E2E2;
+    margin: 0 0 12px;
 }
 
 
@@ -164,7 +172,7 @@ span.NHS_name {
 .main
 {
     padding: 0px 12px;
-    margin: 12px 8px 8px 8px;
+    margin: 12px 40px 8px 40px;
 }
 
 .blueBackGround
@@ -195,10 +203,15 @@ span.NHS_name {
 /* TAB MENU   
 ----------------------------------------------------------*/
 
-div.navigationBar
+.navigationBar
 {
     background-color:#EEEEEE;
     padding-left:10px;
+}
+
+.navigationBarItems
+{
+    float:left;    
 }
 
 div.menu
@@ -320,12 +333,12 @@ div.accountInfo
     display: block;
     text-align: right;
     padding: 10px;
-    color: White;
+    color: #666666;
 }
 
 .loginDisplay a:link
 {
-    color: white;
+    
 }
 
 .loginDisplay a:visited
@@ -367,4 +380,16 @@ div.accountInfo
 .submitButton
 {    
     padding-right: 10px;
+    background: linear-gradient(#4A9BEA, #1F7BE5) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    border: 1px solid #1371DC;
+    border-radius: 6px;
+    color: #FFFFFF;
+    display: inline-block;
+    font-family: arial;
+    font-size: 11px;
+    font-weight: 700;
+    margin: 5px 0;
+    padding: 3px 8px;
+    text-decoration: none;
 }
+

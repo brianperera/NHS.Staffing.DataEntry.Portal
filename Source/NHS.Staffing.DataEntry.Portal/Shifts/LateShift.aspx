@@ -1,5 +1,5 @@
-﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="Default.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal._Default" %>
+﻿<%@ Page Title="Late Shift" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
+    CodeFile="LateShift.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.LateShift" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
@@ -7,11 +7,11 @@
     <div class="main">
         <div class="pageHeader">
             <h2>
-                Operational Daily Level
+                Late Shift
             </h2>
         </div>
         <p>
-            Dashboard goes here
+            Data Entry Form Goes Here
         </p>
     </div>
 </asp:Content>

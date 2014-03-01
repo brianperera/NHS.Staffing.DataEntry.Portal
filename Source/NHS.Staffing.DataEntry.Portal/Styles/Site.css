@@ -1,6 +1,12 @@
 ﻿/* DEFAULTS
 ----------------------------------------------------------*/
 
+html, body, .mainForm
+{
+    height: 100%;
+}
+
+
 body   
 {
     background: #b6b7bc;
@@ -88,37 +94,84 @@ first child of the left and right table columns */
 
 .page
 {
-    width: 960px;
+    /*width: 960px;*/
     background-color: #fff;
-    margin: 20px auto 0px auto;
-    border: 1px solid #496077;
+/*    margin: 20px auto 0px auto;*/
+/*    border: 1px solid #496077;*/
 }
 
+/*
 .header
 {
     position: relative;
     margin: 0px;
     padding: 0px;
-    background: #4b6c9e;
+    background-color: #0083f0;
     width: 100%;
+}
+*/
+
+.header {
+    background: linear-gradient(to bottom, #3A9CEE 0%, #005FA6 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 50px;
+    text-transform: uppercase;
+    vertical-align: middle;
 }
 
 .header h1
 {
+    font-size: 24px;
     font-weight: 700;
     margin: 0px;
-    padding: 0px 0px 0px 20px;
+    padding: 5px 0px 0px 20px;
     color: #f9f9f9;
     border: none;
-    line-height: 2em;
-    font-size: 2em;
+    vertical-align: top;
+}
+
+.logos
+{
+    float: right;
+    font-size: 14px;
+    padding:10px 20px 0px 0px;
+    text-align: right;
+    text-transform: none;
+    color: #FFFFFF;
+    font-weight: 700;
+}
+
+.nhsLogo
+{
+    float: right;
+    margin-left: 15px;
+    margin-top: 5px;
+    width: 41px;    
+}
+
+span.hosName 
+{
+    margin-top: 10px;
+    vertical-align: baseline;
+}
+
+span.NHS_name {
+    font-size: 10px;
+    position: absolute;
+    right: 75px;
+    top: 27px;
 }
 
 .main
 {
     padding: 0px 12px;
     margin: 12px 8px 8px 8px;
-    min-height: 420px;
+}
+
+.blueBackGround
+{
+    background: linear-gradient(to bottom, #1B88E5 0%, #0F55B7 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    height: 100%;
+    overflow: hidden;  
 }
 
 .leftCol
@@ -142,10 +195,10 @@ first child of the left and right table columns */
 /* TAB MENU   
 ----------------------------------------------------------*/
 
-div.hideSkiplink
+div.navigationBar
 {
-    background-color:#3a4f63;
-    width:100%;
+    background-color:#EEEEEE;
+    padding-left:10px;
 }
 
 div.menu
@@ -199,7 +252,7 @@ fieldset
 
 fieldset p 
 {
-    margin: 2px 12px 10px 10px;
+    margin: 2px 5px 5px 5px;
 }
 
 fieldset.login label, fieldset.register label, fieldset.changePassword label
@@ -221,19 +274,29 @@ legend
 
 input.textEntry 
 {
-    width: 320px;
     border: 1px solid #ccc;
+    width: 100%;
 }
 
 input.passwordEntry 
 {
-    width: 320px;
+/*    width: 320px;*/
+    width: 100%;
     border: 1px solid #ccc;
+}
+
+.floatLeft
+{
+    float:left;    
 }
 
 div.accountInfo
 {
-    width: 42%;
+    background-color: #FFFFFF;
+    margin-left: 35%;
+    margin-top: 10%;
+    padding: 20px;
+    width: 25%;
 }
 
 /* MISC  
@@ -254,7 +317,6 @@ div.accountInfo
 
 .loginDisplay
 {
-    font-size: 1.1em;
     display: block;
     text-align: right;
     padding: 10px;
@@ -282,13 +344,27 @@ div.accountInfo
     color: Red;
 }
 
+.loginFields
+{
+    float:left;    
+}
+
+.loginIcon
+{
+    
+}
+
+.login legend
+{
+    margin-bottom:10px;    
+}
+
 .bold
 {
     font-weight: bold;
 }
 
 .submitButton
-{
-    text-align: right;
+{    
     padding-right: 10px;
 }

@@ -5,46 +5,36 @@
 <head runat="server">
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
+    <link href="~/Styles/html-reset.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form runat="server">
+    <form runat="server" class="mainForm">
     <div class="page">
         <div class="header">
             <div class="title">
                 <h1>
-                    My ASP.NET Application
+                    <span>OPERATIONS DATA ENTRY PORTAL</span>
                 </h1>
             </div>
-            <div class="loginDisplay">
-                <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" ID="HeadLoginStatus" runat="server">Log In</a> ]
-                    </AnonymousTemplate>
-                    <LoggedInTemplate>
-                        Welcome <span class="bold"><asp:LoginName ID="HeadLoginName" runat="server" /></span>!
-                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out" LogoutPageUrl="~/"/> ]
-                    </LoggedInTemplate>
-                </asp:LoginView>
-            </div>
-            <div class="clear hideSkiplink">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false" IncludeStyleBlock="false" Orientation="Horizontal">
-                    <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home"/>
-                        <asp:MenuItem NavigateUrl="~/About.aspx" Text="About"/>
-                    </Items>
-                </asp:Menu>
+            <div class="logos">
+                <asp:Image runat="server" ImageUrl="~/images/NHSlogo.gif" class="nhsLogo" />
+                <span runat="server" class="hosName" id="HosName">Hospital Name</span>
+                <span runat="server" class="NHS_name" id="NhsName">NHS Trust</span>
             </div>
         </div>
-        <div class="main">
-            <asp:ContentPlaceHolder ID="MainContent" runat="server"/>
+        <div class="navigationBar" id="NavigationBar">
+            <asp:Menu ID="NavigationMenu" Visible="true" runat="server" CssClass="menu" EnableViewState="false"
+                IncludeStyleBlock="false" Orientation="Horizontal">
+                <Items>
+                    <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
+                    <asp:MenuItem NavigateUrl="~/About.aspx" Text="About" />
+                </Items>
+            </asp:Menu>
         </div>
-        <div class="clear">
         </div>
-    </div>
-    <div class="footer">
-        
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </div>
     </form>
 </body>

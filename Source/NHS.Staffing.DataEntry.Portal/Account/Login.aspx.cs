@@ -11,7 +11,9 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            RegisterHyperLink.NavigateUrl = "Register.aspx?ReturnUrl=" + HttpUtility.UrlEncode(Request.QueryString["ReturnUrl"]);
+            Master.FindControl("NavigationMenu").Visible = false;
+            Master.FindControl("HosName").Visible = false;
+            Master.FindControl("NhsName").Visible = false;
         }
     }
 }

@@ -20,7 +20,7 @@
             </div>
             <div class="logos">
                 <asp:Image runat="server" ImageUrl="~/images/NHSlogo.gif" class="nhsLogo" />
-                <span runat="server" class="hosName" id="HosName">Hospital Name</span>
+                <span runat="server" class="hosName" id="HosName">Buckinghamshire Healthcare</span>
                 <span runat="server" class="NHS_name" id="NhsName">NHS Trust</span>
             </div>
         </div>
@@ -38,7 +38,7 @@
                 <asp:Menu ID="AdminMenu" runat="server" CssClass="menu" EnableViewState="false"
                     IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="#" Text="Administration">
+                        <asp:MenuItem Text="Administration">
                             <asp:MenuItem NavigateUrl="~/Administration/ManageDataEntry.aspx" Text="Manage Data Entry" />
                             <asp:MenuItem NavigateUrl="~/Administration/UserAccount.aspx" Text="Add New User" />
                             <asp:MenuItem NavigateUrl="~/Administration/ManageUsers.aspx" Text="Manage Users" />  

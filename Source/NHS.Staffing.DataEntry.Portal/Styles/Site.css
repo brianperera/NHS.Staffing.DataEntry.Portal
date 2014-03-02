@@ -39,6 +39,37 @@ p
     line-height: 1.6em;
 }
 
+li
+{
+    list-style-type:none;  
+    padding: 0;  
+}
+
+ul
+{
+    padding: 0;     
+}
+
+.defaultDropDown
+{
+    min-width:100px;    
+}
+
+.defaultListBox
+{
+    min-width:300px;    
+}
+
+.formSection
+{
+    margin-bottom:50px;    
+}
+
+.formSection li
+{
+    margin-bottom:10px;    
+}
+
 
 /* HEADINGS   
 ----------------------------------------------------------*/
@@ -330,8 +361,16 @@ div.accountInfo
 
 .formTitleFields
 {
-    min-width:140px;
-    padding-right:10px
+    min-width:200px;
+    padding-right:10px;
+    float:left;
+}
+
+.longFormTitleFields
+{
+    min-width:500px;
+    padding-right:10px;
+    float:left;
 }
 
 div.accountInfo .register p span
@@ -386,12 +425,12 @@ div.accountInfoCentered
 
 .loginDisplay a:visited
 {
-    color: white;
+    color: #666666;
 }
 
 .loginDisplay a:hover
 {
-    color: white;
+    color: #666666;
 }
 
 .failureNotification

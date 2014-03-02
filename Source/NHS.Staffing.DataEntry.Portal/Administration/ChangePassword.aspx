@@ -49,13 +49,13 @@
                                 ToolTip="Confirm New Password is required." ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:RequiredFieldValidator>
                             <asp:CompareValidator ID="NewPasswordCompare" runat="server" ControlToCompare="NewPassword"
                                 ControlToValidate="ConfirmNewPassword" CssClass="failureNotification" Display="Dynamic"
-                                ErrorMessage="The Confirm New Password must match the New Password entry." ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>
+                                ErrorMessage="*" ValidationGroup="ChangeUserPasswordValidationGroup">*</asp:CompareValidator>
                         </p>
                     </fieldset>
-                    <p class="submitButton">
-                        <asp:Button ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
+                    <p>
+                        <asp:Button CssClass="submitButton" ID="CancelPushButton" runat="server" CausesValidation="False" CommandName="Cancel"
                             Text="Cancel" />
-                        <asp:Button ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
+                        <asp:Button CssClass="submitButton" ID="ChangePasswordPushButton" runat="server" CommandName="ChangePassword"
                             Text="Change Password" ValidationGroup="ChangeUserPasswordValidationGroup" />
                     </p>
                 </div>

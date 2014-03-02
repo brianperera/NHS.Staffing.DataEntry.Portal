@@ -11,9 +11,17 @@
                     Manage Users
                 </h2>
             </div>
-            <p>
-                Dashboard goes here
-            </p>
+            <div>
+                <div class="subSections">
+                    <asp:ListBox ID="ListBoxUsers" Width="100" runat="server" Rows="8" />
+                </div>
+                <div class="subSections">
+                    <span>
+                        <asp:Button CssClass="submitButton" Text="Update" 
+                        ID="ButtonUpdateAccount" runat="server" onclick="ButtonUpdateAccount_Click" />
+                    </span>
+                </div>
+            </div>
         </div>
         <div class="sections">
             <div class="pageHeader">

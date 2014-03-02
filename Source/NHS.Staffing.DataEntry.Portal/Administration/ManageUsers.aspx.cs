@@ -16,8 +16,11 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             if (!IsPostBack)
             {
-                // Bind roles to GridView.
+                // Bind users to Grid.
+                ListBoxUsers.DataSource = Membership.GetAllUsers();
+                ListBoxUsers.DataBind();
 
+                // Bind roles to List.
                 rolesArray = Roles.GetAllRoles();
                 RolesListBox.DataSource = rolesArray;
                 RolesListBox.DataBind();
@@ -78,6 +81,14 @@ namespace Nhs.Staffing.DataEntry.Portal
                 Msg.Text = "Role '" + Server.HtmlEncode(delRole) + "' <u>not</u> deleted.";
             }
 
+        }
+
+        protected void ButtonUpdateAccount_Click(object sender, EventArgs e)
+        {
+            if (!string.IsNullOrEmpty(ListBoxUsers.SelectedValue))
+            {
+                Response.Redirect(string.Format("UserAccount.aspx?action=update&username={0}", ListBoxUsers.SelectedValue));
+            }
         }
     }
 }

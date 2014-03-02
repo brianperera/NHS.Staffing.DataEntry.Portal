@@ -30,11 +30,7 @@
                     IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Shifts/Dashboard.aspx" Text="Home" />
-                        <asp:MenuItem NavigateUrl="#" Text="Data Entry">
-                             <asp:MenuItem NavigateUrl="~/Shifts/EarlyShift.aspx" Text="Early Shift" />
-                            <asp:MenuItem NavigateUrl="~/Shifts/LateShift.aspx" Text="Late Shift" />
-                            <asp:MenuItem NavigateUrl="~/Shifts/NightShift.aspx" Text="Night Shift" />
-                        </asp:MenuItem>
+                        <asp:MenuItem NavigateUrl="~/Shifts/ShiftDataEntry.aspx" Text="Data Entry"/>
                     </Items>
                 </asp:Menu>
             </span>
@@ -44,9 +40,8 @@
                     <Items>
                         <asp:MenuItem NavigateUrl="#" Text="Administration">
                             <asp:MenuItem NavigateUrl="~/Administration/ManageDataEntry.aspx" Text="Manage Data Entry" />
-                            <asp:MenuItem NavigateUrl="~/Administration/Register.aspx" Text="Add New User" />
-                            <asp:MenuItem NavigateUrl="~/Administration/ManageUsers.aspx" Text="Manage Users" />
-                            <asp:MenuItem NavigateUrl="~/Administration/ChangePassword.aspx" Text="Change Password" />    
+                            <asp:MenuItem NavigateUrl="~/Administration/UserAccount.aspx" Text="Add New User" />
+                            <asp:MenuItem NavigateUrl="~/Administration/ManageUsers.aspx" Text="Manage Users" />  
                         </asp:MenuItem>
                     </Items>
                 </asp:Menu>            
@@ -54,7 +49,7 @@
             <span class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
-                        [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
+                        [ <a href="~/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
                         ]
                     </AnonymousTemplate>
                     <LoggedInTemplate>
@@ -62,7 +57,7 @@
                             <asp:LoginName ID="HeadLoginName" runat="server" />
                         </span>! [
                         <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
-                            LogoutPageUrl="~/Account/Login.aspx" />
+                            LogoutPageUrl="~/Login.aspx" />
                         ]
                     </LoggedInTemplate>
                 </asp:LoginView>

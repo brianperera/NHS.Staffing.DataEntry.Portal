@@ -1,28 +1,10 @@
 ﻿<%@ Page Title="Manage Roles" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="ManageUsers.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.ManageUsers" %>
+    CodeFile="Configuration.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.Configuration" %>
 
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="main">
-        <div class="sections">
-            <div class="pageHeader">
-                <h2>
-                    Manage Users
-                </h2>
-            </div>
-            <div>
-                <div class="subSections">
-                    <asp:ListBox ID="ListBoxUsers" Width="100" runat="server" Rows="8" />
-                </div>
-                <div class="subSections">
-                    <span>
-                        <asp:Button CssClass="submitButton" Text="Update" 
-                        ID="ButtonUpdateAccount" runat="server" onclick="ButtonUpdateAccount_Click" />
-                    </span>
-                </div>
-            </div>
-        </div>
         <div class="sections">
             <div class="pageHeader">
                 <h2>

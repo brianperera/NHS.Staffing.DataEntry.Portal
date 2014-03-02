@@ -8,7 +8,7 @@ using System.Web.Security;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
-    public partial class ManageUsers : System.Web.UI.Page
+    public partial class Configuration : System.Web.UI.Page
     {
         string[] rolesArray;
 
@@ -16,10 +16,6 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             if (!IsPostBack)
             {
-                // Bind users to Grid.
-                ListBoxUsers.DataSource = Membership.GetAllUsers();
-                ListBoxUsers.DataBind();
-
                 // Bind roles to List.
                 rolesArray = Roles.GetAllRoles();
                 RolesListBox.DataSource = rolesArray;
@@ -81,14 +77,6 @@ namespace Nhs.Staffing.DataEntry.Portal
                 Msg.Text = "Role '" + Server.HtmlEncode(delRole) + "' <u>not</u> deleted.";
             }
 
-        }
-
-        protected void ButtonUpdateAccount_Click(object sender, EventArgs e)
-        {
-            if (!string.IsNullOrEmpty(ListBoxUsers.SelectedValue))
-            {
-                Response.Redirect(string.Format("UserAccount.aspx?action=update&username={0}", ListBoxUsers.SelectedValue));
-            }
         }
     }
 }

@@ -101,7 +101,32 @@ ul
     vertical-align: middle;
     padding: 4px 6px;
     min-width:50px;
-    text-align:center;
+}
+
+/* regular table*/
+.regularTable
+{
+   border-collapse:collapse;
+   font-size:13px;   
+}
+
+.regularTable tr th
+{
+    border: solid 1px #dddddd;
+    color: #000;
+    font-weight: bold;
+    vertical-align: middle;
+    padding: 4px 6px;
+    min-width:50px;   
+}
+
+.regularTable tr td
+{
+    border: solid 1px #dddddd;
+    color: #000;
+    vertical-align: middle;
+    padding: 4px 6px;
+    min-width:50px;
 }
 
 .aquaBackground

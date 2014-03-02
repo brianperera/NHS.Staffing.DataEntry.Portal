@@ -31,20 +31,15 @@
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Shifts/Dashboard.aspx" Text="Home" />
                         <asp:MenuItem NavigateUrl="~/Shifts/ShiftDataEntry.aspx" Text="Data Entry"/>
-                    </Items>
-                </asp:Menu>
-            </span>
-            <span class="adminNavigation">
-                <asp:Menu ID="AdminMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="false" Orientation="Horizontal">
-                    <Items>
-                        <asp:MenuItem Text="Administration">
-                            <asp:MenuItem NavigateUrl="~/Administration/ManageDataEntry.aspx" Text="Manage Data Entry" />
-                            <asp:MenuItem NavigateUrl="~/Administration/UserAccount.aspx" Text="Add New User" />
-                            <asp:MenuItem NavigateUrl="~/Administration/ManageUsers.aspx" Text="Manage Users" />  
+                        <asp:MenuItem Text="Admin">
+                            <asp:MenuItem NavigateUrl="~/Administration/Configuration.aspx" Text="Configuration" />
+                            <asp:MenuItem Text="Users">
+                                <asp:MenuItem NavigateUrl="~/Administration/UserAccount.aspx?action=add" Text="Add" />
+                                <asp:MenuItem NavigateUrl="~/Administration/UserSearch.aspx" Text="Update" />
+                            </asp:MenuItem>
                         </asp:MenuItem>
                     </Items>
-                </asp:Menu>            
+                </asp:Menu>
             </span>
             <span class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">

@@ -32,6 +32,8 @@
                                     ForeColor="red" Display="Static" ErrorMessage="Required" />
                             </td>
                         </tr>
+                        <% if (ActionType == Nhs.Staffing.DataEntry.Portal.Constants.Create) %>
+                        <% { %>
                         <tr>
                             <td class="formTitleFields">
                                 Password:
@@ -58,6 +60,7 @@
                                     ForeColor="red" Display="Static" ControlToCompare="PasswordTextBox" ErrorMessage="*" />
                             </td>
                         </tr>
+                        <% } %>
                         <tr>
                             <td class="formTitleFields">
                                 Email:
@@ -81,13 +84,24 @@
                             </td>
                         </tr>
                         <tr>
+                            <td class="formTitleFields">
+                                Is Active:
+                            </td>
+                            <td>
+                                <asp:CheckBox ID="IsActive_RadioButton" Checked="true" runat="server" />
+                            </td>
+                            <td>
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
                             </td>
                             <td>
                                 <div class="subSections">
-                                    <asp:Button CssClass="submitButton" ID="SubmitAccountDetails" OnClick="SubmitAccountDetails_OnClick" runat="server" />
-                                    <asp:Button CssClass="submitButton" Text="Delete Account" ID="DeleteAccount"  Visible="false"
-                                        runat="server" onclick="DeleteAccount_Click" />
+                                    <asp:Button CssClass="submitButton" ID="SubmitAccountDetails" OnClick="SubmitAccountDetails_OnClick"
+                                        runat="server" />
+                                    <asp:Button CssClass="submitButton" Text="Delete Account" ID="DeleteAccount" Visible="false"
+                                        runat="server" OnClick="DeleteAccount_Click" />
                                 </div>
                             </td>
                         </tr>

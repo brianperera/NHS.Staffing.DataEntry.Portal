@@ -16,6 +16,7 @@
                 <div>
                     <asp:DropDownList ID="WeekCommencing_DropDownList" runat="server" CssClass="defaultDropDown">
                     </asp:DropDownList>
+                    <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
                 </div>
             </div>
             <div class="subSections">

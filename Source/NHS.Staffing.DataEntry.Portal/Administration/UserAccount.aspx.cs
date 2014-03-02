@@ -11,7 +11,7 @@ namespace Nhs.Staffing.DataEntry.Portal
 {
     public partial class UserAccount : System.Web.UI.Page
     {
-        public string ActionType 
+        public string ActionType
         {
             get
             {
@@ -50,20 +50,22 @@ namespace Nhs.Staffing.DataEntry.Portal
                     UpdateAccountPageHeader.Visible = true;
                     SubmitAccountDetails.Text = "Update Account";
                     DeleteAccount.Visible = true;
+                    UsernameTextbox.Enabled = false;
 
                     if (!string.IsNullOrEmpty(UserName))
                     {
-                        MembershipUser currentUser = Membership.GetUser(UserName);                        
+                        MembershipUser currentUser = Membership.GetUser(UserName);
                         UsernameTextbox.Text = currentUser.UserName;
                         EmailTextbox.Text = currentUser.Email;
                         DropDownListRoles.SelectedValue = Roles.GetRolesForUser(UserName).FirstOrDefault();
+                        IsActive_RadioButton.Checked = currentUser.IsApproved;
                     }
                 }
                 else
                 {
                     CreateAccountPageHeader.Visible = true;
                     SubmitAccountDetails.Text = "Create Account";
-                }   
+                }
             }
         }
 
@@ -81,7 +83,23 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void UpdateUserAccount()
         {
-            throw new NotImplementedException();
+            MembershipUser currentUser = Membership.GetUser(UserName);            
+            currentUser.Email = EmailTextbox.Text;
+
+            // remove user from current roles
+            // the user will only be assinged 1 role
+            Roles.RemoveUserFromRoles(UserName, Roles.GetRolesForUser(UserName));
+
+            // add new role to user
+            if (!string.IsNullOrEmpty(DropDownListRoles.SelectedValue))
+            {
+                Roles.AddUserToRole(UserName, DropDownListRoles.SelectedValue);
+            }
+            
+            currentUser.IsApproved = IsActive_RadioButton.Checked;
+            Membership.UpdateUser(currentUser);
+
+            Response.Redirect("UserSearch.aspx");
         }
 
         private void CreateUserAccount()
@@ -95,7 +113,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 MembershipUser newUser = Membership.CreateUser(UsernameTextbox.Text, PasswordTextbox.Text,
                                                                EmailTextbox.Text, passwordQuestion,
-                                                               passwordAnswer, true, out status);
+                                                               passwordAnswer, false, out status);
                 if (newUser == null)
                 {
                     Msg.Text = MembershipHelper.GetErrorMessage(status);
@@ -107,6 +125,9 @@ namespace Nhs.Staffing.DataEntry.Portal
                     // Assign the role to the user
                     if (!string.IsNullOrEmpty(DropDownListRoles.SelectedValue))
                         Roles.AddUserToRole(newUser.UserName, DropDownListRoles.SelectedValue);
+
+                    // Set the is active property
+                    newUser.IsApproved = IsActive_RadioButton.Checked;
                 }
             }
             catch
@@ -120,8 +141,8 @@ namespace Nhs.Staffing.DataEntry.Portal
             if (!string.IsNullOrEmpty(UserName))
             {
                 Membership.DeleteUser(UserName);
-                Response.Redirect("/ManageUsers.aspx");
+                Response.Redirect("UserSearch.aspx");
             }
         }
-}
+    }
 }

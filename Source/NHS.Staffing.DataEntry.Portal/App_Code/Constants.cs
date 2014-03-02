@@ -10,6 +10,6 @@ namespace Nhs.Staffing.DataEntry.Portal
     public static class Constants
     {
         public const string Update = "update";
-        public const string Create = "create";
+        public const string Create = "add";
     }
 }

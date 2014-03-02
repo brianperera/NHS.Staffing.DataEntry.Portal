@@ -29,13 +29,29 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
                     IncludeStyleBlock="false" Orientation="Horizontal">
                     <Items>
-                        <asp:MenuItem NavigateUrl="~/Default.aspx" Text="Home" />
-                        <asp:MenuItem NavigateUrl="~/Shifts/EarlyShift.aspx" Text="Early Shift" />
-                        <asp:MenuItem NavigateUrl="~/Shifts/LateShift.aspx" Text="Late Shift" />
-                        <asp:MenuItem NavigateUrl="~/Shifts/NightShift.aspx" Text="Night Shift" />
+                        <asp:MenuItem NavigateUrl="~/Shifts/Dashboard.aspx" Text="Home" />
+                        <asp:MenuItem NavigateUrl="#" Text="Data Entry">
+                             <asp:MenuItem NavigateUrl="~/Shifts/EarlyShift.aspx" Text="Early Shift" />
+                            <asp:MenuItem NavigateUrl="~/Shifts/LateShift.aspx" Text="Late Shift" />
+                            <asp:MenuItem NavigateUrl="~/Shifts/NightShift.aspx" Text="Night Shift" />
+                        </asp:MenuItem>
                     </Items>
                 </asp:Menu>
-            </span><span class="loginDisplay">
+            </span>
+            <span class="adminNavigation">
+                <asp:Menu ID="AdminMenu" runat="server" CssClass="menu" EnableViewState="false"
+                    IncludeStyleBlock="false" Orientation="Horizontal">
+                    <Items>
+                        <asp:MenuItem NavigateUrl="#" Text="Administration">
+                            <asp:MenuItem NavigateUrl="~/Administration/ManageDataEntry.aspx" Text="Manage Data Entry" />
+                            <asp:MenuItem NavigateUrl="~/Administration/Register.aspx" Text="Add New User" />
+                            <asp:MenuItem NavigateUrl="~/Administration/ManageUsers.aspx" Text="Manage Users" />
+                            <asp:MenuItem NavigateUrl="~/Administration/ChangePassword.aspx" Text="Change Password" />    
+                        </asp:MenuItem>
+                    </Items>
+                </asp:Menu>            
+            </span>
+            <span class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
                     <AnonymousTemplate>
                         [ <a href="~/Account/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
@@ -51,6 +67,7 @@
                     </LoggedInTemplate>
                 </asp:LoginView>
             </span>
+            <div class="clear"></div>
         </div>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />

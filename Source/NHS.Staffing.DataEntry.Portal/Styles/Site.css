@@ -96,6 +96,16 @@ first child of the left and right table columns */
     margin: 0 0 12px;
 }
 
+.sections
+{
+    margin:0px 0px 100px 0px;    
+}
+
+.subSections
+{
+    margin:0px 0px 20px 0px;    
+}
+
 
 /* PRIMARY LAYOUT ELEMENTS   
 ----------------------------------------------------------*/
@@ -124,6 +134,14 @@ first child of the left and right table columns */
     height: 50px;
     text-transform: uppercase;
     vertical-align: middle;
+}
+
+.smallTableHeader {
+    background: linear-gradient(to bottom, #3A9CEE 0%, #005FA6 100%) repeat scroll 0 0 rgba(0, 0, 0, 0);
+    vertical-align: middle;
+    padding:2px 5px 2px 5px;
+    margin:2px 5px 2px 5px;
+    color:White;
 }
 
 .header h1
@@ -265,7 +283,7 @@ fieldset
 
 fieldset p 
 {
-    margin: 2px 5px 5px 5px;
+    margin: 2px 5px 5px 0px;
 }
 
 fieldset.login label, fieldset.register label, fieldset.changePassword label
@@ -306,6 +324,24 @@ input.passwordEntry
 div.accountInfo
 {
     background-color: #FFFFFF;
+    padding-top: 20px;
+    width: 25%;
+}
+
+.formTitleFields
+{
+    min-width:140px;
+    padding-right:10px
+}
+
+div.accountInfo .register p span
+{
+    width:300px;
+}
+
+div.accountInfoCentered
+{
+    background-color: #FFFFFF;
     margin-left: 35%;
     margin-top: 10%;
     padding: 20px;
@@ -334,6 +370,13 @@ div.accountInfo
     text-align: right;
     padding: 10px;
     color: #666666;
+    float:right;
+}
+
+.adminNavigation
+{
+    float:right;
+    margin-right:20px
 }
 
 .loginDisplay a:link

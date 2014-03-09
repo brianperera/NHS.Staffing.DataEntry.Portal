@@ -6,8 +6,8 @@
       <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=add" title="Add"  description="Add"/>
       <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=update" title="Update"  description="Update"/>      
     </siteMapNode>
-    <siteMapNode url="~/Administration/#" title="Admin"  description="Admin">
-      <siteMapNode url="~/Administration/Configuration.aspx" title="Configuration"  description="Configuration"/>
+    <siteMapNode url="#" title="Admin"  description="Admin">
+      <siteMapNode url="~/ChangePassword.aspx" title="Change Password"  description="Change Password"/>
       <siteMapNode url="~/Administration/Users/#" title="Users"  description="Users">
         <siteMapNode url="~/Administration/Users/UserAccount.aspx?action=add" title="Add"  description="Add"/>
         <siteMapNode url="~/Administration/Users/UserSearch.aspx?action=update" title="Update"  description="Update"/>

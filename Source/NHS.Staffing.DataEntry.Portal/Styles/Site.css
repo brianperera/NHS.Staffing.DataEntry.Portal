@@ -789,3 +789,43 @@ label, span
     margin: 2px 0;
     padding: 2px 1px;    
 }
+
+.grid {
+    border: solid 1px #dddddd;
+    text-align: left;
+    width: 100%;
+    font-size: 11px;
+}
+
+.gridtitle {
+    font-weight: bold;
+}
+
+.gridtitle h3 {
+    color: #535353 !important;
+    margin-bottom: 5px;
+    font-size:13px;
+}
+
+.grid tr th {
+    font-weight: 700;
+    color: #FFF;
+    letter-spacing: 0px;
+    background-color: #417696;
+    border: none;
+    padding: 3px 3px;
+}
+
+.grid tr td {
+    border: solid 1px #dddddd;
+    color: #000;
+    font-weight: normal;
+    vertical-align: middle;
+    padding: 2px 3px;
+}
+
+.grid tr td span, .grid a {
+    color: #000 !important;
+    vertical-align: middle;
+    font-weight: normal;
+}

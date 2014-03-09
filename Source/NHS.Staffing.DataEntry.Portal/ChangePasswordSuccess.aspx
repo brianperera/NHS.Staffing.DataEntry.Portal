@@ -5,11 +5,14 @@
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="main">
-        <h2>
-            Change Password
-        </h2>
-        <p>
-            Your password has been changed successfully.
-        </p>
+        <div class="sections">
+            <div class="pageHeader">
+                <h2>
+                    Change Password</h2>
+            </div>
+            <ul class="formSection">
+                <li><span>Your password has been changed successfully. </span></li>
+            </ul>
+        </div>
     </div>
 </asp:Content>

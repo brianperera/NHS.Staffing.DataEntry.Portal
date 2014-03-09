@@ -55,10 +55,17 @@ namespace Nhs.Staffing.DataEntry.Portal
                     if (!string.IsNullOrEmpty(UserName))
                     {
                         MembershipUser currentUser = Membership.GetUser(UserName);
+                        ProfileCommon currentProfile = new ProfileCommon();
+                        
+                        currentProfile = Profile.GetProfile(currentUser.UserName);
+                        
                         UsernameTextbox.Text = currentUser.UserName;
                         EmailTextbox.Text = currentUser.Email;
                         DropDownListRoles.SelectedValue = Roles.GetRolesForUser(UserName).FirstOrDefault();
                         IsActive_RadioButton.Checked = currentUser.IsApproved;
+                        FirstNameTextbox.Text = currentProfile.FirstName;
+                        LastNameTextBox.Text = currentProfile.LastName;
+                        ContactTelNoTextBox.Text = currentProfile.Phone;
                     }
                 }
                 else
@@ -96,9 +103,20 @@ namespace Nhs.Staffing.DataEntry.Portal
                 Roles.AddUserToRole(UserName, DropDownListRoles.SelectedValue);
             }
             
+            // Update active property
             currentUser.IsApproved = IsActive_RadioButton.Checked;
+
             Membership.UpdateUser(currentUser);
 
+            // Update profile
+            ProfileCommon currentProfile = new ProfileCommon(); 
+            currentProfile = Profile.GetProfile(currentUser.UserName);
+
+            currentProfile.FirstName = FirstNameTextbox.Text;
+            currentProfile.LastName = LastNameTextBox.Text;
+            currentProfile.Phone = ContactTelNoTextBox.Text;
+            currentProfile.Save();
+            
             Response.Redirect("UserSearch.aspx");
         }
 
@@ -111,6 +129,7 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             try
             {
+                MembershipCreateStatus membershipCreateStatus = new MembershipCreateStatus();
                 MembershipUser newUser = Membership.CreateUser(UsernameTextbox.Text, PasswordTextbox.Text,
                                                                EmailTextbox.Text, passwordQuestion,
                                                                passwordAnswer, true, out status);
@@ -125,6 +144,15 @@ namespace Nhs.Staffing.DataEntry.Portal
                     // Assign the role to the user
                     if (!string.IsNullOrEmpty(DropDownListRoles.SelectedValue))
                         Roles.AddUserToRole(newUser.UserName, DropDownListRoles.SelectedValue);
+
+                    // Update profile
+                    ProfileCommon currentProfile = new ProfileCommon();
+                    currentProfile = Profile.GetProfile(newUser.UserName);
+
+                    currentProfile.FirstName = FirstNameTextbox.Text;
+                    currentProfile.LastName = LastNameTextBox.Text;
+                    currentProfile.Phone = ContactTelNoTextBox.Text;
+                    currentProfile.Save();
                 }
             }
             catch

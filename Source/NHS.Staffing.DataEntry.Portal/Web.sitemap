@@ -2,12 +2,15 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode url="~/Login.aspx" title="Login"  description="Login">
     <siteMapNode url="~/Shifts/Dashboard.aspx" title="Home"  description="Home"/>
-    <siteMapNode url="~/Shifts/ShiftDataEntry.aspx" title="Data Entry"  description="Data Entry" />
+    <siteMapNode url="~/Shifts/DataEntry/#" title="Data Entry"  description="Data Entry" >
+      <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=add" title="Add"  description="Add"/>
+      <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=update" title="Update"  description="Update"/>      
+    </siteMapNode>
     <siteMapNode url="~/Administration/#" title="Admin"  description="Admin">
       <siteMapNode url="~/Administration/Configuration.aspx" title="Configuration"  description="Configuration"/>
       <siteMapNode url="~/Administration/Users/#" title="Users"  description="Users">
         <siteMapNode url="~/Administration/Users/UserAccount.aspx?action=add" title="Add"  description="Add"/>
-        <siteMapNode url="~/Administration/Users/UserSearch.aspx" title="Update"  description="Update X"/>
+        <siteMapNode url="~/Administration/Users/UserSearch.aspx?action=update" title="Update"  description="Update"/>
       </siteMapNode>
     </siteMapNode>
   </siteMapNode>

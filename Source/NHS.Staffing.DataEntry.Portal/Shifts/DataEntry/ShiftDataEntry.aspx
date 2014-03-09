@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="Early Shift" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="ShiftDataEntry.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.ShiftDataEntry" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -32,8 +34,10 @@
                     <div class="formTitleFields">
                         Date</div>
                     <div>
-                        <asp:DropDownList ID="Date_DropDownList" runat="server" CssClass="defaultDropDown">
-                        </asp:DropDownList>
+                        <asp:TextBox ID="Date_TextBox" runat="server" Height="23px" Width="85px" 
+                            ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:CalendarExtender ID="CalendarExtender1" TargetControlID="Date_TextBox" 
+                            runat="server" ViewStateMode="Enabled" />
                     </div>
                 </li>
                 <li>
@@ -56,8 +60,7 @@
                     <div class="formTitleFields">
                         Beds</div>
                     <div>
-                        <asp:DropDownList ID="Beds_DropDownList" runat="server" CssClass="defaultDropDown">
-                        </asp:DropDownList>
+                        <asp:TextBox ID="Beds_TextBox" onkeypress="return isNumberKey(event)" runat="server" Height="20px" Width="80px"></asp:TextBox>
                     </div>
                 </li>
             </ul>
@@ -74,50 +77,50 @@
                     <div class="formTitleFields">
                         Optimum Staffing</div>
                     <div class="formTitleFields">
-                        <asp:TextBox ID="RN_OptimumStaffing_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="RN_OptimumStaffing_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                     <div>
-                        <asp:TextBox ID="HCA_OptimumStaffing_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="HCA_OptimumStaffing_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                 </li>
                 <li>
                     <div class="formTitleFields">
                         Safe Staffing</div>
                     <div class="formTitleFields">
-                        <asp:TextBox ID="RN_SafeStaffing_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="RN_SafeStaffing_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                     <div>
-                        <asp:TextBox ID="HCA_SafeStaffing_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="HCA_SafeStaffing_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                 </li>
                 <li>
                     <div class="formTitleFields">
                         Today Trust</div>
                     <div class="formTitleFields">
-                        <asp:TextBox ID="RN_TodayTrust_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="RN_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                     <div>
-                        <asp:TextBox ID="HCA_TodayTrust_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="HCA_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                 </li>
                 <li>
                     <div class="formTitleFields">
                         Today Bank</div>
                     <div class="formTitleFields">
-                        <asp:TextBox ID="RN_TodayBank_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="RN_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                     <div>
-                        <asp:TextBox ID="HCA_TodayBank_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="HCA_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                 </li>
                 <li>
                     <div class="formTitleFields">
                         Today Non Trust</div>
                     <div class="formTitleFields">
-                        <asp:TextBox ID="RN_TodayNonTrust_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="RN_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                     <div>
-                        <asp:TextBox ID="HCA_TodayNonTrust_TextBox" runat="server"></asp:TextBox>
+                        <asp:TextBox ID="HCA_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </div>
                 </li>
             </ul>
@@ -126,26 +129,36 @@
                     <div class="longFormTitleFields">
                         Safe? - Matron or bleep holder to complete</div>
                     <div>
-                        <asp:DropDownList ID="Safe_DropDownList" runat="server" CssClass="defaultDropDown">
-                        </asp:DropDownList>
+                        <asp:CheckBox ID="Safe_CheckBox" runat="server" />
                     </div>
-                    <div>
                 </li>
                 <li>
                     <div class="longFormTitleFields">
                         Mitigation action if UNSAFE - Matron or bleep holder to complete</div>
                     <div>
-                        <asp:ListBox ID="MitigationAction_UNSAFE_ListBox" runat="server" CssClass="defaultListBox"></asp:ListBox>
+                        <asp:DropDownList ID="SafeMitigation_DropDownList" runat="server" 
+                            CssClass="defaultDropDown" Height="29px" Width="170px">
+                        </asp:DropDownList>
                     </div>
                 </li>
                 <li>
                     <div class="longFormTitleFields">
                         Mitigation action if SAFE - Matron or bleep holder to complete</div>
                     <div>
-                        <asp:ListBox ID="MitigationAction_SAFE_ListBox" runat="server" CssClass="defaultListBox"></asp:ListBox>
+                        <asp:DropDownList ID="UnSafeMitigation_DropDownList" runat="server" 
+                            CssClass="defaultDropDown" Height="17px" Width="172px">
+                        </asp:DropDownList>
+                    </div>
+                </li>
+                 <li>
+                    <div>
+                        <asp:Button Text="Submit" runat="server" ID="SubmitButton" 
+                            onclick="SubmitButton_Click"/>
                     </div>
                 </li>
             </ul>
         </div>
+        <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+        </asp:ToolkitScriptManager>
     </div>
 </asp:Content>

@@ -84,6 +84,7 @@ ul
    border-collapse:collapse;
    font-size:13px;   
    width:100%;  
+   table-layout:fixed;
 }
 
 .dashBoard tr

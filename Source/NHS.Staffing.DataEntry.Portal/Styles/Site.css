@@ -63,12 +63,20 @@ ul
 
 .formSection
 {
-    margin-bottom:50px;    
+    padding-bottom:10px;
+    padding-top:10px;   
+    font-size:11px;
+    border-bottom: 1px dotted #E2E2E2;
 }
 
 .formSection li
 {
     margin-bottom:10px;    
+}
+
+.pagedata ul
+{
+    margin-top:0px;    
 }
 
 .dashBoard
@@ -474,9 +482,35 @@ div.accountInfo
 
 .formTitleFields
 {
+    min-width:200px;    
+    float:left;
+    vertical-align:text-bottom;
+}
+
+.formTitleFieldsCenterText
+{
+    min-width:200px;    
+    float:left;
+    text-align:center;
+}
+
+.formTitleFieldsWithoutFloat
+{
+    min-width:200px;    
+    text-align:center;
+}
+
+.formFieldControl
+{
     min-width:200px;
     padding-right:10px;
-    float:left;
+}
+
+.formFieldControlHelpText
+{
+    font-style:italic; 
+    color: #707070;
+    font-size:10px;
 }
 
 .longFormTitleFields
@@ -720,14 +754,18 @@ div.accountInfoCentered
 
 /* Page Layout */
 
-input[type=text], input[type=password], textarea
+input[type=text], input[type=password], textarea, select
 {
     color: #000;
     width: 92%;
-    display: inline-block;
-    margin: 5px 0;
+    display: inline-block;    
     padding: 2px 5px;
     border:1px solid #dddddd
+}
+
+select
+{
+    width: 98%;
 }
 
 input[type=text]:hover, input[type=password]:hover, textarea:hover

@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
+  <siteMapNode url="~/Login.aspx" title="Login"  description="Login">
+    <siteMapNode url="~/Shifts/Dashboard.aspx" title="Home"  description="Home"/>
+    <siteMapNode url="~/Shifts/ShiftDataEntry.aspx" title="Data Entry"  description="Data Entry" />
+    <siteMapNode url="~/Administration/Configurationx.aspx" title="Admin"  description="Admin">
+      <siteMapNode url="~/Administration/Configuration.aspx" title="Configuration"  description="Configuration"/>
+      <siteMapNode url="~/Administration/UserAccountx.aspx?action=add" title="Users"  description="Users">
+        <siteMapNode url="~/Administration/UserAccount.aspx?action=add" title="Add"  description="Add"/>
+        <siteMapNode url="~/Administration/UserSearch.aspx" title="Update"  description="Update X"/>
+      </siteMapNode>
+    </siteMapNode>
+  </siteMapNode>
+</siteMap>

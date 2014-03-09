@@ -113,7 +113,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 MembershipUser newUser = Membership.CreateUser(UsernameTextbox.Text, PasswordTextbox.Text,
                                                                EmailTextbox.Text, passwordQuestion,
-                                                               passwordAnswer, false, out status);
+                                                               passwordAnswer, true, out status);
                 if (newUser == null)
                 {
                     Msg.Text = MembershipHelper.GetErrorMessage(status);
@@ -125,9 +125,6 @@ namespace Nhs.Staffing.DataEntry.Portal
                     // Assign the role to the user
                     if (!string.IsNullOrEmpty(DropDownListRoles.SelectedValue))
                         Roles.AddUserToRole(newUser.UserName, DropDownListRoles.SelectedValue);
-
-                    // Set the is active property
-                    newUser.IsApproved = IsActive_RadioButton.Checked;
                 }
             }
             catch

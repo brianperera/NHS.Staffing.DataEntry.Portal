@@ -12,12 +12,14 @@
         </div>
         <div class="section">
             <div class="subSections">
-                <div class="formTitleFields">Week Commencing</div>
-                <div>
+            <span>
+                <h3>Week Commencing</h3>
+            </span>
+                <span>
                     <asp:DropDownList ID="WeekCommencing_DropDownList" runat="server" CssClass="defaultDropDown">
                     </asp:DropDownList>
                     <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
-                </div>
+                </span>
             </div>
             <div class="subSections">
                 <table class="dashBoard">

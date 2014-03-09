@@ -6,55 +6,45 @@
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="blueBackGround">
         <div class="main">
-            <asp:Login ID="LoginUser" runat="server" DestinationPageUrl="~/Shifts/Dashboard.aspx" EnableViewState="false" RenderOuterTable="false">
+            <asp:Login ID="LoginUser" runat="server" DestinationPageUrl="~/Shifts/Dashboard.aspx"
+                EnableViewState="false" RenderOuterTable="false">
                 <LayoutTemplate>
-                    <span class="failureNotification">
-                        <asp:Literal ID="FailureText" runat="server"></asp:Literal>
-                    </span>
-                    <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
-                        ValidationGroup="LoginUserValidationGroup" />
-                    <div class="accountInfoCentered">
-                        <fieldset class="login">
-                            <legend>Operations Data Entry Portal</legend>
-                            <span class="loginFields">
-                                <div>
-                                <span>
-                                    <asp:Label ID="UserNameLabel" runat="server" AssociatedControlID="UserName">Username:</asp:Label>
-                                </span>
-                                <span class="floatLeft">
-                                    <asp:TextBox ID="UserName" runat="server" CssClass="textEntry"></asp:TextBox>                              
-                                </span>
-                                <span>
+                    <div class="login_container">
+                        <img class="lock" src="Images/lock.png" alt="">
+                        <div class="clear-fix" />
+                        <div class="login_content">
+                            <h1>
+                                OPERATIONS DATA ENTRY PORTAL</h1>
+                            <div class="clear-fix" />
+                            <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
+                                ValidationGroup="LoginUserValidationGroup" />
+                            <div class="fieldSeperator">
+                                <span class="fieldName"><i class="icon-user"></i>username</span> <span>
+                                    <asp:TextBox ID="UserName" runat="server"></asp:TextBox>
                                     <asp:RequiredFieldValidator ID="UserNameRequired" runat="server" ControlToValidate="UserName"
                                         CssClass="failureNotification" ErrorMessage="User Name is required." ToolTip="User Name is required."
-                                        ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>                                      
+                                        ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                                 </span>
+                                <div class="clear-fix" />
                             </div>
-                                <div>
-                                <span>
-                                <asp:Label ID="PasswordLabel" runat="server" AssociatedControlID="Password">Password:</asp:Label>
+                            <div class="fieldSeperator">
+                                <span class="fieldName"><i class="icon-lock"></i>password</span> <span>
+                                    <asp:TextBox ID="Password" runat="server" TextMode="Password"></asp:TextBox>
+                                    <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
+                                        CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required."
+                                        ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
                                 </span>
-                                <span class="floatLeft">
-                                <asp:TextBox ID="Password" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
-                                </span>
-                                <span>
-                                <asp:RequiredFieldValidator ID="PasswordRequired" runat="server" ControlToValidate="Password"
-                                    CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Password is required."
-                                    ValidationGroup="LoginUserValidationGroup">*</asp:RequiredFieldValidator>
-                                </span>
+                                <div class="clear-fix" />
                             </div>
-                                <p>
-                                <asp:CheckBox ID="RememberMe" runat="server" />
-                                <asp:Label ID="RememberMeLabel" runat="server" AssociatedControlID="RememberMe" CssClass="inline">Keep me logged in</asp:Label>
-                            </p>
-                            </span>
-                            <span class="loginIcon">
-                                <asp:Image runat="server" ImageUrl="~/Images/lock.png" />
-                            </span>
-                        </fieldset>
-                        <span>
-                            <asp:Button CssClass="submitButton" ID="LoginButton" runat="server" CommandName="Login" Text="Log In"  ValidationGroup="LoginUserValidationGroup" />
-                        </span>
+                            <div class="fieldSeperator">
+                                <asp:Button CssClass="submitButton" ID="LoginButton" runat="server" CommandName="Login"
+                                    Text="Log In" ValidationGroup="LoginUserValidationGroup" />
+                            </div>
+                        </div>
+                        <div class="login_footer">
+                            <img src="Images/NHSlogo.gif" alt="logo">
+                            <span>Copyright © 2014 by NHS Foundation Trust. All rights reserved. </span>
+                        </div>
                     </div>
                 </LayoutTemplate>
             </asp:Login>

@@ -6,6 +6,11 @@
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/html-reset.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/Plugins/font-awesome/css/font-awesome.min.css"/>
+    <!--[if IE 7]>
+      <link rel="stylesheet" href="~/Plugins/font-awesome/css/font-awesome-ie7.min.css"/>
+    <![endif]-->
+
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -20,14 +25,15 @@
             </div>
             <div class="logos">
                 <asp:Image runat="server" ImageUrl="~/images/NHSlogo.gif" class="nhsLogo" />
-                <span runat="server" class="hosName" id="HosName">Buckinghamshire Healthcare</span>
-                <span runat="server" class="NHS_name" id="NhsName">NHS Trust</span>
+                <div runat="server" class="hosName" id="HosName">Buckinghamshire Healthcare</div>
+                <div runat="server" class="NHS_name" id="NhsName">NHS Trust</div>
             </div>
         </div>
         <div class="navigationBar" id="NavigationBar" runat="server" visible="true">
             <span class="navigationBarItems">
-                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="false"
-                    IncludeStyleBlock="false" Orientation="Horizontal">
+                <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="False"
+                    IncludeStyleBlock="False" Orientation="Horizontal" 
+                DataSourceID="SiteMapDataSource">
                     <Items>
                         <asp:MenuItem NavigateUrl="~/Shifts/Dashboard.aspx" Text="Home" />
                         <asp:MenuItem NavigateUrl="~/Shifts/ShiftDataEntry.aspx" Text="Data Entry"/>
@@ -40,6 +46,8 @@
                         </asp:MenuItem>
                     </Items>
                 </asp:Menu>
+            <asp:SiteMapDataSource ID="SiteMapDataSource" runat="server" 
+                ShowStartingNode="False" />
             </span>
             <span class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">

@@ -21,148 +21,6 @@
                 <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
                 </span>
             </div>
-            <div class="subSections">
-                <table class="dashBoard">
-                    <thead>
-                        <!--Table headings-->
-                        <tr class="grayBackground">
-                            <th>Day</th>
-                            <th>Date</th>
-                            <th>Shift</th>
-                            <th>Beds</th>
-                            <th colspan="2">Optimum staffing</th>
-                            <th colspan="2">Today Trust</th>
-                            <th colspan="2">Today Bank</th>
-                            <th colspan="2">Today Non Trust</th>
-                            <th colspan="2">Was the ward at optimum staffing?</th>
-                            <th>Safe?</th>
-                            <th>Mitigation action if UNSAFE</th>
-                            <th>Mitigation action if SAFE</th>
-                        </tr>
-                        <!--Table headings-->
-                        <tr class="boldText">
-                            <th>&nbsp</th>
-                            <th>&nbsp</th>
-                            <th>&nbsp</th>
-                            <th>&nbsp</th>
-                            <th>RN</th>
-                            <th>HCA</th>
-                            <th>RN</th>
-                            <th>HCA</th>
-                            <th>RN</th>
-                            <th>HCA</th>
-                            <th>RN</th>
-                            <th>HCA</th>
-                            <th>RN</th>
-                            <th>HCA</th>
-                            <th>&nbsp</th>
-                            <th>&nbsp</th>
-                            <th>&nbsp</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <!--Early shift data row-->
-                        <tr>
-                            <td>Mon</td>
-                            <td>10-Feb</td>
-                            <td>Early</td>
-                            <td>14</td>
-                            <td class="aquaBackground">3</td>
-                            <td class="aquaBackground">2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td class="redBackground">No</td>
-                            <td class="redBackground">No</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>                        
-                        </tr>
-                        <!--Late shift data row-->
-                        <tr>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>Late</td>
-                            <td>14</td>
-                            <td class="aquaBackground">2</td>
-                            <td class="aquaBackground">2</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td class="redBackground">No</td>
-                            <td class="redBackground">No</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>                        
-                        </tr>
-                        <!--Night shift data row-->
-                        <tr>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>Night</td>
-                            <td>14</td>
-                            <td class="aquaBackground">2</td>
-                            <td class="aquaBackground">1</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td class="redBackground">No</td>
-                            <td class="redBackground">No</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>                        
-                        </tr>
-                        <!--Day total data row - Needs to loop for 5 days of the week-->
-                        <tr class="grayBackground">
-                            <td>Mon Total</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>7</td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>                        
-                        </tr>
-                        <!--Summary data row-->
-                        <tr class="darkGrayBackground">
-                            <td colspan="2">Week Commencing</td>
-                            <td>2/10/2014</td>
-                            <td>Total</td>
-                            <td>48</td>
-                            <td>33</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>No</td>
-                            <td>No</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>
-                            <td>&nbsp</td>                        
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
            <div class="subSections" runat="server">
             <asp:Repeater id="cdcatalog" runat="server">
 
@@ -206,14 +64,24 @@
             </HeaderTemplate>
 
             <ItemTemplate>
-            <tr>
+
+            <asp:PlaceHolder ID="PlaceHolder1" runat="server" 
+            Visible="<%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsDaySummary %>">
+              <tr class="grayBackground">
+            </asp:PlaceHolder>
+
+            <asp:PlaceHolder ID="PlaceHolder3" runat="server" 
+            Visible="<%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsWeekSummary %>">
+              <tr class="darkGrayBackground">
+            </asp:PlaceHolder>
+
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Day%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).DisplayDate%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Shift%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Beds.ToString()%> </td>
 
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%> </td>
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%> </td>
+            <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%> </td>
+            <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%> </td>
 
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustRN%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustHCA%> </td>
@@ -224,8 +92,8 @@
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustRN%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA%> </td>
 
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingRN%> </td>
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingHCA%> </td>
+            <td class="redBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingRN%> </td>
+            <td class="redBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingHCA%> </td>
 
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsSafe.ToString()%> </td>
 

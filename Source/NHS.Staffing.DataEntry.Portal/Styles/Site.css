@@ -53,12 +53,12 @@ ul
 
 .defaultDropDown
 {
-    min-width:100px;    
+    width:100px;    
 }
 
 .defaultListBox
 {
-    min-width:300px;    
+    width:300px;    
 }
 
 .formSection
@@ -98,7 +98,7 @@ ul
     font-weight: normal;
     vertical-align: middle;
     padding: 4px 6px;
-    min-width:50px;
+    width:50px;
     text-align:center;
 }
 
@@ -108,7 +108,7 @@ ul
     color: #000;
     vertical-align: middle;
     padding: 4px 6px;
-    min-width:50px;
+    width:50px;
 }
 
 /* regular table*/
@@ -125,7 +125,7 @@ ul
     font-weight: bold;
     vertical-align: middle;
     padding: 4px 6px;
-    min-width:50px;   
+    width:50px;   
 }
 
 .regularTable tr td
@@ -134,7 +134,7 @@ ul
     color: #000;
     vertical-align: middle;
     padding: 4px 6px;
-    min-width:50px;
+    width:50px;
 }
 
 .aquaBackground
@@ -481,27 +481,27 @@ div.accountInfo
 
 .formTitleFields
 {
-    min-width:200px;    
+    width:200px;    
     float:left;
     vertical-align:text-bottom;
 }
 
 .formTitleFieldsCenterText
 {
-    min-width:200px;    
+    width:200px;    
     float:left;
     text-align:center;
 }
 
 .formTitleFieldsWithoutFloat
 {
-    min-width:200px;    
+    width:200px;    
     text-align:center;
 }
 
 .formFieldControl
 {
-    min-width:200px;
+    width:200px;
     padding-right:10px;
 }
 
@@ -514,7 +514,7 @@ div.accountInfo
 
 .longFormTitleFields
 {
-    min-width:500px;
+    width:500px;
     padding-right:10px;
     float:left;
 }

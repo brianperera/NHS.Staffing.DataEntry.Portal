@@ -13,32 +13,43 @@
         </div>
         <div class="pagedata">
             <div>
-                <ul class="formSection">
-                    <li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
+            <%--<asp:ScriptManager ID="ScriptManager1" runat="server">
+            </asp:ScriptManager>
+            <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                <ContentTemplate>--%>
+                    <ul class="formSection">
+                    <%--<li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
                         <asp:DropDownList ID="WardCode_DropDownList" runat="server" CssClass="defaultDropDown">
                         </asp:DropDownList>
-                    </span></li>
+                    </span></li>--%>
                     <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
-                        <asp:DropDownList ID="WardName_DropDownList" runat="server" CssClass="defaultDropDown">
+                        <asp:DropDownList ID="WardName_DropDownList" runat="server" 
+                            CssClass="defaultDropDown" 
+                            onselectedindexchanged="WardName_DropDownList_SelectedIndexChanged">
                         </asp:DropDownList>
                     </span></li>
                     <li><span class="formTitleFields">Date</span> <span class="formFieldControl">
-                        <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" 
+                            ontextchanged="Date_TextBox_TextChanged"></asp:TextBox>
                         <asp:CalendarExtender ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
                             ViewStateMode="Enabled" />
                     </span></li>
-                    <li><span class="formTitleFields">Day</span> <span class="formFieldControl">
+                    <%--<li><span class="formTitleFields">Day</span> <span class="formFieldControl">
                         <asp:DropDownList ID="Day_DropDownList" runat="server" CssClass="defaultDropDown">
                         </asp:DropDownList>
-                    </span></li>
+                    </span></li>--%>
                     <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
-                        <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown">
+                        <asp:DropDownList ID="Shift_DropDownList" runat="server" 
+                            CssClass="defaultDropDown" 
+                            onselectedindexchanged="Shift_DropDownList_SelectedIndexChanged">
                         </asp:DropDownList>
                     </span></li>
                     <li><span class="formTitleFields">Beds</span> <span class="formFieldControl">
                         <asp:TextBox ID="Beds_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                     </span></li>
                 </ul>
+                <%--</ContentTemplate>
+            </asp:UpdatePanel>--%>
             </div>
             <div class="clear">
             </div>
@@ -98,4 +109,6 @@
             <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
             </asp:ToolkitScriptManager>
         </div>
+    </div>
+    
 </asp:Content>

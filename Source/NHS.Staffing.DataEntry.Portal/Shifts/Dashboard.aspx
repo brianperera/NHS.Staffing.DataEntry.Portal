@@ -1,6 +1,8 @@
 ﻿<%@ Page Title="Home Page" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
     CodeFile="Dashboard.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.Dashboard" %>
 
+<%@ Register assembly="AjaxControlToolkit" namespace="AjaxControlToolkit" tagprefix="asp" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -14,8 +16,9 @@
             <div class="subSections">
             <h3 style="display:inline">Week Commencing</h3>
                 <span class="formTitleFieldsWithoutFloat">
-                    <asp:DropDownList ID="WeekCommencing_DropDownList" runat="server" CssClass="defaultDropDown">
-                    </asp:DropDownList>
+                    <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
+                            ViewStateMode="Enabled" />
                 </span>
                 <span>
                 <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
@@ -110,4 +113,6 @@
             </div>
         </div>
     </div>
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
 </asp:Content>

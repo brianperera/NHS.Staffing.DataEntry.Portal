@@ -45,7 +45,8 @@
                 </ul>
                 <div>
                     <li><span>
-                        <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"/>
+                        <asp:Button CssClass="submitButton" Text="Submit" runat="server" 
+                            ID="SubmitButton" onclick="SubmitButton_Click"/>
                     </span></li>
                 </div>
             </div>

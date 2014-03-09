@@ -154,5 +154,83 @@ namespace Nhs.Staffing.DataEntry
                 var results = command.ExecuteNonQuery();
             }
         }
+
+        //@ShiftID
+        public ShiftRecord GetShiftRecord(DateTime date,string wardCode,int shiftID)
+        {
+            ShiftRecord shift = new ShiftRecord();
+
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand command = new SqlCommand("GetShiftDetailByCodeDataShiftID", con);
+                command.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter ward = GetParameter("@WardCode", SqlDbType.VarChar, wardCode);
+                SqlParameter recordDate = GetParameter("@ShiftDate", SqlDbType.Date, date);
+                SqlParameter sID = GetParameter("@ShiftID", SqlDbType.VarChar, shiftID);
+
+                command.Parameters.Add(ward);
+                command.Parameters.Add(recordDate);
+                command.Parameters.Add(sID);
+
+                var results = command.ExecuteReader();
+
+                if (results.HasRows)
+                {
+                    int tempInt;
+                    DateTime tempDate;
+                    bool tempBool;
+
+                    while (results.Read())
+                    {
+                        shift.WardCode = results["WardCode"].ToString();
+
+                        DateTime.TryParse(results["ShiftDate"].ToString(), out tempDate);
+                        shift.Date = tempDate;
+
+                        int.TryParse(results["ShiftID"].ToString(), out tempInt);
+                        shift.ShiftID = tempInt;
+
+                        int.TryParse(results["Beds"].ToString(), out tempInt);
+                        shift.Beds = tempInt;
+
+                        int.TryParse(results["OptimumStaffingRN"].ToString(), out tempInt);
+                        shift.OptimumStaffingRN = tempInt;
+                        int.TryParse(results["OptimumStaffingHCA"].ToString(), out tempInt);
+                        shift.OptimumStaffingHCA = tempInt;
+                        int.TryParse(results["SafeStaffingRN"].ToString(), out tempInt);
+                        shift.SafeStaffingRN = tempInt;
+                        int.TryParse(results["SafeStaffingHCA"].ToString(), out tempInt);
+                        shift.SafeStaffingHCA = tempInt;
+                        int.TryParse(results["TodayTrustRN"].ToString(), out tempInt);
+                        shift.TodayTrustRN = tempInt;
+                        int.TryParse(results["TodayTrustHCA"].ToString(), out tempInt);
+                        shift.TodayTrustHCA = tempInt;
+                        int.TryParse(results["TodayBankRN"].ToString(), out tempInt);
+                        shift.TodayBankRN = tempInt;
+                        int.TryParse(results["TodayBankHCA"].ToString(), out tempInt);
+                        shift.TodayBankHCA = tempInt;
+                        int.TryParse(results["TodayNonTrustRN"].ToString(), out tempInt);
+                        shift.TodayNonTrustRN = tempInt;
+                        int.TryParse(results["TodayNonTrustHCA"].ToString(), out tempInt);
+                        shift.TodayNonTrustHCA = tempInt;
+
+                        shift.DataEntryBy = results["DataEntryBy"].ToString();
+
+                        bool.TryParse(results["IsSafe"].ToString(), out tempBool);
+                        shift.IsSafe = tempBool;
+
+                        shift.UnSafeMitigation = results["UnSafeMitigation"].ToString();
+                        shift.SafeMitigation = results["SafeMitigation"].ToString();
+                    }
+                }
+                else
+                    results.Close();
+            }
+
+            return shift;
+        }
     }
 }

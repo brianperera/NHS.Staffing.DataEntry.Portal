@@ -12,54 +12,46 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //if (!IsPostBack)
-            //{
-            //    Date_TextBox.Attributes.Add("readonly", "readonly");
-            //}
+            if (!IsPostBack)
+            {
+                Date_TextBox.Attributes.Add("readonly", "readonly");
 
-            //WardCode_DropDownList.DataSource = DataRepository.Instance.AllWards;
-            //WardCode_DropDownList.DataTextField = "WardName";
-            //WardCode_DropDownList.DataValueField = "WardCode";
-            //WardCode_DropDownList.DataBind();
-
-            //Shift_DropDownList.DataSource = DataRepository.Instance.AllShiftTypes;
-            //Shift_DropDownList.DataTextField = "Name";
-            //Shift_DropDownList.DataValueField = "ShiftID";
-            //Shift_DropDownList.DataBind();
-
-            //UnSafeMitigation_DropDownList.DataSource = DataRepository.Instance.UnSafeMitigations;
-            //UnSafeMitigation_DropDownList.DataBind();
-
-            //SafeMitigation_DropDownList.DataSource = DataRepository.Instance.SafeMitigations;
-            //SafeMitigation_DropDownList.DataBind();
-
-            //ShiftTypeDA sda = new ShiftTypeDA();
-            //ShiftType sht = new ShiftType();
-            //sht.ShiftID = 4;
-            //sht.Name = "SpecialUpdate";
-            //sda.DeleteShiftType(sht);
-
-            //Ward wrd = new Ward();
-            //wrd.WardCode = "test";
-            //wrd.WardName = "test ward update";
-            //wrd.NoOfBeds = 20;
-            //WardDA wda = new WardDA();
-            //wda.DeleteWard(wrd);
-
-            //ShiftRecord rcrd = new ShiftRecord();
-            //rcrd.WardCode = "sssss";
-            //rcrd.Date = DateTime.Today;
-            //rcrd.ShiftID = 1;
-            //rcrd.DataEntryBy = "sampath " + DateTime.Now.ToString();
-            //ShiftRecordDA sda = new ShiftRecordDA();
-            //sda.DeleteShiftRecord(rcrd);
+                BindInitialData();
+            }
         }
+
+        private void BindInitialData()
+        {
+            WardName_DropDownList.DataSource = DataRepository.Instance.AllWards;
+            WardName_DropDownList.DataTextField = "WardName";
+            WardName_DropDownList.DataValueField = "WardCode";
+            WardName_DropDownList.DataBind();
+
+            Shift_DropDownList.DataSource = DataRepository.Instance.AllShiftTypes;
+            Shift_DropDownList.DataTextField = "Name";
+            Shift_DropDownList.DataValueField = "ShiftID";
+            Shift_DropDownList.DataBind();
+
+            UnSafeMitigation_DropDownList.DataSource = DataRepository.Instance.UnSafeMitigations;
+            UnSafeMitigation_DropDownList.DataBind();
+
+            SafeMitigation_DropDownList.DataSource = DataRepository.Instance.SafeMitigations;
+            SafeMitigation_DropDownList.DataBind();
+        }
+
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            //ShiftRecord currentRecord = GetShiftRecord();
+            ShiftRecord currentRecord = GetShiftRecord();
+            ShiftRecordDA sda = new ShiftRecordDA();
 
-            //ShiftRecordDA sda = new ShiftRecordDA();
-            //sda.AddShiftRecord(currentRecord);
+            if (Request.QueryString["action"] == "add")
+            {
+                sda.AddShiftRecord(currentRecord);
+            }
+            else if (Request.QueryString["action"] == "update")
+            {
+                sda.UpdateShiftRecord(currentRecord);
+            }
         }
 
         private ShiftRecord GetShiftRecord()
@@ -67,16 +59,16 @@ namespace Nhs.Staffing.DataEntry.Portal
             ShiftRecord record = new ShiftRecord();
 
             //WardCode
-            record.WardCode = WardCode_DropDownList.SelectedItem.Value;
+            record.WardCode = WardName_DropDownList.SelectedItem.Value;
 
             //ShiftID
-            int wardID;
-            int.TryParse(Shift_DropDownList.SelectedItem.Value, out wardID);
-            record.ShiftID = wardID;
+            int shiftID;
+            int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
+            record.ShiftID = shiftID;
 
             //Date
             DateTime date;
-            DateTime.TryParse(Date_TextBox.Text,out date);
+            DateTime.TryParse(Date_TextBox.Text, out date);
             record.Date = date;
 
             //Beds
@@ -103,7 +95,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             int sshca;
             int.TryParse(HCA_SafeStaffing_TextBox.Text, out sshca);
             record.SafeStaffingHCA = sshca;
-            
+
             //TodayTrustRN
             int ttrn;
             int.TryParse(RN_TodayTrust_TextBox.Text, out ttrn);
@@ -142,9 +134,77 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             record.UnSafeMitigation = UnSafeMitigation_DropDownList.SelectedValue;
 
-            //record.DataEntryBy = Membership.GetUser().UserName + " : " + DateTime.Now.ToString();
+            record.DataEntryBy = Membership.GetUser().UserName + " : " + DateTime.Now.ToString();
 
             return record;
+        }
+
+        private void Clear()
+        {
+            if (WardName_DropDownList.Items.Count > 0)
+                WardName_DropDownList.SelectedIndex = 0;
+
+            if (Shift_DropDownList.Items.Count > 0)
+                Shift_DropDownList.SelectedIndex = 0;
+
+            if (UnSafeMitigation_DropDownList.Items.Count > 0)
+                UnSafeMitigation_DropDownList.SelectedIndex = 0;
+
+            if (SafeMitigation_DropDownList.Items.Count > 0)
+                SafeMitigation_DropDownList.SelectedIndex = 0;
+
+            Safe_CheckBox.Checked = false;
+
+            Beds_TextBox.Text = string.Empty;
+
+            RN_OptimumStaffing_TextBox.Text = string.Empty;
+            HCA_OptimumStaffing_TextBox.Text = string.Empty;
+            RN_SafeStaffing_TextBox.Text = string.Empty;
+            HCA_SafeStaffing_TextBox.Text = string.Empty;
+            RN_TodayTrust_TextBox.Text = string.Empty;
+            HCA_TodayTrust_TextBox.Text = string.Empty;
+            RN_TodayBank_TextBox.Text = string.Empty;
+            HCA_TodayBank_TextBox.Text = string.Empty;
+            RN_TodayNonTrust_TextBox.Text = string.Empty;
+            HCA_TodayNonTrust_TextBox.Text = string.Empty;
+        }
+
+        protected void WardName_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //LoadDataForUpdate();
+        }
+
+        protected void Date_TextBox_TextChanged(object sender, EventArgs e)
+        {
+           // LoadDataForUpdate();
+        }
+
+        protected void Shift_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            //LoadDataForUpdate();
+        }
+
+        private void LoadDataForUpdate()
+        {
+            if (Request.QueryString["action"] == "update")
+            {
+
+                string wardCode = WardName_DropDownList.SelectedItem.Value;
+
+                //ShiftID
+                int shiftID = -1;
+                int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
+                //Date
+                DateTime date;
+                DateTime.TryParse(Date_TextBox.Text, out date);
+
+                if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || date == null)
+                    return;
+
+                ShiftRecordDA sda = new ShiftRecordDA();
+
+                ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
+            }
         }
     }
 }

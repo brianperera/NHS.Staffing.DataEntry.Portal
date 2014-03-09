@@ -11,6 +11,11 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (!IsPostBack)
+            {
+                PeriodStartDate_TextBox.Attributes.Add("readonly", "readonly");
+            }
+
             LoadData();
         }
 

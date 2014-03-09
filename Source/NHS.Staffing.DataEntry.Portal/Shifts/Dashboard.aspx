@@ -163,6 +163,83 @@
                     </tbody>
                 </table>
             </div>
+           <div class="subSections" runat="server">
+            <asp:Repeater id="cdcatalog" runat="server">
+
+            <HeaderTemplate>
+            <table class="dashBoard">
+                <!--Table headings-->
+                <tr class="grayBackground">
+                    <th>Day</th>
+                    <th>Date</th>
+                    <th>Shift</th>
+                    <th>Beds</th>
+                    <th colspan="2">Optimum staffing</th>
+                    <th colspan="2">Today Trust</th>
+                    <th colspan="2">Today Bank</th>
+                    <th colspan="2">Today Non Trust</th>
+                    <th colspan="2">Was the ward at optimum staffing?</th>
+                    <th>Safe?</th>
+                    <th>Mitigation action if UNSAFE</th>
+                    <th>Mitigation action if SAFE</th>
+                </tr>
+                <!--Table headings-->
+                <tr class="boldText">
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>RN</th>
+                    <th>HCA</th>
+                    <th>RN</th>
+                    <th>HCA</th>
+                    <th>RN</th>
+                    <th>HCA</th>
+                    <th>RN</th>
+                    <th>HCA</th>
+                    <th>RN</th>
+                    <th>HCA</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                    <th>&nbsp</th>
+                </tr>
+            </HeaderTemplate>
+
+            <ItemTemplate>
+            <tr>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Day%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).DisplayDate%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Shift%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Beds.ToString()%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustRN%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustHCA%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankRN%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankHCA%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustRN%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingRN%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingHCA%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsSafe.ToString()%> </td>
+
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).UnSafeMitigation%> </td>
+            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeMitigation%> </td>
+            </tr>
+            </ItemTemplate>
+
+            <FooterTemplate>
+            </table>
+            </FooterTemplate>
+
+            </asp:Repeater>
+            </div>
         </div>
     </div>
 </asp:Content>

@@ -17,7 +17,7 @@ namespace Nhs.Staffing.DataEntry
 
         public DataAccessBase()
         {
-            ConnectionString = ConfigurationManager.ConnectionStrings["NHSDB"].ConnectionString;
+            ConnectionString = ConfigurationManager.ConnectionStrings["ApplicationServices"].ConnectionString;
         }
 
         internal SqlConnection GetConnection()

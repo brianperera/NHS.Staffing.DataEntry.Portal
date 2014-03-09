@@ -43,9 +43,6 @@ namespace Nhs.Staffing.DataEntry
                     {
                         shift = new ShiftRecord();
 
-                        int.TryParse(results["Index"].ToString(), out tempInt);
-                        shift.Index = tempInt;
-
                         shift.WardCode = results["WardCode"].ToString();
 
                         DateTime.TryParse(results["ShiftDate"].ToString(), out tempDate);

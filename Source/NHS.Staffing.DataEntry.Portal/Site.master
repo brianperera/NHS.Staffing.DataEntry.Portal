@@ -43,32 +43,15 @@
                 <asp:Menu ID="NavigationMenu" runat="server" CssClass="menu" EnableViewState="False"
                     IncludeStyleBlock="False" Orientation="Horizontal" 
                 DataSourceID="SiteMapDataSource">
-                    <Items>
-                        <asp:MenuItem NavigateUrl="~/Shifts/Dashboard.aspx" Text="Home" />
-                        <asp:MenuItem NavigateUrl="~/Shifts/ShiftDataEntry.aspx" Text="Data Entry"/>
-                        <asp:MenuItem Text="Admin">
-                            <asp:MenuItem NavigateUrl="~/Administration/Configuration.aspx" Text="Configuration" />
-                            <asp:MenuItem Text="Users">
-                                <asp:MenuItem NavigateUrl="~/Administration/UserAccount.aspx?action=add" Text="Add" />
-                                <asp:MenuItem NavigateUrl="~/Administration/UserSearch.aspx" Text="Update" />
-                            </asp:MenuItem>
-                        </asp:MenuItem>
-                    </Items>
                 </asp:Menu>
             <asp:SiteMapDataSource ID="SiteMapDataSource" runat="server" 
                 ShowStartingNode="False" />
             </span>
             <span class="loginDisplay">
                 <asp:LoginView ID="HeadLoginView" runat="server" EnableViewState="false">
-                    <AnonymousTemplate>
-                        [ <a href="~/Login.aspx" id="HeadLoginStatus" runat="server">Log In</a>
-                        ]
-                    </AnonymousTemplate>
                     <LoggedInTemplate>
-                        [
-                        <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
-                            LogoutPageUrl="~/Login.aspx" />
-                        ]
+                        [ <asp:LoginStatus ID="HeadLoginStatus" runat="server" LogoutAction="Redirect" LogoutText="Log Out"
+                            LogoutPageUrl="~/Login.aspx" /> ]
                     </LoggedInTemplate>
                 </asp:LoginView>
             </span>

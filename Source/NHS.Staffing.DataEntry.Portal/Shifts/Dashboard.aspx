@@ -20,10 +20,11 @@
                         <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
                             ViewStateMode="Enabled" />
                 </span>
-                <span>
-                <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
+                <span class="shortFormTitleFieldsWithoutFloat">
+                    <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
                 </span>
             </div>
+            <div class="clear"></div>
            <div class="subSections" runat="server">
             <asp:Repeater id="cdcatalog" runat="server">
 
@@ -68,20 +69,12 @@
 
             <ItemTemplate>
 
-            <asp:PlaceHolder ID="PlaceHolder1" runat="server" 
-            Visible="<%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsDaySummary %>">
-              <tr class="grayBackground">
-            </asp:PlaceHolder>
+            <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground'>" : ""%>
+            <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground'>" : ""%>
 
-            <asp:PlaceHolder ID="PlaceHolder3" runat="server" 
-            Visible="<%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsWeekSummary %>">
-              <tr class="darkGrayBackground">
-            </asp:PlaceHolder>
-
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Day%> </td>
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).DisplayDate%> </td>
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Shift%> </td>
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).Beds.ToString()%> </td>
+            <%# Eval("IsDaySummary").ToString() == "True" ? "<td class='grayBackground' colspan='4'>XX</td>" :
+                GetDailySummaryHtml(Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())
+            %>
 
             <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%> </td>
             <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%> </td>

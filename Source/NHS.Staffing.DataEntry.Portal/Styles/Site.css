@@ -154,19 +154,21 @@ ul
 .grayBackground td
 {
     background-color:#EEEEEE;    
-    font-weight:bold;    
+    font-weight:bold; 
+    color: #000 !important;   
 }
 
 .grayBackground th
 {
     background-color:#EEEEEE;    
-    font-weight:bold !important;    
+    font-weight:bold !important;           
 }
 
 .darkGrayBackground td
 {
     background-color:#B3B4B5;    
     font-weight:bold !important; 
+    color: #000 !important;   
 }
 
 .boldText th
@@ -381,7 +383,7 @@ div.NHS_name {
 
 div.menu
 {
-    padding: 4px 0px 4px 8px;
+    padding: 2px 0px 4px 8px;
 }
 
 div.menu ul
@@ -498,6 +500,14 @@ div.accountInfo
 {
     width:200px;    
     text-align:center;
+    vertical-align:middle;
+}
+
+.shortFormTitleFieldsWithoutFloat
+{
+    width:100px;    
+    text-align:center;
+    vertical-align:middle; 
 }
 
 .formFieldControl
@@ -630,7 +640,6 @@ div.accountInfoCentered
     text-decoration: none;
     cursor: hand;
     padding: 3px 8px;
-    margin: 5px 0;
     -webkit-border-radius: 6px;
     -moz-border-radius: 6px;
     border-radius: 6px;

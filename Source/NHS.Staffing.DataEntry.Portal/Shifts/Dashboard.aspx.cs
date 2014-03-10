@@ -76,5 +76,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             summaryRecord.TodayNonTrustRN += dataRecord.TodayNonTrustRN;
             summaryRecord.TodayNonTrustHCA += dataRecord.TodayNonTrustHCA;
         }
+
+        protected string GetDailySummaryHtml(string day, string displayDate, object shift, string beds)
+        {
+            if (string.IsNullOrEmpty(day) && string.IsNullOrEmpty(displayDate) && shift == null && string.IsNullOrEmpty(beds))
+                return string.Empty;
+            else
+                return string.Format("<td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td>", day, displayDate, shift==null?string.Empty:shift.ToString(), beds);
+        }
     }
 }

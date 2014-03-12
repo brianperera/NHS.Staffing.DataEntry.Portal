@@ -82,7 +82,7 @@ ul
 {
    border: 1px solid #dddddd;
    border-collapse:collapse;
-   font-size:13px;   
+   font-size:11px;   
    width:100%;  
    table-layout:fixed;
 }
@@ -247,7 +247,7 @@ first child of the left and right table columns */
 
 .subSections h3
 {
-    font-size: 13px;   
+    font-size: 11px;   
 }
 
 /* PRIMARY LAYOUT ELEMENTS   
@@ -505,7 +505,7 @@ div.accountInfo
 
 .shortFormTitleFieldsWithoutFloat
 {
-    width:100px;    
+    width:50px;    
     text-align:center;
     vertical-align:middle; 
 }

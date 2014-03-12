@@ -72,7 +72,7 @@
             <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground'>" : ""%>
             <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground'>" : ""%>
 
-            <%# Eval("IsDaySummary").ToString() == "True" ? "<td class='grayBackground' colspan='4'>XX</td>" :
+            <%# Eval("IsDaySummary").ToString() == "True" ? "<td class='grayBackground' colspan='4'></td>" :
                 GetDailySummaryHtml(Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())
             %>
 
@@ -88,10 +88,20 @@
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustRN%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA%> </td>
 
-            <td class="redBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingRN%> </td>
-            <td class="redBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingHCA%> </td>
 
-            <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).IsSafe.ToString()%> </td>
+            <td class="redBackground"><%# 
+                ((int)Eval("TodayTrustRN") + (int)Eval("TodayBankRN") +
+                                      (int)Eval("TodayNonTrustRN")) >= ((int)Eval("OptimumStaffingRN")) ? "Yes" : "No"
+            %> </td>
+
+            <td class="redBackground"><%# 
+                ((int)Eval("TodayTrustHCA") + (int)Eval("TodayBankHCA") +
+                                    (int)Eval("TodayNonTrustHCA")) >= ((int)Eval("OptimumStaffingHCA")) ? "Yes" : "No"
+            %> </td>
+
+            <td><%# 
+                Eval("IsSafe") == "True" ? "Yes" : "No"
+            %> </td>
 
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).UnSafeMitigation%> </td>
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeMitigation%> </td>

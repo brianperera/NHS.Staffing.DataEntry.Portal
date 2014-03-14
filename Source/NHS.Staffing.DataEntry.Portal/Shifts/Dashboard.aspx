@@ -106,7 +106,7 @@
             %> </td>
 
             <td><%# 
-                Eval("IsSafe") == "True" ? "Yes" : "No"
+                Eval("IsSafe").ToString() == "True" ? "Yes" : "No"
             %> </td>
 
             <td><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).UnSafeMitigation%> </td>

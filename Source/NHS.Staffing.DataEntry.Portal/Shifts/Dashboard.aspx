@@ -19,7 +19,12 @@
                     <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                         <asp:CalendarExtender Animated="true"  
                     ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
-                            ViewStateMode="Enabled" Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" />
+                            ViewStateMode="Enabled" />
+
+<%--<asp:CalendarExtender Animated="true"  
+                    ID="CalendarExtender1" TargetControlID="PeriodStartDate_TextBox" runat="server"
+                            ViewStateMode="Enabled" Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" />--%>
+
                 </span>
                 <span class="shortFormTitleFieldsWithoutFloat">
                     <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>

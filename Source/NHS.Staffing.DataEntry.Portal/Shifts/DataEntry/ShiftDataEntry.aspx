@@ -13,6 +13,11 @@
         </div>
         <div class="pagedata">
             <div>
+
+            <div class="grid_24 error_msg">
+                <asp:Label ID="MessageLabel" runat="server" />
+            </div>
+
             <%--<asp:ScriptManager ID="ScriptManager1" runat="server">
             </asp:ScriptManager>
             <asp:UpdatePanel ID="UpdatePanel1" runat="server">
@@ -31,7 +36,7 @@
                     <li><span class="formTitleFields">Date</span> <span class="formFieldControl">
                         <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" 
                             ontextchanged="Date_TextBox_TextChanged"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
+                        <asp:CalendarExtender Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
                             ViewStateMode="Enabled" />
                     </span></li>
                     <%--<li><span class="formTitleFields">Day</span> <span class="formFieldControl">

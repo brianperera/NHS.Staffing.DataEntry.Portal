@@ -41,17 +41,27 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
+            bool executionStatus = false;
+
             ShiftRecord currentRecord = GetShiftRecord();
             ShiftRecordDA sda = new ShiftRecordDA();
 
             if (Request.QueryString["action"] == "add")
             {
-                sda.AddShiftRecord(currentRecord);
+                executionStatus = sda.AddShiftRecord(currentRecord);
             }
             else if (Request.QueryString["action"] == "update")
             {
-                sda.UpdateShiftRecord(currentRecord);
+                executionStatus = sda.UpdateShiftRecord(currentRecord);
             }
+
+            DisplayMessage(executionStatus);
+        }
+
+        private void DisplayMessage(bool executionStatus)
+        {
+            MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
+            MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
         private ShiftRecord GetShiftRecord()

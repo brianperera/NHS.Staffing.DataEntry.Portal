@@ -128,18 +128,17 @@ namespace Nhs.Staffing.DataEntry.Portal
             string passwordAnswer = "Answer";
 
             try
-            {
-                MembershipCreateStatus membershipCreateStatus = new MembershipCreateStatus();
+            {                
                 MembershipUser newUser = Membership.CreateUser(UsernameTextbox.Text, PasswordTextbox.Text,
                                                                EmailTextbox.Text, passwordQuestion,
                                                                passwordAnswer, true, out status);
                 if (newUser == null)
                 {
-                    Msg.Text = MembershipHelper.GetErrorMessage(status);
+                    DisplayMessage(false, MembershipHelper.GetErrorMessage(status));
                 }
                 else
                 {
-                    Msg.Text = "User created successfully";
+                    DisplayMessage(true, "User created successfully");
 
                     // Assign the role to the user
                     if (!string.IsNullOrEmpty(DropDownListRoles.SelectedValue))
@@ -157,8 +156,14 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
             catch
             {
-                Msg.Text = "An exception occurred creating the user.";
+                DisplayMessage(false, "An exception occurred creating the user.");
             }
+        }
+
+        private void DisplayMessage(bool executionStatus, string message)
+        {
+            MessageLabel.Text = message;
+            MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
         protected void DeleteAccount_Click(object sender, EventArgs e)

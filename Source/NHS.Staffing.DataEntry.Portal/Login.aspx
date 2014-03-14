@@ -16,8 +16,10 @@
                             <h1>
                                 SAFE STAFFING DATA ENTRY PORTAL</h1>
                             <div class="clear-fix" />
-                            <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="failureNotification"
-                                ValidationGroup="LoginUserValidationGroup" />
+                            <div class="error_msg">
+                                <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="alert-danger"
+                                ValidationGroup="LoginUserValidationGroup" />                            
+                            </div>
                             <div class="fieldSeperator">
                                 <span class="fieldName"><i class="icon-user"></i>username</span> <span>
                                     <asp:TextBox ID="UserName" runat="server"></asp:TextBox>

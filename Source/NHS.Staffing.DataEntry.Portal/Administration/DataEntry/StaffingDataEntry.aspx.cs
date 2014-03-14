@@ -23,5 +23,11 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             StaffingDataDA sda = new StaffingDataDA();
         }
+
+        private void DisplayMessage(bool executionStatus)
+        {
+            MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
+            MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
+        }
     }
 }

@@ -13,15 +13,18 @@
         </div>
         <div class="pagedata">
             <div>
+                <div class="grid_24 error_msg">
+                    <asp:Label ID="MessageLabel" runat="server" />
+                </div>
                 <ul class="formSection">
                     <li><span class="formTitleFields">Period Start Date</span> <span class="formFieldControl">
                         <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
+                        <asp:CalendarExtender Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
                             ViewStateMode="Enabled" />
                     </span></li>
                     <li><span class="formTitleFields">Period End Date</span> <span class="formFieldControl">
                         <asp:TextBox ID="PeriodEndDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox" runat="server"
+                        <asp:CalendarExtender Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox" runat="server"
                             ViewStateMode="Enabled" />
                     </span></li>
                 </ul>

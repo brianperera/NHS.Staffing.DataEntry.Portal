@@ -15,8 +15,8 @@
                 </h2>
             </div>
             <div class="pagedata">
-                <div>
-                    <asp:Label ID="Msg" ForeColor="maroon" runat="server" />
+                <div class="grid_24 error_msg">
+                    <asp:Label ID="MessageLabel" runat="server" />
                 </div>
                 <div>
                     <ul class="formSection">

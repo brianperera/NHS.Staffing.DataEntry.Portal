@@ -28,7 +28,18 @@ namespace Nhs.Staffing.DataEntry.Portal
             List<ShiftRecord> modifiedList = new List<ShiftRecord>();
 
             ShiftRecordDA sda = new ShiftRecordDA();
-            var shiftRecords = sda.GetShiftRecordsForDate(new DateTime(2014, 01, 01), new DateTime(2014, 01, 03));
+
+            DateTime SelectedDateTime = DateTime.Now;
+
+            if (!string.IsNullOrEmpty(PeriodStartDate_TextBox.Text))
+            {
+                SelectedDateTime = DateTime.Parse(PeriodStartDate_TextBox.Text);
+            }
+
+            SelectedDateTime = Utility.DateTimeHelper.FirstDateInWeek(SelectedDateTime);
+            PeriodStartDate_TextBox.Text = SelectedDateTime.ToShortDateString();
+
+            var shiftRecords = sda.GetShiftRecordsForDate(SelectedDateTime, SelectedDateTime.AddDays(7));
 
             foreach (var item in shiftRecords)
             {
@@ -77,12 +88,40 @@ namespace Nhs.Staffing.DataEntry.Portal
             summaryRecord.TodayNonTrustHCA += dataRecord.TodayNonTrustHCA;
         }
 
-        protected string GetDailySummaryHtml(string day, string displayDate, object shift, string beds)
+        protected string GetColumnSummaryHtml(string IsDaySummary, string IsWeekSummary, string day, string displayDate, object shift, string beds)
         {
             if (string.IsNullOrEmpty(day) && string.IsNullOrEmpty(displayDate) && shift == null && string.IsNullOrEmpty(beds))
+            {
                 return string.Empty;
+            }
+            else if (string.Equals(IsDaySummary, "True"))
+            {
+                return "<td class='grayBackground' colspan='4'></td>";
+            }
+            else if (string.Equals(IsWeekSummary, "True"))
+            {
+                return "<td class='darkGrayBackground' colspan='4'></td>";
+            }
             else
-                return string.Format("<td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td>", day, displayDate, shift==null?string.Empty:shift.ToString(), beds);
+            {
+                return string.Format("<td>{0}</td><td>{1}</td><td>{2}</td><td>{3}</td>", day, displayDate, shift == null ? string.Empty : shift.ToString(), beds);
+            }
+        }
+
+        protected string GetRowSummaryHtml(string IsDaySummary, string IsWeekSummary)
+        {
+            if (string.Equals(IsDaySummary, "True"))
+            {
+                return "<tr class='grayBackground'>";
+            }
+            else if (string.Equals(IsWeekSummary, "True"))
+            {
+                return "<tr class='darkGrayBackground'>";
+            }
+            else
+            {
+                return string.Format("<tr>");
+            }
         }
     }
 }

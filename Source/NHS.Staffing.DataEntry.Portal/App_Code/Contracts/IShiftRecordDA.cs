@@ -11,8 +11,8 @@ namespace Nhs.Staffing.DataEntry
     public interface IShiftRecordDA
     {
         IList<ShiftRecord> GetShiftRecordsForDate(DateTime startDate, DateTime endDate);
-        void AddShiftRecord(ShiftRecord record);
-        void UpdateShiftRecord(ShiftRecord record);
-        void DeleteShiftRecord(ShiftRecord record);
+        bool AddShiftRecord(ShiftRecord record);
+        bool UpdateShiftRecord(ShiftRecord record);
+        bool DeleteShiftRecord(ShiftRecord record);
     }
 }

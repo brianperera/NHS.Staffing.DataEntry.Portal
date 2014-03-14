@@ -13,5 +13,11 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
 
         }
+
+        public static string ReferenceScript(string scriptFile)
+        {
+            var filePath = VirtualPathUtility.ToAbsolute("~/Scripts/" + scriptFile);
+            return "<script type=\"text/javascript\" src=\"" + filePath + "\"></script>";
+        }
     }
 }

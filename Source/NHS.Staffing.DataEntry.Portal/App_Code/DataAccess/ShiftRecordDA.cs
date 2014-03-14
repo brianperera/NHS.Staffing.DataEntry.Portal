@@ -94,18 +94,20 @@ namespace Nhs.Staffing.DataEntry
             return shifts;
         }
 
-        public void AddShiftRecord(ShiftRecord record)
+        public bool AddShiftRecord(ShiftRecord record)
         {
-            AddOrUpdateRecord(record, "InsertShiftDetailRecord");
+            return AddOrUpdateRecord(record, "InsertShiftDetailRecord");
         }
 
-        public void UpdateShiftRecord(ShiftRecord record)
+        public bool UpdateShiftRecord(ShiftRecord record)
         {
-            AddOrUpdateRecord(record, "UpdateShiftDetailRecord");
+            return AddOrUpdateRecord(record, "UpdateShiftDetailRecord");
         }
 
-        private void AddOrUpdateRecord(ShiftRecord record, string sp)
+        private bool AddOrUpdateRecord(ShiftRecord record, string sp)
         {
+            bool isAddedOrUpdatedSuccessfully = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -135,11 +137,18 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(GetParameter("@SafeMitigation", SqlDbType.VarChar, record.SafeMitigation));
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > -1)
+                    isAddedOrUpdatedSuccessfully = true;
             }
+
+            return isAddedOrUpdatedSuccessfully;
         }
 
-        public void DeleteShiftRecord(ShiftRecord record)
+        public bool DeleteShiftRecord(ShiftRecord record)
         {
+            bool isAddedOrUpdatedSuccessfully = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -152,7 +161,12 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(GetParameter("@ShiftID", SqlDbType.VarChar, record.ShiftID));
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > -1)
+                    isAddedOrUpdatedSuccessfully = true;
             }
+
+            return isAddedOrUpdatedSuccessfully;
         }
 
         //@ShiftID

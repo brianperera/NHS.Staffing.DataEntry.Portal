@@ -17,8 +17,9 @@
             <h3 style="display:inline">Week Commencing</h3>
                 <span class="formTitleFieldsWithoutFloat">
                     <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
-                            ViewStateMode="Enabled" />
+                        <asp:CalendarExtender Animated="true"  
+                    ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
+                            ViewStateMode="Enabled" Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" />
                 </span>
                 <span class="shortFormTitleFieldsWithoutFloat">
                     <asp:Button ID="Refresh_Button" runat="server" Text="Refresh" CssClass="submitButton"/>
@@ -72,9 +73,9 @@
             <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground'>" : ""%>
             <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground'>" : ""%>
 
-            <%# Eval("IsDaySummary").ToString() == "True" ? "<td class='grayBackground' colspan='4'></td>" :
-                GetDailySummaryHtml(Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())
-            %>
+            <%# GetRowSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString())%>
+
+            <%# GetColumnSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString(), Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())%>
 
             <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%> </td>
             <td class="aquaBackground"><%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%> </td>

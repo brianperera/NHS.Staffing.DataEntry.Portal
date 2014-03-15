@@ -36,7 +36,7 @@
                     <li><span class="formTitleFields">Date</span> <span class="formFieldControl">
                         <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" 
                             ontextchanged="Date_TextBox_TextChanged"></asp:TextBox>
-                        <asp:CalendarExtender ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
+                        <asp:CalendarExtender Format="dd/MM/yyyy" ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
                             ViewStateMode="Enabled" />
 <%--                        <asp:CalendarExtender Format="dd/MM/yyyy" TodaysDateFormat="d MMMM, yyyy" ID="CalendarExtender2" TargetControlID="Date_TextBox" runat="server"
                             ViewStateMode="Enabled" />--%>

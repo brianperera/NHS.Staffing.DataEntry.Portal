@@ -115,8 +115,11 @@ namespace Nhs.Staffing.DataEntry
                 SqlCommand command = new SqlCommand(sp, con);
                 command.CommandType = CommandType.StoredProcedure;
 
+                //Convert the datetime to ISO format
+                string isoDateTime = record.Date.ToString("yyyy/MM/dd");
+
                 command.Parameters.Add(GetParameter("@WardCode", SqlDbType.VarChar, record.WardCode));
-                command.Parameters.Add(GetParameter("@ShiftDate", SqlDbType.VarChar, record.Date));
+                command.Parameters.Add(GetParameter("@ShiftDate", SqlDbType.VarChar, isoDateTime));
                 command.Parameters.Add(GetParameter("@ShiftID", SqlDbType.VarChar, record.ShiftID));
                 command.Parameters.Add(GetParameter("@Beds", SqlDbType.VarChar, record.Beds));
                 command.Parameters.Add(GetParameter("@OptimumStaffingRN ", SqlDbType.VarChar, record.OptimumStaffingRN));

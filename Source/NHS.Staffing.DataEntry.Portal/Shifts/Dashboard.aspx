@@ -17,7 +17,7 @@
             <h3 style="display:inline">Week Commencing</h3>
                 <span class="formTitleFieldsWithoutFloat">
                     <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender Animated="true"  
+                        <asp:CalendarExtender Animated="true"  Format="dd/MM/yyyy" 
                     ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox" runat="server"
                             ViewStateMode="Enabled" />
 

@@ -2,6 +2,7 @@
     CodeFile="ShiftDataEntry.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.ShiftDataEntry" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
+
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
@@ -10,9 +11,9 @@
             <h2>
                 Shift Data
             </h2>
-        </div>
-        <asp:ScriptManager ID="ScriptManager1" runat="server">
-        </asp:ScriptManager>
+        </div>        
+    <asp:ToolkitScriptManager ID="ToolkitScriptManager1" runat="server">
+    </asp:ToolkitScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
                 <div class="pagedata">
@@ -27,8 +28,12 @@
                                 </asp:DropDownList>
                             </span></li>
                             <li><span class="formTitleFields">Date</span> <span class="formFieldControl">
-                                <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" OnTextChanged="Date_TextBox_TextChanged"></asp:TextBox>
-                            </span></li>
+                                <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:CalendarExtender Animated="true"  Format="dd/MM/yyyy" 
+                    ID="CalendarExtender1" TargetControlID="Date_TextBox" runat="server"
+                            ViewStateMode="Enabled" />
+                            </span>                     
+                            </li>
                             <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
                                 <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown"
                                     OnSelectedIndexChanged="Shift_DropDownList_SelectedIndexChanged">

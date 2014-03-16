@@ -11,7 +11,17 @@ namespace Nhs.Staffing.DataEntry.Portal
     public partial class ShiftDataEntry : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {
+        {           
+            //Date_TextBox.Text = DataEntryCalendar.SelectedDate.ToString();
+
+            if (Page.User.IsInRole("Super Admin"))
+            {
+                RN_OptimumStaffing_TextBox.ReadOnly = false;
+                HCA_OptimumStaffing_TextBox.ReadOnly = false;
+                RN_SafeStaffing_TextBox.ReadOnly = false;
+                HCA_SafeStaffing_TextBox.ReadOnly = false;
+            }
+
             if (!IsPostBack)
             {
                 Date_TextBox.Attributes.Add("readonly", "readonly");
@@ -187,17 +197,17 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void WardName_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //LoadDataForUpdate();
+            LoadDataForUpdate();
         }
 
         protected void Date_TextBox_TextChanged(object sender, EventArgs e)
         {
-            //LoadDataForUpdate();
+            LoadDataForUpdate();
         }
 
         protected void Shift_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            //LoadDataForUpdate();
+            LoadDataForUpdate();
         }
 
         private void LoadDataForUpdate()
@@ -222,7 +232,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
 
                 //Beds   
-                Beds_TextBox.Text= record.Beds.ToString();
+                Beds_TextBox.Text = record.Beds.ToString();
                 //OptimumStaffingRN
                 RN_OptimumStaffing_TextBox.Text = record.OptimumStaffingRN.ToString();
                 //OptimumStaffingHCA
@@ -230,7 +240,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 //SafeStaffingRN
                 RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
                 //SafeStaffingHCA
-                HCA_SafeStaffing_TextBox.Text=record.SafeStaffingHCA.ToString();
+                HCA_SafeStaffing_TextBox.Text = record.SafeStaffingHCA.ToString();
                 //TodayTrustRN
                 RN_TodayTrust_TextBox.Text = record.TodayTrustRN.ToString();
                 //TodayTrustHCA
@@ -249,7 +259,48 @@ namespace Nhs.Staffing.DataEntry.Portal
                 SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
                 //UnSafeMitigation
                 UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
+
+            }
+            else
+            {
+
+                string wardCode = WardName_DropDownList.SelectedItem.Value;
+
+                //Shift Name
+                string shiftName = Shift_DropDownList.SelectedItem.Text;
                 
+                //Date
+                DateTime date;
+                DateTime.TryParse(Date_TextBox.Text, out date);
+
+                if (string.IsNullOrWhiteSpace(wardCode) || date == null)
+                    return;
+
+                ShiftRecordDA sda = new ShiftRecordDA();
+
+                //ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
+                StaffingData staffingDataRwcord = new StaffingData();
+                IList<StaffingData> allStaffing = DataRepository.Instance.AllStaffing;
+                
+                foreach (StaffingData item in allStaffing)
+                {
+                    if (wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == date.ToString("dddd"))
+                    {
+                        staffingDataRwcord = item;
+                        break;
+                    }
+                }
+
+                //Beds   
+                Beds_TextBox.Text = staffingDataRwcord.Beds.ToString();
+                //OptimumStaffingRN
+                RN_OptimumStaffing_TextBox.Text = staffingDataRwcord.OptimumRN.ToString();
+                //OptimumStaffingHCA
+                HCA_OptimumStaffing_TextBox.Text = staffingDataRwcord.OptimumHCA.ToString();
+                //SafeStaffingRN
+                RN_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeRN.ToString();
+                //SafeStaffingHCA
+                HCA_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeHCA.ToString();
             }
         }
     }

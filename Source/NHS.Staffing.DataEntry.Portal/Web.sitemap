@@ -7,10 +7,6 @@
       <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=update" title="Update"  description="Update"/>      
     </siteMapNode>
     <siteMapNode roles="Super Admin" title="Settings"  description="Settings">
-      <siteMapNode roles="Super Admin" title="Staffing Data Entry"  description="Staffing Data Entry">
-        <siteMapNode url="~/Administration/DataEntry/StaffingDataEntry.aspx?action=add" title="Add"  description="Add"/>
-        <siteMapNode url="~/Administration/DataEntry/StaffingDataEntry.aspx?action=update" title="Update"  description="Update"/>
-      </siteMapNode>
       <siteMapNode title="Users" roles="Super Admin" description="Users">
         <siteMapNode url="~/Administration/Users/UserAccount.aspx?action=add" title="Add"  description="Add"/>
         <siteMapNode url="~/Administration/Users/UserSearch.aspx?action=update" title="Update"  description="Update"/>

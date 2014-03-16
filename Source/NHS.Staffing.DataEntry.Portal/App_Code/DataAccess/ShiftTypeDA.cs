@@ -10,7 +10,7 @@ using System.Data;
 /// </summary>
 namespace Nhs.Staffing.DataEntry
 {
-    public class ShiftTypeDA : DataAccessBase, IShiftTypeDA
+    public class ShiftTypeDA : DataAccessBase
     {
         public ShiftTypeDA()
         {

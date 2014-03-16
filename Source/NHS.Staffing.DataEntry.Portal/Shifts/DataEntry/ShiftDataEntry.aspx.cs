@@ -56,6 +56,12 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             DisplayMessage(executionStatus);
+            Clear();
+        }
+
+        protected void ButtonSearch_Click(object sender, EventArgs e)
+        {
+            LoadDataForUpdate();
         }
 
         private void DisplayMessage(bool executionStatus)
@@ -186,7 +192,7 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void Date_TextBox_TextChanged(object sender, EventArgs e)
         {
-           // LoadDataForUpdate();
+            //LoadDataForUpdate();
         }
 
         protected void Shift_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
@@ -214,6 +220,36 @@ namespace Nhs.Staffing.DataEntry.Portal
                 ShiftRecordDA sda = new ShiftRecordDA();
 
                 ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
+
+                //Beds   
+                Beds_TextBox.Text= record.Beds.ToString();
+                //OptimumStaffingRN
+                RN_OptimumStaffing_TextBox.Text = record.OptimumStaffingRN.ToString();
+                //OptimumStaffingHCA
+                HCA_OptimumStaffing_TextBox.Text = record.OptimumStaffingHCA.ToString();
+                //SafeStaffingRN
+                RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
+                //SafeStaffingHCA
+                HCA_SafeStaffing_TextBox.Text=record.SafeStaffingHCA.ToString();
+                //TodayTrustRN
+                RN_TodayTrust_TextBox.Text = record.TodayTrustRN.ToString();
+                //TodayTrustHCA
+                HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA.ToString();
+                //TodayBankRN
+                RN_TodayBank_TextBox.Text = record.TodayBankRN.ToString();
+                //TodayBankHCA
+                HCA_TodayBank_TextBox.Text = record.TodayBankHCA.ToString();
+                //TodayNonTrustRN
+                RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN.ToString();
+                //TodayNonTrustHCA
+                HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA.ToString();
+                //Safe
+                Safe_CheckBox.Checked = record.IsSafe;
+                //SafeMitigation
+                SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
+                //UnSafeMitigation
+                UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
+                
             }
         }
     }

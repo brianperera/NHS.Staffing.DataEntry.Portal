@@ -10,7 +10,7 @@ using System.Data;
 /// </summary>
 namespace Nhs.Staffing.DataEntry
 {
-    public class WardDA : DataAccessBase, IWardDA
+    public class WardDA : DataAccessBase
     {
         public WardDA()
         {

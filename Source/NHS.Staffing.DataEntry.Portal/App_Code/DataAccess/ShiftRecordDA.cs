@@ -202,13 +202,13 @@ namespace Nhs.Staffing.DataEntry
 
                     while (results.Read())
                     {
-                        shift.WardCode = results["WardCode"].ToString();
+                        shift.WardCode = wardCode;// results["WardCode"].ToString();
 
-                        DateTime.TryParse(results["ShiftDate"].ToString(), out tempDate);
-                        shift.Date = tempDate;
+                        //DateTime.TryParse(results["ShiftDate"].ToString(), out tempDate);
+                        shift.Date = date;
 
-                        int.TryParse(results["ShiftID"].ToString(), out tempInt);
-                        shift.ShiftID = tempInt;
+                        //int.TryParse(results["ShiftID"].ToString(), out tempInt);
+                        shift.ShiftID = shiftID;
 
                         int.TryParse(results["Beds"].ToString(), out tempInt);
                         shift.Beds = tempInt;

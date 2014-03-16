@@ -13,6 +13,7 @@ public class DataRepository
     private static DataRepository instance = null;
     public IList<Ward> AllWards;
     public IList<ShiftType> AllShiftTypes;
+    public IList<StaffingData> AllStaffing;
     public List<string> SafeMitigations;
     public List<string> UnSafeMitigations;
 
@@ -38,6 +39,9 @@ public class DataRepository
 
         WardDA wda = new WardDA();
         AllWards = wda.GetAllWard();
+
+        StaffingDataDA stda = new StaffingDataDA();
+        AllStaffing = stda.GetAllStaffing();
 
         string safeMitigations = WebConfigurationManager.AppSettings["SafeMitigationActions"];
         this.SafeMitigations = new List<string>();

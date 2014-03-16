@@ -15,7 +15,11 @@ public class StaffingData
 		//
 	}
 
-    public DateTime StaffingDate { get; set; }
+    public string WardCode { get; set; }
+    public int Beds { get; set; }
+    public int ShiftID { get; set; }
+    public string StaffingDate { get; set; }
+    public string Shift { get; set; }
     public int SafeRN { get; set; }
     public int SafeHCA { get; set; }
     public int OptimumRN { get; set; }

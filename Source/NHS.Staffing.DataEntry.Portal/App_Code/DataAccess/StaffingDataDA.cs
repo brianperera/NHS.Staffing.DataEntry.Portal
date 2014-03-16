@@ -19,6 +19,50 @@ namespace Nhs.Staffing.DataEntry
             //
         }
 
+        public List<StaffingData> GetAllStaffing()
+        {
+            List<StaffingData> allWards = new List<StaffingData>();
+
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand command = new SqlCommand("GetAllStaffing", con);
+                command.CommandType = CommandType.StoredProcedure;
+
+                var results = command.ExecuteReader();
+
+                if (results.HasRows)
+                {
+                    StaffingData ward;
+                    int tempInt;
+
+                    while (results.Read())
+                    {
+                        ward = new StaffingData();
+                        ward.WardCode = results["Ward Code"].ToString();
+                        ward.StaffingDate = results["Day"].ToString();
+                        ward.Shift = results["Shift"].ToString();
+                        int.TryParse(results["Beds"].ToString(), out tempInt);
+                        ward.Beds = tempInt;
+
+                        if (int.TryParse(results["Safe Staffing RN"].ToString(), out tempInt))
+                            ward.SafeRN = tempInt;
+                        if (int.TryParse(results["Safe Staffing HCA"].ToString(), out tempInt))
+                            ward.SafeHCA = tempInt;
+                        if (int.TryParse(results["Optimum Staffing RN"].ToString(), out tempInt))
+                             ward.OptimumRN = tempInt;
+                        if (int.TryParse(results["Optimum Staffing HCA"].ToString(), out tempInt))
+                             ward.OptimumHCA = tempInt;
+
+                        allWards.Add(ward);
+                    }
+                }
+            }
+
+            return allWards;
+        }
+
         public void InsertStaffing(DateTime startDate, DateTime endDate, int safeRN, int safeHCA, int optimumRN, int optimumHCA)
         {
             DataTable dataTable = GetDataTable();

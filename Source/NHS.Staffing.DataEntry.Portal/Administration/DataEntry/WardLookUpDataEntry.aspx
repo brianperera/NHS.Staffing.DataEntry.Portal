@@ -47,13 +47,16 @@
                 </div>
                 <ul class="formSection">
                     <li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
-                        <asp:TextBox ID="WardCodeTextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:TextBox ID="WardCode_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                    </span></li>
+                    <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
+                        <asp:TextBox ID="WardName_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                     </span></li>
                     <li><span class="formTitleFields">Devision</span> <span class="formFieldControl">
-                        <asp:TextBox ID="DevisionTextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:TextBox ID="Devision_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                     </span></li>
                     <li><span class="formTitleFields">Ward Description</span> <span class="formFieldControl">
-                        <asp:TextBox ID="WardDescriptionTextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:TextBox ID="WardDescription_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                     </span></li>
                 </ul>
                 <div>

@@ -196,6 +196,8 @@ namespace Nhs.Staffing.DataEntry
 
                 if (results.HasRows)
                 {
+                    shift.ShiftRecordExists = true;
+
                     int tempInt;
                     DateTime tempDate;
                     bool tempBool;
@@ -244,7 +246,10 @@ namespace Nhs.Staffing.DataEntry
                     }
                 }
                 else
+                {
                     results.Close();
+                    shift.ShiftRecordExists = false;
+                }
             }
 
             return shift;

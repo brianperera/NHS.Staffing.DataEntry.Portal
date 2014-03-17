@@ -11,17 +11,7 @@ namespace Nhs.Staffing.DataEntry.Portal
     public partial class ShiftDataEntry : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
-        {           
-            //Date_TextBox.Text = DataEntryCalendar.SelectedDate.ToString();
-
-            if (Page.User.IsInRole("Super Admin"))
-            {
-                RN_OptimumStaffing_TextBox.ReadOnly = false;
-                HCA_OptimumStaffing_TextBox.ReadOnly = false;
-                RN_SafeStaffing_TextBox.ReadOnly = false;
-                HCA_SafeStaffing_TextBox.ReadOnly = false;
-            }
-
+        {
             if (!IsPostBack)
             {
                 Date_TextBox.Attributes.Add("readonly", "readonly");
@@ -32,6 +22,8 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void BindInitialData()
         {
+            ShiftDataEntryFound_HiddenField.Value = "false";
+
             WardName_DropDownList.DataSource = DataRepository.Instance.AllWards;
             WardName_DropDownList.DataTextField = "WardName";
             WardName_DropDownList.DataValueField = "WardCode";
@@ -53,16 +45,27 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             bool executionStatus = false;
 
+            // Validate before submit
+            if (string.IsNullOrEmpty(Date_TextBox.Text))
+            {
+                DisplayMessage(executionStatus, "Date is Empty");
+                Clear();
+
+                return;
+            }
+
             ShiftRecord currentRecord = GetShiftRecord();
             ShiftRecordDA sda = new ShiftRecordDA();
 
-            if (Request.QueryString["action"] == "add")
-            {
-                executionStatus = sda.AddShiftRecord(currentRecord);
-            }
-            else if (Request.QueryString["action"] == "update")
+            string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
+
+            if (shiftDataEntryFound.Equals("true"))
             {
                 executionStatus = sda.UpdateShiftRecord(currentRecord);
+            }
+            else
+            {
+                executionStatus = sda.AddShiftRecord(currentRecord);
             }
 
             DisplayMessage(executionStatus);
@@ -77,6 +80,12 @@ namespace Nhs.Staffing.DataEntry.Portal
         private void DisplayMessage(bool executionStatus)
         {
             MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
+            MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
+        }
+
+        private void DisplayMessage(bool executionStatus, string message)
+        {
+            MessageLabel.Text = message;
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
@@ -212,76 +221,67 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void LoadDataForUpdate()
         {
-            if (Request.QueryString["action"] == "update")
-            {
 
-                string wardCode = WardName_DropDownList.SelectedItem.Value;
+            string wardCode = WardName_DropDownList.SelectedItem.Value;
+            DateTime date;
+            ShiftRecordDA sda;
 
-                //ShiftID
-                int shiftID = -1;
-                int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
-                //Date
-                DateTime date;
-                DateTime.TryParse(Date_TextBox.Text, out date);
+            //ShiftID
+            int shiftID = -1;
+            int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
+            DateTime.TryParse(Date_TextBox.Text, out date);
 
-                if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || date == null)
-                    return;
+            if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || date == null)
+                return;
 
-                ShiftRecordDA sda = new ShiftRecordDA();
+            sda = new ShiftRecordDA();
+            ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
 
-                ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
-
-                //Beds   
-                Beds_TextBox.Text = record.Beds.ToString();
-                //OptimumStaffingRN
-                RN_OptimumStaffing_TextBox.Text = record.OptimumStaffingRN.ToString();
-                //OptimumStaffingHCA
-                HCA_OptimumStaffing_TextBox.Text = record.OptimumStaffingHCA.ToString();
-                //SafeStaffingRN
-                RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
-                //SafeStaffingHCA
-                HCA_SafeStaffing_TextBox.Text = record.SafeStaffingHCA.ToString();
-                //TodayTrustRN
-                RN_TodayTrust_TextBox.Text = record.TodayTrustRN.ToString();
-                //TodayTrustHCA
-                HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA.ToString();
-                //TodayBankRN
-                RN_TodayBank_TextBox.Text = record.TodayBankRN.ToString();
-                //TodayBankHCA
-                HCA_TodayBank_TextBox.Text = record.TodayBankHCA.ToString();
-                //TodayNonTrustRN
-                RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN.ToString();
-                //TodayNonTrustHCA
-                HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA.ToString();
-                //Safe
-                Safe_CheckBox.Checked = record.IsSafe;
-                //SafeMitigation
-                SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
-                //UnSafeMitigation
-                UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
-
-            }
+            if (record.ShiftRecordExists)
+                ShiftDataEntryFound_HiddenField.Value = "true";
             else
+                ShiftDataEntryFound_HiddenField.Value = "false";
+
+            //Beds   
+            Beds_TextBox.Text = record.Beds.ToString();
+            //OptimumStaffingRN
+            RN_OptimumStaffing_TextBox.Text = record.OptimumStaffingRN.ToString();
+            //OptimumStaffingHCA
+            HCA_OptimumStaffing_TextBox.Text = record.OptimumStaffingHCA.ToString();
+            //SafeStaffingRN
+            RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
+            //SafeStaffingHCA
+            HCA_SafeStaffing_TextBox.Text = record.SafeStaffingHCA.ToString();
+            //TodayTrustRN
+            RN_TodayTrust_TextBox.Text = record.TodayTrustRN.ToString();
+            //TodayTrustHCA
+            HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA.ToString();
+            //TodayBankRN
+            RN_TodayBank_TextBox.Text = record.TodayBankRN.ToString();
+            //TodayBankHCA
+            HCA_TodayBank_TextBox.Text = record.TodayBankHCA.ToString();
+            //TodayNonTrustRN
+            RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN.ToString();
+            //TodayNonTrustHCA
+            HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA.ToString();
+            //Safe
+            Safe_CheckBox.Checked = record.IsSafe;
+            //SafeMitigation
+            SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
+            //UnSafeMitigation
+            UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
+
+            string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
+
+            if (shiftDataEntryFound.Equals("false"))
             {
-
-                string wardCode = WardName_DropDownList.SelectedItem.Value;
-
                 //Shift Name
                 string shiftName = Shift_DropDownList.SelectedItem.Text;
                 
-                //Date
-                DateTime date;
-                DateTime.TryParse(Date_TextBox.Text, out date);
-
-                if (string.IsNullOrWhiteSpace(wardCode) || date == null)
-                    return;
-
-                ShiftRecordDA sda = new ShiftRecordDA();
-
                 //ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
                 StaffingData staffingDataRwcord = new StaffingData();
                 IList<StaffingData> allStaffing = DataRepository.Instance.AllStaffing;
-                
+
                 foreach (StaffingData item in allStaffing)
                 {
                     if (wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == date.ToString("dddd"))
@@ -300,8 +300,9 @@ namespace Nhs.Staffing.DataEntry.Portal
                 //SafeStaffingRN
                 RN_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeRN.ToString();
                 //SafeStaffingHCA
-                HCA_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeHCA.ToString();
+                HCA_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeHCA.ToString();            
             }
+
         }
     }
 }

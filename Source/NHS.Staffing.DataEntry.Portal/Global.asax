@@ -20,6 +20,12 @@
 
     }
 
+    protected void Application_BeginRequest(object sender, EventArgs e)
+    {
+        System.Threading.Thread.CurrentThread.CurrentCulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+        System.Threading.Thread.CurrentThread.CurrentUICulture = System.Globalization.CultureInfo.CreateSpecificCulture("en-GB");
+    }
+
     void Session_Start(object sender, EventArgs e) 
     {
         // Code that runs when a new session is started

@@ -2,16 +2,13 @@
 <siteMap xmlns="http://schemas.microsoft.com/AspNet/SiteMap-File-1.0" >
   <siteMapNode roles="*"  title="Login"  description="Login">
     <siteMapNode url="~/Shifts/Dashboard.aspx" title="Home"  description="Home"/>
-    <siteMapNode roles="Admin, Super Admin, Data Entry Staff" title="Data Entry"  description="Data Entry" >
-      <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=add" title="Add"  description="Add"/>
-      <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx?action=update" title="Update"  description="Update"/>      
-    </siteMapNode>
-    <siteMapNode roles="Super Admin" title="Settings"  description="Settings">
-      <siteMapNode title="Users" roles="Super Admin" description="Users">
+    <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx" roles="Admin, Super Admin, Data Entry Staff" title="Data Entry"  description="Data Entry"></siteMapNode>
+    <siteMapNode roles="Super Admin, Admin" title="Settings"  description="Settings">
+      <siteMapNode title="Users" roles="Super Admin, Admin" description="Users">
         <siteMapNode url="~/Administration/Users/UserAccount.aspx?action=add" title="Add"  description="Add"/>
         <siteMapNode url="~/Administration/Users/UserSearch.aspx?action=update" title="Update"  description="Update"/>
       </siteMapNode>
-      <siteMapNode url="~/Administration/Users/ChangePassword.aspx" roles="Super Admin" title="Change Password"  description="Change Password"/>
+      <siteMapNode url="~/Administration/Users/ChangePassword.aspx" roles="Super Admin, Admin" title="Change Password"  description="Change Password"/>
     </siteMapNode>
   </siteMapNode>
 </siteMap>

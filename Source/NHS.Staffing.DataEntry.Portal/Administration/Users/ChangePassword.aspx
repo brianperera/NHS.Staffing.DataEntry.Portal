@@ -24,12 +24,6 @@
                         <asp:RequiredFieldValidator ID="UsernameRequiredFieldValidator" runat="server" ControlToValidate="UsernameTextBox"
                             CssClass="failureNotification" ErrorMessage="Username is required." ToolTip="Username is required.">Username is required.</asp:RequiredFieldValidator>
                     </span></li>
-                    <li><span class="formTitleFields">Old Password</span> <span class="formFieldControl">
-                        <asp:TextBox ID="CurrentPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
-                    </span><span>
-                        <asp:RequiredFieldValidator ID="CurrentPasswordRequired" runat="server" ControlToValidate="CurrentPassword"
-                            CssClass="failureNotification" ErrorMessage="Password is required." ToolTip="Old Password is required.">Password is required.</asp:RequiredFieldValidator>
-                    </span></li>
                     <li><span class="formTitleFields">New Password</span> <span class="formFieldControl">
                         <asp:TextBox ID="NewPassword" runat="server" CssClass="passwordEntry" TextMode="Password"></asp:TextBox>
                     </span><span>

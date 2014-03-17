@@ -14,6 +14,11 @@ namespace Nhs.Staffing.DataEntry.Portal
             if (!IsPostBack)
             {
                 PeriodStartDate_TextBox.Attributes.Add("readonly", "readonly");
+
+                WardName_DropDownList.DataSource = DataRepository.Instance.AllWards;
+                WardName_DropDownList.DataTextField = "WardName";
+                WardName_DropDownList.DataValueField = "WardCode";
+                WardName_DropDownList.DataBind();
             }
 
             LoadData();
@@ -40,29 +45,34 @@ namespace Nhs.Staffing.DataEntry.Portal
             PeriodStartDate_TextBox.Text = SelectedDateTime.ToShortDateString();
 
             var shiftRecords = sda.GetShiftRecordsForDate(SelectedDateTime, SelectedDateTime.AddDays(7));
+            string selectedWard = WardName_DropDownList.SelectedItem.Text;
 
             foreach (var item in shiftRecords)
             {
-
-                if (records.ContainsKey(item.Date))
+                if (item.WardName.Equals(selectedWard))
                 {
-                }
-                else
-                {
-                    records.Add(item.Date, item);
 
-                    if (modifiedList.Count > 1)
+                    if (records.ContainsKey(item.Date))
                     {
-                        modifiedList.Add(daySummary);
-                        AddData(weekSummary, daySummary);
+                    }
+                    else
+                    {
+                        records.Add(item.Date, item);
+
+                        if (modifiedList.Count > 1)
+                        {
+                            modifiedList.Add(daySummary);
+                            AddData(weekSummary, daySummary);
+                        }
+
+                        daySummary = new ShiftRecord();
+                        daySummary.IsDaySummary = true;
                     }
 
-                    daySummary = new ShiftRecord();
-                    daySummary.IsDaySummary = true;
-                }
+                    AddData(daySummary, item);
+                    modifiedList.Add(item);
 
-                AddData(daySummary, item);
-                modifiedList.Add(item);
+                }
             }
 
             if (modifiedList.Count > 1)

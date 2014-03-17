@@ -19,7 +19,7 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             MembershipUser currentUser = Membership.GetUser(UsernameTextBox.Text);
 
-            if (currentUser.ChangePassword(CurrentPassword.Text, NewPassword.Text))
+            if (currentUser.ChangePassword(currentUser.ResetPassword(), NewPassword.Text))
                 Response.Redirect("ChangePasswordSuccess.aspx");
         }
     }

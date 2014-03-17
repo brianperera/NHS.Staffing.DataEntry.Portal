@@ -10,6 +10,8 @@ namespace Nhs.Staffing.DataEntry
 {
     public class ShiftRecord
     {
+        public bool ShiftRecordExists { get; set; }
+
         private string wardCode;
         public string WardCode 
         {

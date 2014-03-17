@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Globalization;
 
 /// <summary>
 /// Summary description for Utility
@@ -12,7 +13,7 @@ namespace Nhs.Staffing.DataEntry.Portal.Utility
     {
         public static DateTime FirstDateInWeek(this DateTime dt)
         {
-            while (dt.DayOfWeek != System.Threading.Thread.CurrentThread.CurrentCulture.DateTimeFormat.FirstDayOfWeek)
+            while (dt.DayOfWeek != CultureInfo.CurrentUICulture.DateTimeFormat.FirstDayOfWeek)
                 dt = dt.AddDays(-1);
             return dt;
         }

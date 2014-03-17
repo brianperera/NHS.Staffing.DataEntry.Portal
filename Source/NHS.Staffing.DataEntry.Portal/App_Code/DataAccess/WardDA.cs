@@ -42,7 +42,7 @@ namespace Nhs.Staffing.DataEntry
                         ward = new Ward();
                         ward.WardCode = results["WardCode"].ToString();
                         ward.WardName = results["WardName"].ToString();
-
+                        ward.Division = results["Division"].ToString();
                         int.TryParse(results["Beds"].ToString(), out tempInt);
                         ward.NoOfBeds = tempInt;
 
@@ -76,10 +76,12 @@ namespace Nhs.Staffing.DataEntry
                 SqlParameter wardCode = GetParameter("@WardCode", SqlDbType.VarChar, record.WardCode);
                 SqlParameter name = GetParameter("@WardName", SqlDbType.VarChar, record.WardName);
                 SqlParameter beds = GetParameter("@Beds", SqlDbType.Int, record.NoOfBeds);
+                SqlParameter division = GetParameter("@Division", SqlDbType.Int, record.NoOfBeds);
 
                 command.Parameters.Add(wardCode);
                 command.Parameters.Add(name);
                 command.Parameters.Add(beds);
+                command.Parameters.Add(division);
 
                 var results = command.ExecuteNonQuery();
             }

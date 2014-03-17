@@ -13,5 +13,6 @@ namespace Nhs.Staffing.DataEntry
         public string WardCode { get; set; }
         public string WardName { get; set; }
         public int NoOfBeds { get; set; }
+        public string Division { get; set; }
     }
 }

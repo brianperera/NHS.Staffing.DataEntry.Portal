@@ -4,6 +4,7 @@
     <siteMapNode url="~/Shifts/Dashboard.aspx" title="Home"  description="Home"/>
     <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx" roles="Admin, Super Admin, Data Entry Staff" title="Data Entry"  description="Data Entry"></siteMapNode>
     <siteMapNode roles="Super Admin, Admin" title="Settings"  description="Settings">
+      <siteMapNode url="~/Administration/DataEntry/StaffingPeriodDataEntry.aspx" title="Staffing Period Data Entry"  description="Staffing Period Data Entry"/>
       <siteMapNode url="~/Administration/DataEntry/StaffingDataEntry.aspx" title="Staffing Data Entry"  description="Staffing Data Entry"/>
       <siteMapNode url="~/Administration/DataEntry/WardLookUpDataEntry.aspx" title="Ward Data Entry"  description="Ward Data Entry"/>
       <siteMapNode title="Users" roles="Super Admin, Admin" description="Users">

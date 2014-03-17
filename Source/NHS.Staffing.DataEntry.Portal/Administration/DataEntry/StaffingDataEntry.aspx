@@ -75,14 +75,14 @@
                 </ul>
                 <ul class="formSection">
                     <li><span class="formTitleFields">Period Start Date</span> <span class="formFieldControl">
-                        <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox"
-                            runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
+                                                <asp:DropDownList ID="PeriodStartDate_DropDownList" runat="server" CssClass="defaultDropDown"
+                            AutoPostBack="True">
+                        </asp:DropDownList>
                     </span></li>
                     <li><span class="formTitleFields">Period End Date</span> <span class="formFieldControl">
-                        <asp:TextBox ID="PeriodEndDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                        <asp:CalendarExtender ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox"
-                            runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
+                        <asp:DropDownList ID="PeriodEndDate_DropDownList" runat="server" CssClass="defaultDropDown"
+                            AutoPostBack="True">
+                        </asp:DropDownList>
                     </span></li>
                     <li><span class="formTitleFields">Beds</span> <span class="formFieldControl">
                         <asp:TextBox ID="Beds_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>

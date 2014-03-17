@@ -47,9 +47,6 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             if (!IsPostBack)
             {
-                PeriodStartDate_TextBox.Attributes.Add("readonly", "readonly");
-                PeriodEndDate_TextBox.Attributes.Add("readonly", "readonly");
-
                 BindInitialData();
             }
         }

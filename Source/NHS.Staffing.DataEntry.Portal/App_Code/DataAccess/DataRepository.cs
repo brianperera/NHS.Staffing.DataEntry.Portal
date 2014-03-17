@@ -16,6 +16,7 @@ public class DataRepository
     public IList<StaffingData> AllStaffing;
     public List<string> SafeMitigations;
     public List<string> UnSafeMitigations;
+    public List<StaffingDateRange> AllStaffingDateRanges;
 
     public static DataRepository Instance
     {
@@ -42,6 +43,9 @@ public class DataRepository
 
         StaffingDataDA stda = new StaffingDataDA();
         AllStaffing = stda.GetAllStaffing();
+
+        StaffingDateRangeDA stfda = new StaffingDateRangeDA();
+        AllStaffingDateRanges = stfda.GetAllStaffingDateRanges();
 
         string safeMitigations = WebConfigurationManager.AppSettings["SafeMitigationActions"];
         this.SafeMitigations = new List<string>();

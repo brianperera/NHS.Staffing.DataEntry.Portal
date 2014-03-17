@@ -24,4 +24,5 @@ public class StaffingData
     public int SafeHCA { get; set; }
     public int OptimumRN { get; set; }
     public int OptimumHCA { get; set; }
+    public int StaffingDateRangeIndex { get; set; }
 }

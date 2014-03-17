@@ -43,6 +43,7 @@ namespace Nhs.Staffing.DataEntry
                         ward.WardCode = results["Ward Code"].ToString();
                         ward.StaffingDate = results["Day"].ToString();
                         ward.Shift = results["Shift"].ToString();
+
                         int.TryParse(results["Beds"].ToString(), out tempInt);
                         ward.Beds = tempInt;
 
@@ -54,6 +55,8 @@ namespace Nhs.Staffing.DataEntry
                              ward.OptimumRN = tempInt;
                         if (int.TryParse(results["Optimum Staffing HCA"].ToString(), out tempInt))
                              ward.OptimumHCA = tempInt;
+                        if (int.TryParse(results["StaffingDateIndex"].ToString(), out tempInt))
+                            ward.StaffingDateRangeIndex = tempInt;
 
                         allWards.Add(ward);
                     }
@@ -61,6 +64,49 @@ namespace Nhs.Staffing.DataEntry
             }
 
             return allWards;
+        }
+
+        public void AddStaffingData(StaffingData record)
+        {
+            AddOrUpdateStaffingData(record, "InsertStaffing");
+        }
+
+        public void UpdateStaffingData(StaffingData record)
+        {
+            AddOrUpdateStaffingData(record, "UpdateStaffing");
+        }
+
+        public void AddOrUpdateStaffingData(StaffingData record, string sp)
+        {
+            using (SqlConnection con = GetConnection())
+            {
+                con.Open();
+
+                SqlCommand command = new SqlCommand(sp, con);
+                command.CommandType = CommandType.StoredProcedure;
+
+                SqlParameter WardCode = GetParameter("@WardCode", SqlDbType.VarChar, record.WardCode);
+                SqlParameter Shift = GetParameter("@Shift", SqlDbType.VarChar, record.Shift);
+                SqlParameter StaffingDate = GetParameter("@Day", SqlDbType.VarChar, record.StaffingDate);
+                SqlParameter Beds = GetParameter("@Beds", SqlDbType.Int, record.Beds);
+                SqlParameter OptimumHCA = GetParameter("@OptimumStaffingHCA", SqlDbType.Int, record.OptimumHCA);
+                SqlParameter OptimumRN = GetParameter("@OptimumStaffingRN", SqlDbType.Int, record.OptimumRN);
+                SqlParameter SafeHCA = GetParameter("@SafeStaffingHCA", SqlDbType.Int, record.SafeHCA);
+                SqlParameter SafeRN = GetParameter("@SafeStaffingRN", SqlDbType.Int, record.SafeRN);
+                SqlParameter StaffingDateRangeIndex = GetParameter("@StaffingDateIndex", SqlDbType.Int, record.StaffingDateRangeIndex);
+
+                command.Parameters.Add(WardCode);
+                command.Parameters.Add(Shift);
+                command.Parameters.Add(StaffingDate);
+                command.Parameters.Add(Beds);
+                command.Parameters.Add(OptimumHCA);
+                command.Parameters.Add(OptimumRN);
+                command.Parameters.Add(SafeHCA);
+                command.Parameters.Add(SafeRN);
+                command.Parameters.Add(StaffingDateRangeIndex);
+
+                var results = command.ExecuteNonQuery();
+            }
         }
 
         public void InsertStaffing(DateTime startDate, DateTime endDate, int safeRN, int safeHCA, int optimumRN, int optimumHCA)

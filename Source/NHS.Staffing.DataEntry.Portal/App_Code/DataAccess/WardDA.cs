@@ -54,18 +54,20 @@ namespace Nhs.Staffing.DataEntry
             return allWards;
         }
 
-        public void AddWard(Ward record)
+        public bool AddWard(Ward record)
         {
-            AddOrUpdateWard(record, "InsertWard");
+            return AddOrUpdateWard(record, "InsertWard");
         }
 
-        public void UpdateWard(Ward record)
+        public bool UpdateWard(Ward record)
         {
-            AddOrUpdateWard(record, "UpdateWard");
+            return AddOrUpdateWard(record, "UpdateWard");
         }
 
-        public void AddOrUpdateWard(Ward record,string sp)
+        public bool AddOrUpdateWard(Ward record,string sp)
         {
+            bool isAddedOrUpdatedSuccessfully = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -84,7 +86,12 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(division);
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > -1)
+                    isAddedOrUpdatedSuccessfully = true;
             }
+
+            return isAddedOrUpdatedSuccessfully;
         }
 
         public void DeleteWard(Ward record)

@@ -50,6 +50,30 @@
                     <asp:Label ID="MessageLabel" runat="server" />
                 </div>
                 <ul class="formSection">
+                    <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
+                        <asp:DropDownList ID="WardName_DropDownList" runat="server" CssClass="defaultDropDown"
+                             AutoPostBack="True">
+                        </asp:DropDownList>
+                    </span></li>
+                    <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
+                        <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown"
+                            AutoPostBack="True">
+                        </asp:DropDownList>
+                    </span></li>
+                    <li><span class="formTitleFields">Day</span> <span class="formFieldControl">
+                        <asp:DropDownList ID="Day_DropDownList" runat="server" CssClass="defaultDropDown"
+                            AutoPostBack="True">
+                            <asp:ListItem>Monday</asp:ListItem>
+                            <asp:ListItem>Tuesday</asp:ListItem>
+                            <asp:ListItem>Wednesday</asp:ListItem>
+                            <asp:ListItem>Thursday</asp:ListItem>
+                            <asp:ListItem>Friday</asp:ListItem>
+                            <asp:ListItem>Saturday</asp:ListItem>
+                            <asp:ListItem>Sunday</asp:ListItem>
+                        </asp:DropDownList>
+                    </span></li>
+                </ul>
+                <ul class="formSection">
                     <li><span class="formTitleFields">Period Start Date</span> <span class="formFieldControl">
                         <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                         <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox"
@@ -61,7 +85,7 @@
                             runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
                     </span></li>
                     <li><span class="formTitleFields">Beds</span> <span class="formFieldControl">
-                        <asp:TextBox ID="BedsTextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                        <asp:TextBox ID="Beds_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                     </span></li>
                 </ul>
                 <ul class="formSection">

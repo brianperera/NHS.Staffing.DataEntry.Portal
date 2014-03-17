@@ -49,7 +49,22 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 PeriodStartDate_TextBox.Attributes.Add("readonly", "readonly");
                 PeriodEndDate_TextBox.Attributes.Add("readonly", "readonly");
+
+                BindInitialData();
             }
+        }
+
+        private void BindInitialData()
+        {
+            WardName_DropDownList.DataSource = DataRepository.Instance.AllWards;
+            WardName_DropDownList.DataTextField = "WardName";
+            WardName_DropDownList.DataValueField = "WardCode";
+            WardName_DropDownList.DataBind();
+
+            Shift_DropDownList.DataSource = DataRepository.Instance.AllShiftTypes;
+            Shift_DropDownList.DataTextField = "Name";
+            Shift_DropDownList.DataValueField = "ShiftID";
+            Shift_DropDownList.DataBind();
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)

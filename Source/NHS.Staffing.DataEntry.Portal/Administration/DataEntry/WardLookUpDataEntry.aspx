@@ -25,8 +25,8 @@
                     CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True">
                     <Columns>
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
-                        <asp:BoundField DataField="Devision" HeaderText="Devision" />
-                        <asp:BoundField DataField="WardDescription" HeaderText="Ward Description" />
+                        <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
+                        <%--<asp:BoundField DataField="Devision" HeaderText="Devision" />--%>
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
@@ -54,9 +54,6 @@
                     </span></li>
                     <li><span class="formTitleFields">Devision</span> <span class="formFieldControl">
                         <asp:TextBox ID="Devision_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
-                    </span></li>
-                    <li><span class="formTitleFields">Ward Description</span> <span class="formFieldControl">
-                        <asp:TextBox ID="WardDescription_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                     </span></li>
                 </ul>
                 <div>

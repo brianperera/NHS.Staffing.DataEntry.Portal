@@ -13,32 +13,18 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            BindInitialData();
+
             if (!IsPostBack)
             {
                 
             }
+        }
 
-            //TODO: Adding dummy values
-            DataTable userTable = new DataTable();
-            userTable.Columns.Add("WardCode", typeof(string));
-            userTable.Columns.Add("Devision", typeof(string));
-            userTable.Columns.Add("WardDescription", typeof(string));
-
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-            userTable.Rows.Add("Code1", "Devision1", "WardDescription");
-
+        private void BindInitialData()
+        {
             // Bind users to Grid.
-            WardData_Grid.DataSource = userTable;
+            WardData_Grid.DataSource = DataRepository.Instance.AllWards;
             WardData_Grid.DataBind();
         }
 

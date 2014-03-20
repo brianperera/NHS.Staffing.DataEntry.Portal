@@ -19,7 +19,7 @@ public class StaffingDateRangeDA : DataAccessBase
         {
             con.Open();
 
-            SqlCommand command = new SqlCommand("GetAllWards", con);
+            SqlCommand command = new SqlCommand("GetAllStaffingDateRange", con);
             command.CommandType = CommandType.StoredProcedure;
 
             var results = command.ExecuteReader();

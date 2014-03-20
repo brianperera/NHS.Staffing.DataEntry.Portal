@@ -62,18 +62,14 @@ namespace Nhs.Staffing.DataEntry
                         shift.SafeStaffingRN = tempInt;
                         int.TryParse(results["SafeStaffingHCA"].ToString(), out tempInt);
                         shift.SafeStaffingHCA = tempInt;
-                        int.TryParse(results["TodayTrustRN"].ToString(), out tempInt);
-                        shift.TodayTrustRN = tempInt;
-                        int.TryParse(results["TodayTrustHCA"].ToString(), out tempInt);
-                        shift.TodayTrustHCA = tempInt;
-                        int.TryParse(results["TodayBankRN"].ToString(), out tempInt);
-                        shift.TodayBankRN = tempInt;
-                        int.TryParse(results["TodayBankHCA"].ToString(), out tempInt);
-                        shift.TodayBankHCA = tempInt;
-                        int.TryParse(results["TodayNonTrustRN"].ToString(), out tempInt);
-                        shift.TodayNonTrustRN = tempInt;
-                        int.TryParse(results["TodayNonTrustHCA"].ToString(), out tempInt);
-                        shift.TodayNonTrustHCA = tempInt;
+                        
+                        
+                        shift.TodayTrustRN = results["TodayTrustRN"].ToString();
+                        shift.TodayTrustHCA = results["TodayTrustHCA"].ToString();
+                        shift.TodayBankRN = results["TodayBankRN"].ToString();
+                        shift.TodayBankHCA = results["TodayBankHCA"].ToString();
+                        shift.TodayNonTrustRN = results["TodayNonTrustRN"].ToString();
+                        shift.TodayNonTrustHCA = results["TodayNonTrustHCA"].ToString();
 
                         shift.DataEntryBy = results["DataEntryBy"].ToString();
 
@@ -223,18 +219,14 @@ namespace Nhs.Staffing.DataEntry
                         shift.SafeStaffingRN = tempInt;
                         int.TryParse(results["SafeStaffingHCA"].ToString(), out tempInt);
                         shift.SafeStaffingHCA = tempInt;
-                        int.TryParse(results["TodayTrustRN"].ToString(), out tempInt);
-                        shift.TodayTrustRN = tempInt;
-                        int.TryParse(results["TodayTrustHCA"].ToString(), out tempInt);
-                        shift.TodayTrustHCA = tempInt;
-                        int.TryParse(results["TodayBankRN"].ToString(), out tempInt);
-                        shift.TodayBankRN = tempInt;
-                        int.TryParse(results["TodayBankHCA"].ToString(), out tempInt);
-                        shift.TodayBankHCA = tempInt;
-                        int.TryParse(results["TodayNonTrustRN"].ToString(), out tempInt);
-                        shift.TodayNonTrustRN = tempInt;
-                        int.TryParse(results["TodayNonTrustHCA"].ToString(), out tempInt);
-                        shift.TodayNonTrustHCA = tempInt;
+
+
+                        shift.TodayTrustRN = results["TodayTrustRN"].ToString();
+                        shift.TodayTrustHCA = results["TodayTrustHCA"].ToString();
+                        shift.TodayBankRN = results["TodayBankRN"].ToString();
+                        shift.TodayBankHCA = results["TodayBankHCA"].ToString();
+                        shift.TodayNonTrustRN = results["TodayNonTrustRN"].ToString();
+                        shift.TodayNonTrustHCA = results["TodayNonTrustHCA"].ToString();
 
                         shift.DataEntryBy = results["DataEntryBy"].ToString();
 

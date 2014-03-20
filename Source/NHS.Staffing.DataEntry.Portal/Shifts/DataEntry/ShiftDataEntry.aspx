@@ -47,9 +47,9 @@
                     <div class="clear">
                     </div>
                     <div>
-                        <ul class="formSection">
-                            <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText">
-                                RN</span> <span class="formTitleFieldsWithoutFloat">HCA</span> </li>
+                        <ul class="formSection shortTextBox">
+                            <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
+                                RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>
                             <li><span class="formTitleFields">Optimum Staffing</span> <span class="formFieldControl">
                                 <asp:TextBox ID="RN_OptimumStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>

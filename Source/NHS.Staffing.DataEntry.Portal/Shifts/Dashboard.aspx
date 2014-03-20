@@ -140,8 +140,8 @@
                                         </tr>
                                 </HeaderTemplate>
                                 <ItemTemplate>
-                                    <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground'>" : ""%>
-                                    <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground'>" : ""%>
+                                    <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground hideRow'>" : ""%>
+                                    <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground hideRow'>" : ""%>
                                     <%# GetRowSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString())%>
                                     <%# GetColumnSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString(), Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())%>
                                     <td class="aquaBackground">
@@ -157,35 +157,32 @@
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingHCA%>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustRN%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustRN %>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustHCA%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayTrustHCA %>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankRN%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankRN %>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankHCA%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayBankHCA %>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustRN%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustRN %>
                                     </td>
                                     <td>
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA%>
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA %>
                                     </td>
-                                    <td class="redBackground">
-                                        <%# 
-                ((int)Eval("TodayTrustRN") + (int)Eval("TodayBankRN") +
-                                      (int)Eval("TodayNonTrustRN")) >= ((int)Eval("OptimumStaffingRN")) ? "Yes" : "No"
-                                        %>
+
+                                    <td>
+                                    <%# GetOptimumStaffingSummary(Eval("TodayTrustRN"), Eval("TodayBankRN"), Eval("TodayNonTrustRN"), Eval("OptimumStaffingRN"))%>
                                     </td>
-                                    <td class="redBackground">
-                                        <%# 
-                ((int)Eval("TodayTrustHCA") + (int)Eval("TodayBankHCA") +
-                                    (int)Eval("TodayNonTrustHCA")) >= ((int)Eval("OptimumStaffingHCA")) ? "Yes" : "No"
-                                        %>
+
+                                    <td>
+                                    <%# GetOptimumStaffingSummary(Eval("TodayTrustHCA"), Eval("TodayBankHCA"), Eval("TodayNonTrustHCA"), Eval("OptimumStaffingHCA")) %>
                                     </td>
+
                                     <td>
                                         <%# 
                 Eval("IsSafe").ToString() == "True" ? "Yes" : "No"

@@ -79,12 +79,12 @@ namespace Nhs.Staffing.DataEntry
         public int OptimumStaffingHCA { get; set; }
         public int SafeStaffingRN { get; set; }
         public int SafeStaffingHCA { get; set; }
-        public int TodayTrustRN { get; set; }
-        public int TodayTrustHCA { get; set; }
-        public int TodayBankRN { get; set; }
-        public int TodayBankHCA { get; set; }
-        public int TodayNonTrustRN { get; set; }
-        public int TodayNonTrustHCA { get; set; }
+        public string TodayTrustRN { get; set; }
+        public string TodayTrustHCA { get; set; }
+        public string TodayBankRN { get; set; }
+        public string TodayBankHCA { get; set; }
+        public string TodayNonTrustRN { get; set; }
+        public string TodayNonTrustHCA { get; set; }
         public string DataEntryBy { get; set; }
         public bool IsSafe { get; set; }
         public string UnSafeMitigation { get; set; }

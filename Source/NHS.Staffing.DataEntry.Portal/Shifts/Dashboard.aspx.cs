@@ -122,16 +122,31 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             if (string.Equals(IsDaySummary, "True"))
             {
-                return "<tr class='grayBackground'>";
+                return "<tr class='grayBackground hideRow'>";
             }
             else if (string.Equals(IsWeekSummary, "True"))
             {
-                return "<tr class='darkGrayBackground'>";
+                return "<tr class='darkGrayBackground hideRow'>";
             }
             else
             {
                 return string.Format("<tr>");
             }
+        }
+
+        protected string GetOptimumStaffingSummary(object todayTrustString, object todayBankString, object todayNonTrustString, object optimumStaffingString)
+        {
+            int todayTrust;
+            int todayBank;
+            int todayNonTrust;
+            int optimumStaffing;
+
+            int.TryParse(todayTrustString.ToString(), out todayTrust);
+            int.TryParse(todayBankString.ToString(), out todayBank);
+            int.TryParse(todayNonTrustString.ToString(), out todayNonTrust);
+            int.TryParse(optimumStaffingString.ToString(), out optimumStaffing); 
+
+            return (todayTrust + todayBank + todayNonTrust >= optimumStaffing) ? "Yes" : "No";
         }
     }
 }

@@ -18,6 +18,8 @@ namespace Nhs.Staffing.DataEntry.Portal
 
                 BindInitialData();
             }
+
+            MessageLabel.Visible = false;
         }
 
         private void BindInitialData()
@@ -49,7 +51,6 @@ namespace Nhs.Staffing.DataEntry.Portal
             if (string.IsNullOrEmpty(Date_TextBox.Text))
             {
                 DisplayMessage(executionStatus, "Date is Empty");
-                Clear();
 
                 return;
             }
@@ -69,7 +70,6 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             DisplayMessage(executionStatus);
-            Clear();
         }
 
         protected void ButtonSearch_Click(object sender, EventArgs e)
@@ -79,12 +79,14 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void DisplayMessage(bool executionStatus)
         {
+            MessageLabel.Visible = true;
             MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
         private void DisplayMessage(bool executionStatus, string message)
         {
+            MessageLabel.Visible = true;
             MessageLabel.Text = message;
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
@@ -132,34 +134,22 @@ namespace Nhs.Staffing.DataEntry.Portal
             record.SafeStaffingHCA = sshca;
 
             //TodayTrustRN
-            int ttrn;
-            int.TryParse(RN_TodayTrust_TextBox.Text, out ttrn);
-            record.TodayTrustRN = ttrn;
+            record.TodayTrustRN = RN_TodayTrust_TextBox.Text;
 
             //TodayTrustHCA
-            int tthca;
-            int.TryParse(HCA_TodayTrust_TextBox.Text, out tthca);
-            record.TodayTrustHCA = tthca;
+            record.TodayTrustHCA = HCA_TodayTrust_TextBox.Text;
 
             //TodayBankRN
-            int tbrn;
-            int.TryParse(RN_TodayBank_TextBox.Text, out tbrn);
-            record.TodayBankRN = tbrn;
+            record.TodayBankRN = RN_TodayBank_TextBox.Text;
 
             //TodayBankHCA
-            int tbhca;
-            int.TryParse(HCA_TodayBank_TextBox.Text, out tbhca);
-            record.TodayBankHCA = tbhca;
+            record.TodayBankHCA = HCA_TodayBank_TextBox.Text;
 
             //TodayNonTrustRN
-            int tntrn;
-            int.TryParse(RN_TodayNonTrust_TextBox.Text, out tntrn);
-            record.TodayNonTrustRN = tntrn;
+            record.TodayNonTrustRN = RN_TodayNonTrust_TextBox.Text;
 
             //TodayNonTrustHCA
-            int tnthca;
-            int.TryParse(HCA_TodayNonTrust_TextBox.Text, out tnthca);
-            record.TodayNonTrustHCA = tnthca;
+            record.TodayNonTrustHCA = HCA_TodayNonTrust_TextBox.Text;
 
             //Safe
             record.IsSafe = this.Safe_CheckBox.Checked;
@@ -252,18 +242,21 @@ namespace Nhs.Staffing.DataEntry.Portal
             RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
             //SafeStaffingHCA
             HCA_SafeStaffing_TextBox.Text = record.SafeStaffingHCA.ToString();
+            
+            
+            //Fix if defualt value is 0, empty string will be displayed.
             //TodayTrustRN
-            RN_TodayTrust_TextBox.Text = record.TodayTrustRN.ToString();
+            RN_TodayTrust_TextBox.Text = record.TodayTrustRN;
             //TodayTrustHCA
-            HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA.ToString();
+            HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA;
             //TodayBankRN
-            RN_TodayBank_TextBox.Text = record.TodayBankRN.ToString();
+            RN_TodayBank_TextBox.Text = record.TodayBankRN;
             //TodayBankHCA
-            HCA_TodayBank_TextBox.Text = record.TodayBankHCA.ToString();
+            HCA_TodayBank_TextBox.Text = record.TodayBankHCA;
             //TodayNonTrustRN
-            RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN.ToString();
+            RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN;
             //TodayNonTrustHCA
-            HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA.ToString();
+            HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
             //Safe
             Safe_CheckBox.Checked = record.IsSafe;
             //SafeMitigation

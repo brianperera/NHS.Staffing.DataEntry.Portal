@@ -21,14 +21,15 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 WardDataEntryFound_HiddenField.Text = "false";
             }
+
+            MessageLabel.Visible = false;
         }
 
         private void BindInitialData()
         {
-            
-
             // Bind users to Grid.
-            currentWards = DataRepository.Instance.AllWards;
+            WardDA wda = new WardDA();
+            currentWards = wda.GetAllWard();
             WardData_Grid.DataSource = currentWards;
             WardData_Grid.DataBind();
         }
@@ -63,12 +64,14 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void DisplayMessage(bool executionStatus)
         {
+            MessageLabel.Visible = true;
             MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
         private void DisplayMessage(bool executionStatus, string message)
         {
+            MessageLabel.Visible = true;
             MessageLabel.Text = message;
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
@@ -96,5 +99,26 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         }
 
+        protected void Refresh_Button_Click(object sender, EventArgs e)
+        {
+            //Dummy method
+        }
+
+        protected void Delete_Button_Click(object sender, EventArgs e)
+        {
+
+            WardDA wardDA = new WardDA();
+            Ward wardRecord = new Ward();
+            bool executionStatus = false;
+
+            // Update
+            wardRecord.WardCode = WardCode_TextBox.Text;
+            wardRecord.WardName = WardName_TextBox.Text;
+            wardRecord.Division = Devision_TextBox.Text;
+
+            executionStatus = wardDA.DeleteWard(wardRecord);
+
+            DisplayMessage(executionStatus, "Record Deleted");
+        }
     }
 }

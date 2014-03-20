@@ -41,14 +41,20 @@
                     <SortedDescendingHeaderStyle BackColor="#00547E" />
                 </asp:GridView>
             </div>
+            <div>
+                    <span>
+                        <asp:Button CssClass="submitButton" Text="Refresh Table" runat="server" 
+                            ID="Refresh_Button" onclick="Refresh_Button_Click"/>
+                    </span>
+            </div>
         </div>
         <div class="pagedata">
             <div>
+                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
+                    <ContentTemplate>
                 <div class="grid_24 error_msg">
                     <asp:Label ID="MessageLabel" runat="server" />
                 </div>
-                <asp:UpdatePanel ID="UpdatePanel1" runat="server">
-                    <ContentTemplate>
                         <ul class="formSection">
                             <li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
                                 <asp:TextBox ID="WardCode_TextBox" runat="server" ViewStateMode="Enabled" OnTextChanged="WardCode_TextBox_TextChanged"
@@ -67,14 +73,18 @@
                                 <asp:TextBox ID="Devision_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                             </span></li>
                         </ul>
-                        <asp:Label runat="server" ID="WardDataEntryFound_HiddenField" />
+                        <asp:Label runat="server" ID="WardDataEntryFound_HiddenField" CssClass="hideRow"/>
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <div>
-                    <li><span>
+                    <span>
                         <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                             OnClick="SubmitButton_Click" />
-                    </span></li>
+                    </span>
+                    <span>
+                        <asp:Button CssClass="deleteButton" Text="Delete" runat="server" 
+                        ID="Delete_Button" onclick="Delete_Button_Click"/>
+                    </span>
                 </div>
             </div>
         </div>

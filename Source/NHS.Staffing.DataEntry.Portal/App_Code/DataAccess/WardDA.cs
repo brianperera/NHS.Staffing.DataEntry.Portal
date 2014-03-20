@@ -78,7 +78,7 @@ namespace Nhs.Staffing.DataEntry
                 SqlParameter wardCode = GetParameter("@WardCode", SqlDbType.VarChar, record.WardCode);
                 SqlParameter name = GetParameter("@WardName", SqlDbType.VarChar, record.WardName);
                 SqlParameter beds = GetParameter("@Beds", SqlDbType.Int, record.NoOfBeds);
-                SqlParameter division = GetParameter("@Division", SqlDbType.Int, record.NoOfBeds);
+                SqlParameter division = GetParameter("@Division", SqlDbType.VarChar, record.Division);
 
                 command.Parameters.Add(wardCode);
                 command.Parameters.Add(name);
@@ -94,8 +94,10 @@ namespace Nhs.Staffing.DataEntry
             return isAddedOrUpdatedSuccessfully;
         }
 
-        public void DeleteWard(Ward record)
+        public bool DeleteWard(Ward record)
         {
+            bool isAddedOrUpdatedSuccessfully = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -106,7 +108,12 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(wardCode);
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > -1)
+                    isAddedOrUpdatedSuccessfully = true;
             }
+
+            return isAddedOrUpdatedSuccessfully;
         }
     }
 }

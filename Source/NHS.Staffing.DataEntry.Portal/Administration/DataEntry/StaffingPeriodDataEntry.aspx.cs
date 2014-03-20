@@ -24,36 +24,26 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void BindInitialData()
         {
-            //TODO: Adding dummy values
-            DataTable userTable = new DataTable();
-            userTable.Columns.Add("StartDate", typeof(DateTime));
-            userTable.Columns.Add("EndDate", typeof(DateTime));
-
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(7));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(6));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(5));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4));
-
             // Bind users to Grid.
-            PeriodData_Grid.DataSource = userTable;
+            StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+            PeriodData_Grid.DataSource = staffingDateRangeDA.GetAllStaffingDateRanges();
             PeriodData_Grid.DataBind();
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            
+            StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+            StaffingDateRange record = new StaffingDateRange();
+
+            DateTime startDate;
+            DateTime.TryParse(PeriodStartDate_TextBox.Text, out startDate);
+            record.StartDate = startDate;
+
+            DateTime endDate;
+            DateTime.TryParse(PeriodEndDate_TextBox.Text, out endDate);
+            record.EndDate = endDate;
+
+            staffingDateRangeDA.AddStaffingDateRange(record);
         }
 
         private void DisplayMessage(bool executionStatus)

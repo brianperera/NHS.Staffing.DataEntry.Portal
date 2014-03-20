@@ -66,7 +66,7 @@
                                     OnClick="SubmitButton_Click" />
                             </span>
                             <span>
-                                <asp:Button CssClass="submitButton" Text="Delete" runat="server" ID="DeleteButton"/>
+                                <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="DeleteButton"/>
                             </span>
                             </li>
                         </div>

@@ -50,18 +50,20 @@ public class StaffingDateRangeDA : DataAccessBase
         return data;
     }
 
-    public void AddStaffingDateRange(StaffingDateRange record)
+    public bool AddStaffingDateRange(StaffingDateRange record)
     {
-        AddOrUpdateStaffingDateRange(record, "InsertStaffingDateRange");
+        return AddOrUpdateStaffingDateRange(record, "InsertStaffingDateRange");
     }
 
-    public void UpdateStaffingDateRange(StaffingDateRange record)
+    public bool UpdateStaffingDateRange(StaffingDateRange record)
     {
-        AddOrUpdateStaffingDateRange(record, "UpdateStaffingDateRange");
+        return AddOrUpdateStaffingDateRange(record, "UpdateStaffingDateRange");
     }
 
-    public void AddOrUpdateStaffingDateRange(StaffingDateRange record, string sp)
+    public bool AddOrUpdateStaffingDateRange(StaffingDateRange record, string sp)
     {
+        bool isrecordAddedOrUpdated = false;
+
         using (SqlConnection con = GetConnection())
         {
             con.Open();
@@ -83,7 +85,12 @@ public class StaffingDateRangeDA : DataAccessBase
             command.Parameters.Add(EndDate);
 
             var results = command.ExecuteNonQuery();
+
+            if (results > -1)
+                isrecordAddedOrUpdated = true;
         }
+
+        return isrecordAddedOrUpdated;
     }
 
     public void DeleteWard(StaffingDateRange record)

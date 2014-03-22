@@ -57,7 +57,7 @@
                                 <asp:TextBox ID="HCA_OptimumStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span></li>
-                            <li><span class="formTitleFields">Safe Staffing</span> <span class="formFieldControl">
+                            <li><span class="formTitleFields">Minimum Safe Staffing</span> <span class="formFieldControl">
                                 <asp:TextBox ID="RN_SafeStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span><span class="formFieldControl">

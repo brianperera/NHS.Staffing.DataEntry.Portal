@@ -25,4 +25,6 @@ public class StaffingData
     public int OptimumRN { get; set; }
     public int OptimumHCA { get; set; }
     public int StaffingDateRangeIndex { get; set; }
+    public DateTime PeriodStartDate { get; set; }
+    public DateTime PeriodEndDate { get; set; }
 }

@@ -6,57 +6,53 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
 using System.Data;
+using System.Globalization;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
     public partial class StaffingDataEntry : System.Web.UI.Page
     {
+        IList<Ward> currentWards = null;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            //TODO: Adding dummy values
-            DataTable userTable = new DataTable();
-            userTable.Columns.Add("StartDate", typeof(DateTime));
-            userTable.Columns.Add("EndDate", typeof(DateTime));
-            userTable.Columns.Add("Beds", typeof(int));
-            userTable.Columns.Add("OptimumStaffingRN", typeof(int));
-            userTable.Columns.Add("OptimumStaffingHCA", typeof(int));
-            userTable.Columns.Add("SafeStaffingRN", typeof(int));
-            userTable.Columns.Add("SafeStaffingHCA", typeof(int));
-
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(7).ToShortDateString(), 10, 1, 1, 1, 1);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(6).ToShortDateString(), 20, 2, 1, 1, 1);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(5).ToShortDateString(), 30, 1, 3, 1, 1);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-            userTable.Rows.Add(DateTime.Now.ToShortDateString(), DateTime.Now.AddDays(4).ToShortDateString(), 40, 5, 1, 1, 2);
-
             // Bind users to Grid.
-            StaffingData_Grid.DataSource = userTable;
+            StaffingDataDA staffingDataDA = new StaffingDataDA();
+            StaffingData_Grid.DataSource = staffingDataDA.GetAllStaffing(); ;
             StaffingData_Grid.DataBind();
-
 
             if (!IsPostBack)
             {
+                StaffingDataEntryFound_HiddenField.Text = "false";
+
                 BindInitialData();
             }
+
+            MessageLabel.Visible = false;
         }
 
         private void BindInitialData()
         {
-            WardName_DropDownList.DataSource = DataRepository.Instance.AllWards;
+            StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+            List<StaffingDateRange> staffingDates = staffingDateRangeDA.GetAllStaffingDateRanges();
+
+            currentWards = DataRepository.Instance.AllWards;
+            WardName_DropDownList.DataSource = currentWards;
             WardName_DropDownList.DataTextField = "WardName";
             WardName_DropDownList.DataValueField = "WardCode";
             WardName_DropDownList.DataBind();
+
+            //Modify the date range text
+            foreach (StaffingDateRange staffingDate in staffingDates)
+            {
+                staffingDate.DisplayPeriod = string.Format("{0} to {1}", staffingDate.StartDate.ToShortDateString(),
+                    staffingDate.EndDate.ToShortDateString());
+            }
+
+            DatePeriodRange_DropDownList.DataSource = staffingDates;
+            DatePeriodRange_DropDownList.DataTextField = "DisplayPeriod";
+            DatePeriodRange_DropDownList.DataValueField = "Index";
+            DatePeriodRange_DropDownList.DataBind();
 
             Shift_DropDownList.DataSource = DataRepository.Instance.AllShiftTypes;
             Shift_DropDownList.DataTextField = "Name";
@@ -66,13 +62,143 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            
+            bool executionStatus = false;
+            StaffingDataDA staffingDataDA = new StaffingDataDA();
+            StaffingData staffingData = new StaffingData();
+
+            staffingData.WardCode = WardName_DropDownList.SelectedItem.Value;
+            staffingData.Shift = Shift_DropDownList.SelectedItem.Text;
+            staffingData.StaffingDate = Day_DropDownList.SelectedItem.Text;
+
+            //Shift ID
+            int shid;
+            int.TryParse(Shift_DropDownList.SelectedItem.Value, out shid);
+            staffingData.ShiftID = shid;
+
+            //Staffing date range index
+            int sdri;
+            int.TryParse(DatePeriodRange_DropDownList.SelectedItem.Value, out sdri);
+            staffingData.StaffingDateRangeIndex = sdri;
+
+            //Beds
+            int beds;
+            int.TryParse(Beds_TextBox.Text, out beds);
+            staffingData.Beds = beds;
+
+            //RN Optimum Staffing
+            int rnos;
+            int.TryParse(RN_OptimumStaffing_TextBox.Text, out rnos);
+            staffingData.OptimumRN = rnos;
+
+            //HCA Optimum Staffing
+            int hcaos;
+            int.TryParse(HCA_OptimumStaffing_TextBox.Text, out hcaos);
+            staffingData.OptimumHCA = hcaos;
+
+            //RN Safe Staffing
+            int rnss;
+            int.TryParse(RN_SafeStaffing_TextBox.Text, out rnss);
+            staffingData.SafeRN = rnss;
+
+            //HCA Safe Staffing
+            int hcass;
+            int.TryParse(HCA_SafeStaffing_TextBox.Text, out hcass);
+            staffingData.SafeHCA = hcass;
+
+            if (StaffingDataEntryFound_HiddenField.Text.Equals("true"))
+            {
+                //update
+                executionStatus = staffingDataDA.UpdateStaffingData(staffingData);
+            }
+            else
+            {
+                //add
+                executionStatus = staffingDataDA.AddStaffingData(staffingData);
+            }
+
+            DisplayMessage(executionStatus);
         }
 
         private void DisplayMessage(bool executionStatus)
         {
+            MessageLabel.Visible = true;
             MessageLabel.Text = executionStatus == true ? "Record Updated Successfully" : "Record Not Updated";
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
-    }
+
+        private void DisplayMessage(bool executionStatus, string message)
+        {
+            MessageLabel.Visible = true;
+            MessageLabel.Text = message;
+            MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
+        }
+
+        protected void WardName_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataForUpdate();
+        }
+
+        protected void Shift_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataForUpdate();
+        }
+
+        protected void Day_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataForUpdate();
+        }
+
+        protected void DatePeriodRange_DropDownList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            LoadDataForUpdate();
+        }
+
+        private void LoadDataForUpdate()
+        {
+            StaffingDataDA staffingDataDA = new StaffingDataDA();
+            List<StaffingData> staffingData = new List<StaffingData>();
+
+            staffingData = staffingDataDA.GetAllStaffing();
+
+            //Staffing date range index
+            int sdri;
+            int.TryParse(DatePeriodRange_DropDownList.SelectedItem.Value, out sdri);
+
+            foreach (var staffingDataItem in staffingData)
+            {
+                if (staffingDataItem.WardCode == WardName_DropDownList.SelectedItem.Value &&
+                    staffingDataItem.Shift == Shift_DropDownList.SelectedItem.Text &&
+                    staffingDataItem.StaffingDate == Day_DropDownList.SelectedItem.Text &&
+                    staffingDataItem.StaffingDateRangeIndex == sdri)
+                {
+                    //populate the data for update
+                    Beds_TextBox.Text = staffingDataItem.Beds.ToString(CultureInfo.InstalledUICulture);
+                    RN_OptimumStaffing_TextBox.Text = staffingDataItem.OptimumRN.ToString(CultureInfo.InstalledUICulture);
+                    HCA_OptimumStaffing_TextBox.Text = staffingDataItem.OptimumHCA.ToString(CultureInfo.InstalledUICulture);
+                    RN_SafeStaffing_TextBox.Text = staffingDataItem.SafeRN.ToString(CultureInfo.InstalledUICulture);
+                    HCA_SafeStaffing_TextBox.Text = staffingDataItem.SafeHCA.ToString(CultureInfo.InstalledUICulture);
+
+                    StaffingDataEntryFound_HiddenField.Text = "true";
+
+                    break;
+                }
+                else
+                {
+                    ClearFields();
+                }
+            }
+        }
+
+        private void ClearFields()
+        {
+            //populate the data for update
+            Beds_TextBox.Text = string.Empty;
+            RN_OptimumStaffing_TextBox.Text = string.Empty;
+            HCA_OptimumStaffing_TextBox.Text = string.Empty;
+            RN_SafeStaffing_TextBox.Text = string.Empty;
+            HCA_SafeStaffing_TextBox.Text = string.Empty;
+
+            StaffingDataEntryFound_HiddenField.Text = "false";
+        }
+}
 }

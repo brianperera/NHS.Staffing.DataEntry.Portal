@@ -54,7 +54,7 @@
                                                 Optimum staffing
                                             </th>
                                             <th colspan="2">
-                                                Safe staffing
+                                                Minimum Safe Staffing
                                             </th>
                                             <th colspan="2">
                                                 Today Trust
@@ -66,7 +66,7 @@
                                                 Today Non Trust
                                             </th>
                                             <th colspan="2">
-                                                Was the ward at optimum staffing?
+                                                Was the ward at minimum safe staffing?
                                             </th>
                                             <th>
                                                 Safe?

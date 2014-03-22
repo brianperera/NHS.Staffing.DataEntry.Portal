@@ -35,6 +35,9 @@ namespace Nhs.Staffing.DataEntry
                 if (results.HasRows)
                 {
                     StaffingData ward;
+                    StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+                    List<StaffingDateRange> staffingDateRanges = staffingDateRangeDA.GetAllStaffingDateRanges();
+
                     int tempInt;
 
                     while (results.Read())
@@ -56,7 +59,19 @@ namespace Nhs.Staffing.DataEntry
                         if (int.TryParse(results["Optimum Staffing HCA"].ToString(), out tempInt))
                              ward.OptimumHCA = tempInt;
                         if (int.TryParse(results["StaffingDateIndex"].ToString(), out tempInt))
+                        {
                             ward.StaffingDateRangeIndex = tempInt;
+
+                            var staffingDateRange = (from p in staffingDateRanges
+                                           where p.Index == tempInt
+                                           select p).SingleOrDefault();
+
+                            if (staffingDateRange != null)
+                            {
+                                ward.PeriodStartDate = staffingDateRange.StartDate;
+                                ward.PeriodEndDate = staffingDateRange.StartDate;
+                            }
+                        }
 
                         allWards.Add(ward);
                     }
@@ -66,18 +81,20 @@ namespace Nhs.Staffing.DataEntry
             return allWards;
         }
 
-        public void AddStaffingData(StaffingData record)
+        public bool AddStaffingData(StaffingData record)
         {
-            AddOrUpdateStaffingData(record, "InsertStaffing");
+            return AddOrUpdateStaffingData(record, "InsertStaffing");
         }
 
-        public void UpdateStaffingData(StaffingData record)
+        public bool UpdateStaffingData(StaffingData record)
         {
-            AddOrUpdateStaffingData(record, "UpdateStaffing");
+            return AddOrUpdateStaffingData(record, "UpdateStaffing");
         }
 
-        public void AddOrUpdateStaffingData(StaffingData record, string sp)
+        public bool AddOrUpdateStaffingData(StaffingData record, string sp)
         {
+            bool isSuccess = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -106,7 +123,12 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(StaffingDateRangeIndex);
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > 0)
+                    isSuccess = true;
             }
+
+            return isSuccess;
         }
 
         public void InsertStaffing(DateTime startDate, DateTime endDate, int safeRN, int safeHCA, int optimumRN, int optimumHCA)

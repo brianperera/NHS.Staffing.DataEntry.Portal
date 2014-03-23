@@ -12,6 +12,7 @@ public class StaffingDateRange
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }
     public string DisplayPeriod { get; set; }
+    public string EndDateUnknownText { get; set; }
 
 	public StaffingDateRange()
 	{

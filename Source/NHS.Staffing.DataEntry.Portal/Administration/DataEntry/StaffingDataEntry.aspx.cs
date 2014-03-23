@@ -26,6 +26,8 @@ namespace Nhs.Staffing.DataEntry.Portal
                 StaffingDataEntryFound_HiddenField.Text = "false";
 
                 BindInitialData();
+
+                LoadDataForUpdate();
             }
 
             MessageLabel.Visible = false;
@@ -45,8 +47,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             //Modify the date range text
             foreach (StaffingDateRange staffingDate in staffingDates)
             {
-                staffingDate.DisplayPeriod = string.Format("{0} to {1}", staffingDate.StartDate.ToShortDateString(),
-                    staffingDate.EndDate.ToShortDateString());
+                string startDate = staffingDate.StartDate.ToShortDateString();
+                string endDate = staffingDate.EndDate.ToShortDateString();
+
+                if (endDate == "01/01/0001")
+                    endDate = Constants.EndDateNotSpecified;
+
+                staffingDate.DisplayPeriod = string.Format("{0} to {1}", startDate, endDate);
             }
 
             DatePeriodRange_DropDownList.DataSource = staffingDates;
@@ -200,5 +207,18 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             StaffingDataEntryFound_HiddenField.Text = "false";
         }
-}
+
+        protected void StaffingData_Grid_RowDataBound(object sender, GridViewRowEventArgs e)
+        {
+            if (e.Row.DataItem != null)
+            {
+                var cellText = e.Row.Cells[2];
+
+                if (cellText != null && cellText.Text.ToString() == "01/01/0001 00:00:00")
+                {
+                    cellText.Text = Constants.EndDateNotSpecified;
+                }
+            }
+        }
+    }
 }

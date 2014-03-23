@@ -11,5 +11,6 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         public const string Update = "update";
         public const string Create = "add";
+        public const string EndDateNotSpecified = "End Date Not Specified";
     }
 }

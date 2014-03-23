@@ -22,7 +22,9 @@
             <div class="subSections regularTable">
                 <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                    CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True">
+                    CssClass="grid" AllowPaging="True" AllowSorting="True" 
+                    EnableSortingAndPagingCallbacks="True" 
+                    onrowdatabound="StaffingData_Grid_RowDataBound">
                     <Columns>
                         <asp:BoundField DataField="StaffingDateRangeIndex" HeaderText="Period" />
                         <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" />

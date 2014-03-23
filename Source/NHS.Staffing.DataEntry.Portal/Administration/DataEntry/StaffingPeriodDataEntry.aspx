@@ -23,11 +23,14 @@
                         <h3>
                             Current Staffing Periods</h3>
                     </div>
-                    <div class="subSections regularTable">
+                    <div class="subSections regularTable periodGrid">
                         <asp:GridView ID="PeriodData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                             BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                            CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True">
+                            CssClass="grid" AllowPaging="True" AllowSorting="True" 
+                            EnableSortingAndPagingCallbacks="True" 
+                            onrowdatabound="PeriodData_Grid_RowDataBound">
                             <Columns>
+                                <asp:BoundField DataField="Index" HeaderText="Index" />
                                 <asp:BoundField DataField="StartDate" HeaderText="Start Period" />
                                 <asp:BoundField DataField="EndDate" HeaderText="End Period" />
                             </Columns>
@@ -49,6 +52,9 @@
                             <asp:Label ID="MessageLabel" runat="server" />
                         </div>
                         <ul class="formSection">
+                            <li><span class="formTitleFields">Period Index (For Delete)</span> <span class="formFieldControl">
+                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                            </span></li>
                             <li><span class="formTitleFields">Start Period</span> <span class="formFieldControl">
                                 <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                                 <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox"
@@ -60,17 +66,18 @@
                                     runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
                             </span></li>
                         </ul>
+                    </div>
                         <div>
                             <li><span>
                                 <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                                     OnClick="SubmitButton_Click" />
                             </span>
                             <span>
-                                <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="DeleteButton"/>
+                                <asp:Button CssClass="deleteButton" Text="Delete" runat="server" 
+                                    ID="DeleteButton" onclick="DeleteButton_Click1"/>
                             </span>
                             </li>
                         </div>
-                    </div>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

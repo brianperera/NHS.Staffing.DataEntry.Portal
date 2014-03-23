@@ -93,8 +93,10 @@ public class StaffingDateRangeDA : DataAccessBase
         return isrecordAddedOrUpdated;
     }
 
-    public void DeleteWard(StaffingDateRange record)
+    public bool DeleteStaffingdateRange(StaffingDateRange record)
     {
+        bool executionStatus = false;
+
         using (SqlConnection con = GetConnection())
         {
             con.Open();
@@ -105,7 +107,12 @@ public class StaffingDateRangeDA : DataAccessBase
             command.Parameters.Add(Index);
 
             var results = command.ExecuteNonQuery();
+
+            if (results > 0)
+                executionStatus = true; 
         }
+
+        return executionStatus;
     }
 
 	public StaffingDateRangeDA()

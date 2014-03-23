@@ -69,7 +69,7 @@ namespace Nhs.Staffing.DataEntry
                             if (staffingDateRange != null)
                             {
                                 ward.PeriodStartDate = staffingDateRange.StartDate;
-                                ward.PeriodEndDate = staffingDateRange.StartDate;
+                                ward.PeriodEndDate = staffingDateRange.EndDate;
                             }
                         }
 

@@ -213,19 +213,19 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
 
             string wardCode = WardName_DropDownList.SelectedItem.Value;
-            DateTime date;
+            DateTime currentDate;
             ShiftRecordDA sda;
 
             //ShiftID
             int shiftID = -1;
             int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
-            DateTime.TryParse(Date_TextBox.Text, out date);
+            DateTime.TryParse(Date_TextBox.Text, out currentDate);
 
-            if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || date == null)
+            if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || currentDate == null)
                 return;
 
             sda = new ShiftRecordDA();
-            ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
+            ShiftRecord record = sda.GetShiftRecord(currentDate, wardCode, shiftID);
 
             if (record.ShiftRecordExists)
                 ShiftDataEntryFound_HiddenField.Value = "true";
@@ -242,8 +242,8 @@ namespace Nhs.Staffing.DataEntry.Portal
             RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
             //SafeStaffingHCA
             HCA_SafeStaffing_TextBox.Text = record.SafeStaffingHCA.ToString();
-            
-            
+
+
             //Fix if defualt value is 0, empty string will be displayed.
             //TodayTrustRN
             RN_TodayTrust_TextBox.Text = record.TodayTrustRN;
@@ -270,32 +270,62 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 //Shift Name
                 string shiftName = Shift_DropDownList.SelectedItem.Text;
-                
+
                 //ShiftRecord record = sda.GetShiftRecord(date, wardCode, shiftID);
-                StaffingData staffingDataRwcord = new StaffingData();
+                StaffingData staffingDataRecord = new StaffingData();
                 IList<StaffingData> allStaffing = DataRepository.Instance.AllStaffing;
+
+                StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+                List<StaffingDateRange> staffingDateRange = new List<StaffingDateRange>();
+                staffingDateRange = staffingDateRangeDA.GetAllStaffingDateRanges();
+
+                // This is the logic that loads the optimum/safe staffing values according to the current date
+
+                int currentDatePeriodIndex = 0;
+
+                foreach (StaffingDateRange item in staffingDateRange)
+                {
+                    if (IsCurrentDateInSpecifiedDatePeriod(currentDate, item.StartDate, item.EndDate))
+                    {
+                        currentDatePeriodIndex = item.Index;
+                        break;
+                    }
+                }
 
                 foreach (StaffingData item in allStaffing)
                 {
-                    if (wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == date.ToString("dddd"))
+                    if (item.StaffingDateRangeIndex == currentDatePeriodIndex && wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == currentDate.ToString("dddd"))
                     {
-                        staffingDataRwcord = item;
+                        staffingDataRecord = item;
                         break;
                     }
                 }
 
                 //Beds   
-                Beds_TextBox.Text = staffingDataRwcord.Beds.ToString();
+                Beds_TextBox.Text = staffingDataRecord.Beds.ToString();
                 //OptimumStaffingRN
-                RN_OptimumStaffing_TextBox.Text = staffingDataRwcord.OptimumRN.ToString();
+                RN_OptimumStaffing_TextBox.Text = staffingDataRecord.OptimumRN.ToString();
                 //OptimumStaffingHCA
-                HCA_OptimumStaffing_TextBox.Text = staffingDataRwcord.OptimumHCA.ToString();
+                HCA_OptimumStaffing_TextBox.Text = staffingDataRecord.OptimumHCA.ToString();
                 //SafeStaffingRN
-                RN_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeRN.ToString();
+                RN_SafeStaffing_TextBox.Text = staffingDataRecord.SafeRN.ToString();
                 //SafeStaffingHCA
-                HCA_SafeStaffing_TextBox.Text = staffingDataRwcord.SafeHCA.ToString();            
+                HCA_SafeStaffing_TextBox.Text = staffingDataRecord.SafeHCA.ToString();
             }
 
+        }
+
+        private bool IsCurrentDateInSpecifiedDatePeriod(DateTime dateToCheck, DateTime startDate, DateTime endDate)
+        {
+            // if end date is not specified
+            if (endDate.ToShortDateString() == "01/01/0001")
+            {
+                return dateToCheck >= startDate;
+            }
+            else
+            {
+                return dateToCheck >= startDate && dateToCheck <= endDate;
+            }
         }
     }
 }

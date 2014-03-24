@@ -507,6 +507,11 @@ div.accountInfo
     text-align:center;
 }
 
+.shortSpan
+{
+    width:70px !important;    
+}
+
 .formTitleFieldsWithoutFloat
 {
     width:200px;    

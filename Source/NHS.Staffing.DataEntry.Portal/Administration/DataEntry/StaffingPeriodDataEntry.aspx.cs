@@ -11,6 +11,9 @@ namespace Nhs.Staffing.DataEntry.Portal
 {
     public partial class StaffingPeriodDataEntry : System.Web.UI.Page
     {
+        // Bind users to Grid.
+        StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+
         protected void Page_Load(object sender, EventArgs e)
         {
             BindInitialData();
@@ -26,19 +29,12 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void BindInitialData()
         {
-            // Bind users to Grid.
-            StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
-
-            //01/01/0001 00:00:00
-            List<StaffingDateRange> staffingDateRanges = staffingDateRangeDA.GetAllStaffingDateRanges();
-
-            PeriodData_Grid.DataSource = staffingDateRanges;
+            PeriodData_Grid.DataSource = StaffingDateRanges;
             PeriodData_Grid.DataBind();
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
             StaffingDateRange record = new StaffingDateRange();
 
             DateTime startDate;
@@ -49,8 +45,34 @@ namespace Nhs.Staffing.DataEntry.Portal
             DateTime.TryParse(PeriodEndDate_TextBox.Text, out endDate);
             record.EndDate = endDate;
 
-            staffingDateRangeDA.AddStaffingDateRange(record);
+            if (PeriodEntryFound_HiddenField.Text == "true")
+            {
+                //update
+                int currentPeriodIndex = 0;
+                int.TryParse(PeriodIndex_TextBox.Text, out currentPeriodIndex);
+
+                if (currentPeriodIndex > 0)
+                {
+                    record.Index = currentPeriodIndex;
+                    staffingDateRangeDA.UpdateStaffingDateRange(record);
+                }
+            }
+            else
+            {
+                //add
+                staffingDateRangeDA.AddStaffingDateRange(record);
+            }
+
+            ClearFields();
+            
             BindInitialData();
+        }
+
+        private void ClearFields()
+        {
+            PeriodIndex_TextBox.Text = string.Empty;
+            PeriodStartDate_TextBox.Text = string.Empty;
+            PeriodEndDate_TextBox.Text = string.Empty;
         }
 
         private void DisplayMessage(bool executionStatus)
@@ -84,17 +106,59 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             if (!string.IsNullOrEmpty(PeriodIndex_TextBox.Text))
             {
-                StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
                 StaffingDateRange record = new StaffingDateRange();
                 record.Index = int.Parse(PeriodIndex_TextBox.Text);
 
                 bool executionStatus = staffingDateRangeDA.DeleteStaffingdateRange(record);
                 DisplayMessage(executionStatus);
+                ClearFields();
                 BindInitialData();
             }
-            else            
+            else
                 DisplayMessage(false, "Specify the Period Index");
 
+        }
+
+        protected void PeriodIndex_TextBox_TextChanged(object sender, EventArgs e)
+        {
+
+            int currentPeriodIndex = 0;
+
+            int.TryParse(PeriodIndex_TextBox.Text, out currentPeriodIndex);
+
+            if (currentPeriodIndex > 0)
+            {
+                var currentPeriodDataitem = (from p in StaffingDateRanges
+                                             where p.Index == currentPeriodIndex
+                                             select p).SingleOrDefault();
+
+                PeriodStartDate_TextBox.Text = currentPeriodDataitem.StartDate.ToShortDateString();
+                PeriodEndDate_TextBox.Text = currentPeriodDataitem.EndDate.ToShortDateString();
+                DeleteButton.Enabled = true;
+                PeriodEntryFound_HiddenField.Text = "true";
+            }
+            else
+            {
+                PeriodStartDate_TextBox.Text = string.Empty;
+                PeriodEndDate_TextBox.Text = string.Empty;
+                PeriodEntryFound_HiddenField.Text = "false";
+            }
+        }
+
+        public List<StaffingDateRange> StaffingDateRanges
+        {
+            get
+            {
+                return staffingDateRangeDA.GetAllStaffingDateRanges();
+            }
+        }
+
+        protected void EndDateUnknownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            if (EndDateUnknownCheckBox.Checked)
+            {
+                PeriodEndDate_TextBox.Text = string.Empty;
+            }
         }
     }
 }

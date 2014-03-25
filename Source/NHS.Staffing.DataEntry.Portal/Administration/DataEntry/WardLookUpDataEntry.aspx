@@ -83,7 +83,7 @@
                     </span>
                     <span>
                         <asp:Button CssClass="deleteButton" Text="Delete" runat="server" 
-                        ID="Delete_Button" onclick="Delete_Button_Click"/>
+                        ID="Delete_Button" Enabled="false" onclick="Delete_Button_Click"/>
                     </span>
                 </div>
             </div>

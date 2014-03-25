@@ -131,8 +131,10 @@ namespace Nhs.Staffing.DataEntry
             return isSuccess;
         }
 
-        public void DeleteStaffingData(StaffingData record)
+        public bool DeleteStaffingData(StaffingData record)
         {
+            bool isSuccessful = false;
+
             using (SqlConnection con = GetConnection())
             {
                 con.Open();
@@ -140,10 +142,10 @@ namespace Nhs.Staffing.DataEntry
                 SqlCommand command = new SqlCommand("DeleteStaffing", con);
                 command.CommandType = CommandType.StoredProcedure;
 
-                SqlParameter WardCode = GetParameter("@WardCode", SqlDbType.Int, record.ShiftID);
-                SqlParameter Shift = GetParameter("@Shift", SqlDbType.Int, record.ShiftID);
-                SqlParameter Day = GetParameter("@Day", SqlDbType.Int, record.ShiftID);
-                SqlParameter StaffingDateIndex = GetParameter("@StaffingDateIndex", SqlDbType.Int, record.ShiftID);
+                SqlParameter WardCode = GetParameter("@WardCode", SqlDbType.VarChar, record.WardCode);
+                SqlParameter Shift = GetParameter("@Shift", SqlDbType.VarChar, record.Shift);
+                SqlParameter Day = GetParameter("@Day", SqlDbType.VarChar, record.StaffingDate);
+                SqlParameter StaffingDateIndex = GetParameter("@StaffingDateIndex", SqlDbType.Int, record.StaffingDateRangeIndex);
 
                 command.Parameters.Add(WardCode);
                 command.Parameters.Add(Shift);
@@ -151,6 +153,11 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(StaffingDateIndex);
 
                 var results = command.ExecuteNonQuery();
+
+                if (results > 0)
+                    isSuccessful = true;
+
+                return isSuccessful;
             }
         }
 

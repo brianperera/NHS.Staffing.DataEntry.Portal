@@ -695,6 +695,18 @@ div.accountInfoCentered
     background: linear-gradient(#CC0000, #FF0000);
 }
 
+.aspNetDisabled
+{
+    border: 1px solid #B7B7B7;
+    background: #B7B7B7;
+    background: -webkit-gradient(linear, 0 0, 0 bottom, from(#B7B7B7), to(#E6E3E3));
+    background: -webkit-linear-gradient(#B7B7B7, #E6E3E3);
+    background: -moz-linear-gradient(#B7B7B7, #E6E3E3);
+    background: -ms-linear-gradient(#B7B7B7, #E6E3E3);
+    background: -o-linear-gradient(#B7B7B7, #E6E3E3);
+    background: linear-gradient(#B7B7B7, #E6E3E3);
+}
+
 .login_container
 {
     position: absolute;

@@ -53,7 +53,9 @@
                         </div>
                         <ul class="formSection">
                             <li><span class="formTitleFields">Period Index (For Delete)</span> <span class="formFieldControl">
-                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" runat="server" ViewStateMode="Enabled"></asp:TextBox>
+                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" 
+                                    runat="server" ViewStateMode="Enabled" AutoPostBack="True" 
+                                    ontextchanged="PeriodIndex_TextBox_TextChanged"></asp:TextBox>
                             </span></li>
                             <li><span class="formTitleFields">Start Period</span> <span class="formFieldControl">
                                 <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
@@ -64,6 +66,11 @@
                                 <asp:TextBox ID="PeriodEndDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                                 <asp:CalendarExtender ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox"
                                     runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
+                                <span>
+                                    <asp:CheckBox ID="EndDateUnknownCheckBox" 
+                                    ToolTip="Check if End Date is Unknown" runat="server" AutoPostBack="True" 
+                                    oncheckedchanged="EndDateUnknownCheckBox_CheckedChanged" />
+                                </span>
                             </span></li>
                         </ul>
                     </div>
@@ -74,10 +81,11 @@
                             </span>
                             <span>
                                 <asp:Button CssClass="deleteButton" Text="Delete" runat="server" 
-                                    ID="DeleteButton" onclick="DeleteButton_Click1"/>
+                                    ID="DeleteButton" onclick="DeleteButton_Click1" Enabled="false"/>
                             </span>
                             </li>
                         </div>
+                        <asp:Label runat="server" ID="PeriodEntryFound_HiddenField" CssClass="hideRow"/>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

@@ -114,10 +114,14 @@
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <div>
-                    <li><span>
+                    <span>
                         <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                             OnClick="SubmitButton_Click" />
-                    </span></li>
+                    </span>
+                    <span>
+                        <asp:Button CssClass="deleteButton" Enabled="false" Text="Delete" runat="server" 
+                        ID="DeleteButton" onclick="DeleteButton_Click"/>
+                    </span>
                 </div>
             </div>
         </div>

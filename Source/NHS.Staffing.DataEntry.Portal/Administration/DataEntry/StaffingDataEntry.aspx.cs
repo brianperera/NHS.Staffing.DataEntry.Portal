@@ -13,13 +13,11 @@ namespace Nhs.Staffing.DataEntry.Portal
     public partial class StaffingDataEntry : System.Web.UI.Page
     {
         IList<Ward> currentWards = null;
+        StaffingDataDA staffingDataDA = new StaffingDataDA();
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            // Bind users to Grid.
-            StaffingDataDA staffingDataDA = new StaffingDataDA();
-            StaffingData_Grid.DataSource = staffingDataDA.GetAllStaffing(); ;
-            StaffingData_Grid.DataBind();
+            PopulateDataGrid();
 
             if (!IsPostBack)
             {
@@ -31,6 +29,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             MessageLabel.Visible = false;
+        }
+
+        private void PopulateDataGrid()
+        {
+            // Bind users to Grid.
+            StaffingData_Grid.DataSource = staffingDataDA.GetAllStaffing(); ;
+            StaffingData_Grid.DataBind();
         }
 
         private void BindInitialData()
@@ -70,7 +75,6 @@ namespace Nhs.Staffing.DataEntry.Portal
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
             bool executionStatus = false;
-            StaffingDataDA staffingDataDA = new StaffingDataDA();
             StaffingData staffingData = new StaffingData();
 
             staffingData.WardCode = WardName_DropDownList.SelectedItem.Value;
@@ -116,11 +120,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 //update
                 executionStatus = staffingDataDA.UpdateStaffingData(staffingData);
+                PopulateDataGrid();
             }
             else
             {
                 //add
                 executionStatus = staffingDataDA.AddStaffingData(staffingData);
+                PopulateDataGrid();
             }
 
             DisplayMessage(executionStatus);
@@ -162,7 +168,6 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void LoadDataForUpdate()
         {
-            StaffingDataDA staffingDataDA = new StaffingDataDA();
             List<StaffingData> staffingData = new List<StaffingData>();
 
             staffingData = staffingDataDA.GetAllStaffing();
@@ -186,7 +191,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                     HCA_SafeStaffing_TextBox.Text = staffingDataItem.SafeHCA.ToString(CultureInfo.InstalledUICulture);
 
                     StaffingDataEntryFound_HiddenField.Text = "true";
-
+                    DeleteButton.Enabled = true;
                     break;
                 }
                 else
@@ -218,6 +223,37 @@ namespace Nhs.Staffing.DataEntry.Portal
                 {
                     cellText.Text = Constants.EndDateNotSpecified;
                 }
+            }
+        }
+
+        protected void DeleteButton_Click(object sender, EventArgs e)
+        {
+            StaffingData staffingData = new StaffingData();
+            staffingData.WardCode = WardName_DropDownList.SelectedItem.Value;
+            staffingData.Shift = Shift_DropDownList.SelectedItem.Text;
+            staffingData.StaffingDate = Day_DropDownList.SelectedItem.Value;
+
+            int staffingPeriodIndex = 0;
+            int.TryParse(DatePeriodRange_DropDownList.SelectedItem.Value, out staffingPeriodIndex);
+
+            if (staffingPeriodIndex > 0)
+            {
+                staffingData.StaffingDateRangeIndex = staffingPeriodIndex;
+
+                if (staffingDataDA.DeleteStaffingData(staffingData))
+                {
+                    DisplayMessage(true, "Record Deleted");
+                    PopulateDataGrid();
+                    ClearFields();
+                }
+                else
+                {
+                    DisplayMessage(false, "Record Not Deleted");
+                }
+            }
+            else
+            {
+                DisplayMessage(false, "Staffing index is invalid");
             }
         }
     }

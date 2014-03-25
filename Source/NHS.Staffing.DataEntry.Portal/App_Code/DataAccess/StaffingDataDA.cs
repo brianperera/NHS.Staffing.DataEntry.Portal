@@ -131,78 +131,103 @@ namespace Nhs.Staffing.DataEntry
             return isSuccess;
         }
 
-        public void InsertStaffing(DateTime startDate, DateTime endDate, int safeRN, int safeHCA, int optimumRN, int optimumHCA)
+        public void DeleteStaffingData(StaffingData record)
         {
-            DataTable dataTable = GetDataTable();
-            DataRow row;
-            DateTime tempDate = startDate;
-
-            while (tempDate <= endDate)
+            using (SqlConnection con = GetConnection())
             {
-                row = dataTable.NewRow();
+                con.Open();
 
-                row["StaffingDate"] = tempDate;
-                row["OptimumRN"] = safeRN;
-                row["OptimumHCA"] = safeHCA;
-                row["SafeRN"] = optimumRN;
-                row["SafeHCA"] = optimumHCA;
+                SqlCommand command = new SqlCommand("DeleteStaffing", con);
+                command.CommandType = CommandType.StoredProcedure;
 
-                tempDate.AddDays(1);
-                dataTable.Rows.Add(row);
-            }
+                SqlParameter WardCode = GetParameter("@WardCode", SqlDbType.Int, record.ShiftID);
+                SqlParameter Shift = GetParameter("@Shift", SqlDbType.Int, record.ShiftID);
+                SqlParameter Day = GetParameter("@Day", SqlDbType.Int, record.ShiftID);
+                SqlParameter StaffingDateIndex = GetParameter("@StaffingDateIndex", SqlDbType.Int, record.ShiftID);
 
+                command.Parameters.Add(WardCode);
+                command.Parameters.Add(Shift);
+                command.Parameters.Add(Day);
+                command.Parameters.Add(StaffingDateIndex);
 
-            using (SqlConnection dbConnection = GetConnection())
-            {
-                dbConnection.Open();
-                using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
-                {
-                    s.DestinationTableName = dataTable.TableName;
-
-                    foreach (var column in dataTable.Columns)
-                        s.ColumnMappings.Add(column.ToString(), column.ToString());
-
-                    s.WriteToServer(dataTable);
-                }
+                var results = command.ExecuteNonQuery();
             }
         }
 
-        private DataTable GetDataTable()
-        {
-            DataTable staffingData = new DataTable("StaffingData");
+        #region Bulk insert : Currently not used
+        //public void InsertStaffing(DateTime startDate, DateTime endDate, int safeRN, int safeHCA, int optimumRN, int optimumHCA)
+        //{
+        //    DataTable dataTable = GetDataTable();
+        //    DataRow row;
+        //    DateTime tempDate = startDate;
 
-            // Create Column 1: StaffingDate
-            DataColumn dateColumn = new DataColumn();
-            dateColumn.DataType = Type.GetType("System.DateTime");
-            dateColumn.ColumnName = "StaffingDate";
+        //    while (tempDate <= endDate)
+        //    {
+        //        row = dataTable.NewRow();
 
-            // Create Column 2: OptimumRN
-            DataColumn optimumRN = new DataColumn();
-            optimumRN.DataType = Type.GetType("System.Int32");
-            optimumRN.ColumnName = "OptimumRN";
+        //        row["StaffingDate"] = tempDate;
+        //        row["OptimumRN"] = safeRN;
+        //        row["OptimumHCA"] = safeHCA;
+        //        row["SafeRN"] = optimumRN;
+        //        row["SafeHCA"] = optimumHCA;
 
-            // Create Column 2: OptimumHCA
-            DataColumn optimumHCA = new DataColumn();
-            optimumHCA.DataType = Type.GetType("System.Int32");
-            optimumHCA.ColumnName = "OptimumHCA";
+        //        tempDate.AddDays(1);
+        //        dataTable.Rows.Add(row);
+        //    }
 
-            // Create Column 3: SafeRN
-            DataColumn safeRN = new DataColumn();
-            safeRN.DataType = Type.GetType("System.Int32");
-            safeRN.ColumnName = "SafeRN";
 
-            // Create Column 3: SafeHCA
-            DataColumn safeHCA = new DataColumn();
-            safeHCA.DataType = Type.GetType("System.Int32");
-            safeHCA.ColumnName = "SafeHCA";
+        //    using (SqlConnection dbConnection = GetConnection())
+        //    {
+        //        dbConnection.Open();
+        //        using (SqlBulkCopy s = new SqlBulkCopy(dbConnection))
+        //        {
+        //            s.DestinationTableName = dataTable.TableName;
 
-            staffingData.Columns.Add(dateColumn);
-            staffingData.Columns.Add(optimumRN);
-            staffingData.Columns.Add(optimumHCA);
-            staffingData.Columns.Add(safeRN);
-            staffingData.Columns.Add(safeHCA);
+        //            foreach (var column in dataTable.Columns)
+        //                s.ColumnMappings.Add(column.ToString(), column.ToString());
 
-            return staffingData;
-        }
+        //            s.WriteToServer(dataTable);
+        //        }
+        //    }
+        //}
+
+        //private DataTable GetDataTable()
+        //{
+        //    DataTable staffingData = new DataTable("StaffingData");
+
+        //    // Create Column 1: StaffingDate
+        //    DataColumn dateColumn = new DataColumn();
+        //    dateColumn.DataType = Type.GetType("System.DateTime");
+        //    dateColumn.ColumnName = "StaffingDate";
+
+        //    // Create Column 2: OptimumRN
+        //    DataColumn optimumRN = new DataColumn();
+        //    optimumRN.DataType = Type.GetType("System.Int32");
+        //    optimumRN.ColumnName = "OptimumRN";
+
+        //    // Create Column 2: OptimumHCA
+        //    DataColumn optimumHCA = new DataColumn();
+        //    optimumHCA.DataType = Type.GetType("System.Int32");
+        //    optimumHCA.ColumnName = "OptimumHCA";
+
+        //    // Create Column 3: SafeRN
+        //    DataColumn safeRN = new DataColumn();
+        //    safeRN.DataType = Type.GetType("System.Int32");
+        //    safeRN.ColumnName = "SafeRN";
+
+        //    // Create Column 3: SafeHCA
+        //    DataColumn safeHCA = new DataColumn();
+        //    safeHCA.DataType = Type.GetType("System.Int32");
+        //    safeHCA.ColumnName = "SafeHCA";
+
+        //    staffingData.Columns.Add(dateColumn);
+        //    staffingData.Columns.Add(optimumRN);
+        //    staffingData.Columns.Add(optimumHCA);
+        //    staffingData.Columns.Add(safeRN);
+        //    staffingData.Columns.Add(safeHCA);
+
+        //    return staffingData;
+        //}
+        #endregion
     }
 }

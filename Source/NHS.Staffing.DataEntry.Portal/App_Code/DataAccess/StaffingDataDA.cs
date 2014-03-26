@@ -19,6 +19,22 @@ namespace Nhs.Staffing.DataEntry
             //
         }
 
+        public string GetWardNameByWardCode(string wardCode)
+        {
+            string wardName = string.Empty;
+
+            foreach (var item in DataRepository.Instance.AllWards)
+            {
+                if (item.WardCode == wardCode)
+                {
+                    wardName = item.WardName;
+                    break;
+                }
+            }
+
+            return wardName;
+        }
+
         public List<StaffingData> GetAllStaffing()
         {
             List<StaffingData> allWards = new List<StaffingData>();

@@ -34,7 +34,16 @@ namespace Nhs.Staffing.DataEntry.Portal
         private void PopulateDataGrid()
         {
             // Bind users to Grid.
-            StaffingData_Grid.DataSource = staffingDataDA.GetAllStaffing(); ;
+
+            List<StaffingData> staffingData = staffingDataDA.GetAllStaffing();
+
+            //Populate the ward name
+            foreach (var item in staffingData)
+            {
+                item.WardName = staffingDataDA.GetWardNameByWardCode(item.WardCode);
+            }
+
+            StaffingData_Grid.DataSource = staffingData;
             StaffingData_Grid.DataBind();
         }
 

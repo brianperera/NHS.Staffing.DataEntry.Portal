@@ -30,7 +30,9 @@
                         <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" />
                         <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
+                        <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
                         <asp:BoundField DataField="Shift" HeaderText="Shift" />
+                        <asp:BoundField DataField="StaffingDate" HeaderText="Day" />
                         <asp:BoundField DataField="Beds" HeaderText="Beds" />
                         <asp:BoundField DataField="OptimumRN" HeaderText="Optimum Staffing RN" />
                         <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />

@@ -16,6 +16,7 @@ public class StaffingData
 	}
 
     public string WardCode { get; set; }
+    public string WardName { get; set; }
     public int Beds { get; set; }
     public int ShiftID { get; set; }
     public string StaffingDate { get; set; }

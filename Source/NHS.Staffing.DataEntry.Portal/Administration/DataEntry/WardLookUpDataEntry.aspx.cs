@@ -13,13 +13,46 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         IList<Ward> currentWards = null;
 
+        public string ActionType
+        {
+            get
+            {
+                string actionType = Constants.Create;
+
+                if (Request.QueryString["action"] != null)
+                    actionType = Request.QueryString["action"];
+
+                return actionType;
+            }
+        }
+
+        public string ID
+        {
+            get
+            {
+                string username = string.Empty;
+
+                if (Request.QueryString["id"] != null)
+                    username = Request.QueryString["id"];
+
+                return username;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindInitialData();
-
             if (!IsPostBack)
             {
-                WardDataEntryFound_HiddenField.Text = "false";
+                BindInitialData();
+
+                if (ActionType == Constants.Update && !string.IsNullOrEmpty(ID))
+                {
+                    WardDataEntryFound_HiddenField.Text = "true";
+                }
+                else
+                {
+                    WardDataEntryFound_HiddenField.Text = "false";
+                }
             }
 
             MessageLabel.Visible = false;
@@ -30,8 +63,24 @@ namespace Nhs.Staffing.DataEntry.Portal
             // Bind users to Grid.
             WardDA wda = new WardDA();
             currentWards = wda.GetAllWard();
-            WardData_Grid.DataSource = currentWards;
-            WardData_Grid.DataBind();
+
+            foreach (Ward ward in currentWards)
+            {
+                if (ward.WardCode.Equals(ID))
+                {
+                    WardCode_TextBox.Text = ward.WardCode;
+                    WardName_TextBox.Text = ward.WardName;
+                    Devision_TextBox.Text = ward.Division;
+
+                    WardDataEntryFound_HiddenField.Text = "true";
+                    Delete_Button.Enabled = true;
+                    break;
+                }
+                else
+                {
+                    WardDataEntryFound_HiddenField.Text = "false";
+                }
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
@@ -78,21 +127,7 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void WardCode_TextBox_TextChanged(object sender, EventArgs e)
         {
-            foreach (Ward ward in currentWards)
-            {
-                WardDataEntryFound_HiddenField.Text = "false";
 
-                if (ward.WardCode.Equals(WardCode_TextBox.Text))
-                {
-                    WardCode_TextBox.Text = ward.WardCode;
-                    WardName_TextBox.Text = ward.WardName;
-                    Devision_TextBox.Text = ward.Division;
-
-                    WardDataEntryFound_HiddenField.Text = "true";
-                    Delete_Button.Enabled = true;
-                    break;
-                }
-            }
         }
 
         protected void WardName_TextBox_TextChanged(object sender, EventArgs e)

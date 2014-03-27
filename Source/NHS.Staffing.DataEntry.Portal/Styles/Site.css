@@ -867,6 +867,10 @@ label, span
     font-size: 11px;
 }
 
+.grid .altrow {
+    background-color: #eff9fd;
+}
+
 .gridtitle {
     font-weight: bold;
 }

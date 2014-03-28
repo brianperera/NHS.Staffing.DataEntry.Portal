@@ -6,10 +6,11 @@
     <title></title>
     <link href="~/Styles/Site.css" rel="stylesheet" type="text/css" />
     <link href="~/Styles/html-reset.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" href="~/Plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="~/Plugins/font-awesome/css/font-awesome.min.css"/>    
     <!--[if IE 7]>
       <link rel="stylesheet" href="~/Plugins/font-awesome/css/font-awesome-ie7.min.css"/>
-    <![endif]-->
+      <link rel="stylesheet" href="~/Styles/ie7.css" />
+    <![endif]-->   
 
     <asp:ContentPlaceHolder ID="HeadContent" runat="server">
     </asp:ContentPlaceHolder>

@@ -22,9 +22,8 @@
             <div class="subSections regularTable">
                 <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                    CssClass="grid" AllowPaging="True" AllowSorting="True" 
-                    EnableSortingAndPagingCallbacks="True" 
-                    onrowdatabound="StaffingData_Grid_RowDataBound">
+                    CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
+                    OnRowDataBound="StaffingData_Grid_RowDataBound">
                     <Columns>
                         <asp:BoundField DataField="StaffingDateRangeIndex" HeaderText="Period" />
                         <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" />
@@ -94,9 +93,9 @@
                                 <asp:TextBox ID="Beds_TextBox" runat="server" ViewStateMode="Enabled" onkeypress="return isNumberKey(event)"></asp:TextBox>
                             </span></li>
                         </ul>
-                        <ul class="formSection">
-                            <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText">
-                                RN</span> <span class="formTitleFieldsWithoutFloat">HCA</span> </li>
+                        <ul class="formSection shortTextBox">
+                            <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
+                                RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>
                             <li><span class="formTitleFields">Optimum Staffing</span> <span class="formFieldControl">
                                 <asp:TextBox ID="RN_OptimumStaffing_TextBox" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
@@ -112,17 +111,16 @@
                                     runat="server"></asp:TextBox>
                             </span></li>
                         </ul>
-                        <asp:Label runat="server" ID="StaffingDataEntryFound_HiddenField"  CssClass="hideRow"/>
+                        <asp:Label runat="server" ID="StaffingDataEntryFound_HiddenField" CssClass="hideRow" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <div>
                     <span>
                         <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                             OnClick="SubmitButton_Click" />
-                    </span>
-                    <span>
-                        <asp:Button CssClass="deleteButton" Enabled="false" Text="Delete" runat="server" 
-                        ID="DeleteButton" onclick="DeleteButton_Click"/>
+                    </span><span>
+                        <asp:Button CssClass="deleteButton" Text="Delete" runat="server"
+                            ID="DeleteButton" OnClick="DeleteButton_Click" Visible="false" />
                     </span>
                 </div>
             </div>

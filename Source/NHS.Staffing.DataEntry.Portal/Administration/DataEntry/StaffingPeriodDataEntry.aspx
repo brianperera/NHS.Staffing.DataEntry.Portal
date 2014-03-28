@@ -26,9 +26,8 @@
                     <div class="subSections regularTable periodGrid">
                         <asp:GridView ID="PeriodData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                             BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                            CssClass="grid" AllowPaging="True" AllowSorting="True" 
-                            EnableSortingAndPagingCallbacks="True" 
-                            onrowdatabound="PeriodData_Grid_RowDataBound">
+                            CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
+                            OnRowDataBound="PeriodData_Grid_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="Index" HeaderText="Index" />
                                 <asp:BoundField DataField="StartDate" HeaderText="Start Period" />
@@ -53,9 +52,8 @@
                         </div>
                         <ul class="formSection">
                             <li><span class="formTitleFields">Period Index (For Delete)</span> <span class="formFieldControl">
-                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" 
-                                    runat="server" ViewStateMode="Enabled" AutoPostBack="True" 
-                                    ontextchanged="PeriodIndex_TextBox_TextChanged"></asp:TextBox>
+                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" runat="server"
+                                    ViewStateMode="Enabled" AutoPostBack="True" OnTextChanged="PeriodIndex_TextBox_TextChanged"></asp:TextBox>
                             </span></li>
                             <li><span class="formTitleFields">Start Period</span> <span class="formFieldControl">
                                 <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
@@ -67,25 +65,22 @@
                                 <asp:CalendarExtender ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox"
                                     runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
                                 <span>
-                                    <asp:CheckBox ID="EndDateUnknownCheckBox" 
-                                    ToolTip="Check if End Date is Unknown" runat="server" AutoPostBack="True" 
-                                    oncheckedchanged="EndDateUnknownCheckBox_CheckedChanged" />
-                                </span>
-                            </span></li>
+                                    <asp:CheckBox ID="EndDateUnknownCheckBox" ToolTip="Check if End Date is Unknown"
+                                        runat="server" AutoPostBack="True" OnCheckedChanged="EndDateUnknownCheckBox_CheckedChanged"
+                                        Visible="false" />
+                                </span></span></li>
                         </ul>
                     </div>
-                        <div>
-                            <li><span>
-                                <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
-                                    OnClick="SubmitButton_Click" />
-                            </span>
-                            <span>
-                                <asp:Button CssClass="deleteButton" Text="Delete" runat="server" 
-                                    ID="DeleteButton" onclick="DeleteButton_Click1" Enabled="false"/>
-                            </span>
-                            </li>
-                        </div>
-                        <asp:Label runat="server" ID="PeriodEntryFound_HiddenField" CssClass="hideRow"/>
+                    <div>
+                        <li><span>
+                            <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
+                                OnClick="SubmitButton_Click" />
+                        </span><span class="staffingPeriodDelete">
+                            <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="DeleteButton"
+                                OnClick="DeleteButton_Click1" Enabled="false" />
+                        </span></li>
+                    </div>
+                    <asp:Label runat="server" ID="PeriodEntryFound_HiddenField" CssClass="hideRow" />
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

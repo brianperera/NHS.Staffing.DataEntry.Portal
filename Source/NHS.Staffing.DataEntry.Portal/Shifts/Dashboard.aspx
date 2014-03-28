@@ -138,7 +138,7 @@
                                                 &nbsp
                                             </th>
                                         </tr>
-                                </HeaderTemplate>
+                                </HeaderTemplate>                                
                                 <ItemTemplate>
                                     <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground hideRow'>" : ""%>
                                     <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground hideRow'>" : ""%>
@@ -199,6 +199,7 @@
                                 <FooterTemplate>
                                     </table>
                                 </FooterTemplate>
+                                
                             </asp:Repeater>
                         </div>
                     </div>

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.Security;
+using System.Configuration;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
@@ -37,10 +38,19 @@ namespace Nhs.Staffing.DataEntry.Portal
             Shift_DropDownList.DataBind();
 
             UnSafeMitigation_DropDownList.DataSource = DataRepository.Instance.UnSafeMitigations;
-            UnSafeMitigation_DropDownList.DataBind();
+            UnSafeMitigation_DropDownList.DataBind();            
 
             SafeMitigation_DropDownList.DataSource = DataRepository.Instance.SafeMitigations;
             SafeMitigation_DropDownList.DataBind();
+
+            // Inserting the default text to the dropdowns
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["DropDownDefaultText"]))
+            {
+                ListItem defaultItem = new ListItem(ConfigurationManager.AppSettings["DropDownDefaultText"]);
+
+                UnSafeMitigation_DropDownList.Items.Insert(0, defaultItem);
+                SafeMitigation_DropDownList.Items.Insert(0, defaultItem);
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
@@ -155,9 +165,14 @@ namespace Nhs.Staffing.DataEntry.Portal
             record.IsSafe = this.Safe_CheckBox.Checked;
 
             //Safe
-            record.SafeMitigation = SafeMitigation_DropDownList.SelectedValue;
+            // Save an empty string if the default option is selected
+            record.SafeMitigation = (SafeMitigation_DropDownList.SelectedIndex > 0) 
+                                        ? SafeMitigation_DropDownList.SelectedValue 
+                                        : string.Empty;
 
-            record.UnSafeMitigation = UnSafeMitigation_DropDownList.SelectedValue;
+            record.UnSafeMitigation = (UnSafeMitigation_DropDownList.SelectedIndex > 0 ) 
+                                        ? UnSafeMitigation_DropDownList.SelectedValue 
+                                        : string.Empty;
 
             record.DataEntryBy = Membership.GetUser().UserName + " : " + DateTime.Now.ToString();
 
@@ -259,10 +274,27 @@ namespace Nhs.Staffing.DataEntry.Portal
             HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
             //Safe
             Safe_CheckBox.Checked = record.IsSafe;
+
             //SafeMitigation
-            SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
+            if (SafeMitigation_DropDownList.Items.FindByValue(record.SafeMitigation) != null)
+            {
+                SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
+            }
+            else
+            {
+                SafeMitigation_DropDownList.SelectedIndex = 0;
+            }
+            
             //UnSafeMitigation
-            UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
+            if (UnSafeMitigation_DropDownList.Items.FindByValue(record.UnSafeMitigation) != null)
+            {
+                UnSafeMitigation_DropDownList.SelectedValue = record.UnSafeMitigation;
+            }
+            else
+            {
+                UnSafeMitigation_DropDownList.SelectedIndex = 0;
+            }
+            
 
             string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
 

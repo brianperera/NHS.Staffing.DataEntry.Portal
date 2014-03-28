@@ -26,8 +26,8 @@
                     OnRowDataBound="StaffingData_Grid_RowDataBound">
                     <Columns>
                         <asp:BoundField DataField="StaffingDateRangeIndex" HeaderText="Period" />
-                        <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" />
-                        <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" />
+                        <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
+                        <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
                         <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
                         <asp:BoundField DataField="Shift" HeaderText="Shift" />

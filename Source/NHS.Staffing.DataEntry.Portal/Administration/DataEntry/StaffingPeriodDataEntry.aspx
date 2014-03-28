@@ -30,8 +30,9 @@
                             OnRowDataBound="PeriodData_Grid_RowDataBound">
                             <Columns>
                                 <asp:BoundField DataField="Index" HeaderText="Index" />
-                                <asp:BoundField DataField="StartDate" HeaderText="Start Period" />
-                                <asp:BoundField DataField="EndDate" HeaderText="End Period" />
+                                <asp:BoundField DataField="StartDate" HeaderText="Start Period" 
+                                    DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
+                                <asp:BoundField DataField="EndDate" HeaderText="End Period" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                             </Columns>
                             <FooterStyle BackColor="White" ForeColor="#000066" />
                             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

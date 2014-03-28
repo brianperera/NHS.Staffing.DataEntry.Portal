@@ -7,6 +7,7 @@ using System.Web.UI.WebControls;
 using System.Web.Security;
 using System.Data;
 using System.Globalization;
+using System.Configuration;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
@@ -228,7 +229,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 var cellText = e.Row.Cells[2];
 
-                if (cellText != null && cellText.Text.ToString() == "01/01/0001 00:00:00")
+                if (cellText != null && cellText.Text.ToString() == string.Format(ConfigurationManager.AppSettings["DateTimeFormat"], DateTime.MinValue))
                 {
                     cellText.Text = Constants.EndDateNotSpecified;
                 }

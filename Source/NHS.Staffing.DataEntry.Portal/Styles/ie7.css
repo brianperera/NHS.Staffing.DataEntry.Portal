@@ -1,4 +1,15 @@
 ﻿.dashBoard tr th
 {
-    width: 200px !important;
+    /*width: 200px !important;*/
+    
+}
+
+.regularTable tr th, .regularTable tr td
+{
+    width: auto;
+}
+
+.regularTable table
+{
+    table-layout: fixed;
 }

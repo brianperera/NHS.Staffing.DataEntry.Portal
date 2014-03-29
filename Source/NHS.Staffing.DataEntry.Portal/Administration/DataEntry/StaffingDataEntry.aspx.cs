@@ -44,8 +44,15 @@ namespace Nhs.Staffing.DataEntry.Portal
                 item.WardName = staffingDataDA.GetWardNameByWardCode(item.WardCode);
             }
 
-            StaffingData_Grid.DataSource = staffingData;
-            StaffingData_Grid.DataBind();
+            // Select rows which has WardName, ignore the rest
+            List<StaffingData> staffingDataToDisplay = staffingData.Where(data => data.WardName != string.Empty).ToList();;
+
+            if (null != staffingDataToDisplay)
+            {
+                StaffingData_Grid.DataSource = staffingDataToDisplay;
+                StaffingData_Grid.DataBind();
+            }
+
         }
 
         private void BindInitialData()
@@ -65,7 +72,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 string startDate = staffingDate.StartDate.ToShortDateString();
                 string endDate = staffingDate.EndDate.ToShortDateString();
 
-                if (endDate == "01/01/0001")
+                if (endDate == string.Format(ConfigurationManager.AppSettings["DateTimeFormat"], DateTime.MinValue))
                     endDate = Constants.EndDateNotSpecified;
 
                 staffingDate.DisplayPeriod = string.Format("{0} to {1}", startDate, endDate);

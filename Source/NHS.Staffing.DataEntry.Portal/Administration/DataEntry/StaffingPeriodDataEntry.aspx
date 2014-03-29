@@ -15,48 +15,12 @@
         </asp:ToolkitScriptManager>
         <asp:UpdatePanel ID="UpdatePanel1" runat="server">
             <ContentTemplate>
-                <div>
-                    <div>
-                        <asp:Label ID="Msg" ForeColor="maroon" runat="server" />
-                    </div>
-                    <div class="gridtitle">
-                        <h3>
-                            Current Staffing Periods</h3>
-                    </div>
-                    <div class="subSections regularTable periodGrid">
-                        <asp:GridView ID="PeriodData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
-                            BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                            CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
-                            OnRowDataBound="PeriodData_Grid_RowDataBound">
-                            <Columns>
-                                <asp:BoundField DataField="Index" HeaderText="Index" />
-                                <asp:BoundField DataField="StartDate" HeaderText="Start Period" 
-                                    DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
-                                <asp:BoundField DataField="EndDate" HeaderText="End Period" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
-                            </Columns>
-                            <FooterStyle BackColor="White" ForeColor="#000066" />
-                            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                            <RowStyle ForeColor="#000066" />
-                            <AlternatingRowStyle CssClass="altrow" />
-                            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                            <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                            <SortedDescendingHeaderStyle BackColor="#00547E" />
-                        </asp:GridView>
-                    </div>
-                </div>
                 <div class="pagedata">
                     <div>
                         <div class="grid_24 error_msg">
                             <asp:Label ID="MessageLabel" runat="server" />
                         </div>
                         <ul class="formSection">
-                            <li><span class="formTitleFields">Period Index (For Delete)</span> <span class="formFieldControl">
-                                <asp:TextBox ID="PeriodIndex_TextBox" onkeypress="return isNumberKey(event)" runat="server"
-                                    ViewStateMode="Enabled" AutoPostBack="True" OnTextChanged="PeriodIndex_TextBox_TextChanged"></asp:TextBox>
-                            </span></li>
                             <li><span class="formTitleFields">Start Period</span> <span class="formFieldControl">
                                 <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                                 <asp:CalendarExtender ID="PeriodStartDate_CalendarExtender" TargetControlID="PeriodStartDate_TextBox"
@@ -66,20 +30,13 @@
                                 <asp:TextBox ID="PeriodEndDate_TextBox" runat="server" ViewStateMode="Enabled"></asp:TextBox>
                                 <asp:CalendarExtender ID="PeriodEndDate_CalendarExtender" TargetControlID="PeriodEndDate_TextBox"
                                     runat="server" ViewStateMode="Enabled" Format="dd/MM/yyyy" />
-                                <span>
-                                    <asp:CheckBox ID="EndDateUnknownCheckBox" ToolTip="Check if End Date is Unknown"
-                                        runat="server" AutoPostBack="True" OnCheckedChanged="EndDateUnknownCheckBox_CheckedChanged"
-                                        Visible="false" />
-                                </span></span></li>
+                                </span></li>
                         </ul>
                     </div>
                     <div>
                         <li><span>
                             <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                                 OnClick="SubmitButton_Click" />
-                        </span><span class="staffingPeriodDelete">
-                            <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="DeleteButton"
-                                OnClick="DeleteButton_Click1" Enabled="false" />
                         </span></li>
                     </div>
                     <asp:Label runat="server" ID="PeriodEntryFound_HiddenField" CssClass="hideRow" />

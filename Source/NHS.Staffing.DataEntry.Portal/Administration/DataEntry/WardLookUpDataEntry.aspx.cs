@@ -30,12 +30,12 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             get
             {
-                string username = string.Empty;
+                string id = string.Empty;
 
                 if (Request.QueryString["id"] != null)
-                    username = Request.QueryString["id"];
+                    id = Request.QueryString["id"];
 
-                return username;
+                return id;
             }
         }
 

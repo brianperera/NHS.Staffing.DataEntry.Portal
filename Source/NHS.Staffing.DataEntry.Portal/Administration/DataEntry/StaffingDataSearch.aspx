@@ -1,5 +1,5 @@
 ﻿<%@ Page Title="Early Shift" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true"
-    CodeFile="WardSearch.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.WardSearch" %>
+    CodeFile="StaffingDataSearch.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.StaffingDataSearch" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
@@ -8,11 +8,9 @@
     <div class="main">
         <div class="pageHeader">
             <h2>
-                Wards
+                Staffing Data
             </h2>
         </div>
-        <asp:ToolkitScriptManager ID="ToolkitScriptManager2" runat="server">
-        </asp:ToolkitScriptManager>
         <div>
             <div>
                 <div class="grid_24 error_msg">
@@ -25,25 +23,33 @@
             </div>
             <div class="gridtitle">
                 <h3>
-                    Current Ward Data</h3>
+                    Current Staffing Data</h3>
             </div>
             <div class="subSections regularTable">
-                <asp:GridView ID="WardData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
+                <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
                     CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
-                    PageSize="50">
+                    OnRowDataBound="StaffingData_Grid_RowDataBound">
                     <Columns>
-                        <asp:HyperLinkField HeaderText="Ward Name" DataTextField="WardName" DataNavigateUrlFormatString="WardLookUpDataEntry.aspx?action=update&id={0}"
-                            DataNavigateUrlFields="WardCode" />
+                        <asp:BoundField DataField="StaffingDateRangeIndex" HeaderText="Period" />
+                        <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
+                        <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
-                        <asp:BoundField DataField="Division" HeaderText="Devision" />
+                        <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
+                        <asp:BoundField DataField="Shift" HeaderText="Shift" />
+                        <asp:BoundField DataField="StaffingDate" HeaderText="Day" />
+                        <asp:BoundField DataField="Beds" HeaderText="Beds" />
+                        <asp:BoundField DataField="OptimumRN" HeaderText="Optimum Staffing RN" />
+                        <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
+                        <asp:BoundField DataField="SafeRN" HeaderText="Safe Staffing RN" />
+                        <asp:BoundField DataField="SafeHCA" HeaderText="Safe Staffing HCA" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
                     <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
                     <RowStyle ForeColor="#000066" />
-                    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
                     <AlternatingRowStyle CssClass="altrow" />
+                    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
                     <SortedAscendingCellStyle BackColor="#F1F1F1" />
                     <SortedAscendingHeaderStyle BackColor="#007DBB" />
                     <SortedDescendingCellStyle BackColor="#CAC9C9" />

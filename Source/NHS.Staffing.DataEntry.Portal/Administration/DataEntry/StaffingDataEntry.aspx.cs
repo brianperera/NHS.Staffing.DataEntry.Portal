@@ -17,8 +17,7 @@ namespace Nhs.Staffing.DataEntry.Portal
         StaffingDataDA staffingDataDA = new StaffingDataDA();
 
         protected void Page_Load(object sender, EventArgs e)
-        {
-            PopulateDataGrid();
+        {           
 
             if (!IsPostBack)
             {
@@ -30,29 +29,6 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             MessageLabel.Visible = false;
-        }
-
-        private void PopulateDataGrid()
-        {
-            // Bind users to Grid.
-
-            List<StaffingData> staffingData = staffingDataDA.GetAllStaffing();
-
-            //Populate the ward name
-            foreach (var item in staffingData)
-            {
-                item.WardName = staffingDataDA.GetWardNameByWardCode(item.WardCode);
-            }
-
-            // Select rows which has WardName, ignore the rest
-            List<StaffingData> staffingDataToDisplay = staffingData.Where(data => data.WardName != string.Empty).ToList();;
-
-            if (null != staffingDataToDisplay)
-            {
-                StaffingData_Grid.DataSource = staffingDataToDisplay;
-                StaffingData_Grid.DataBind();
-            }
-
         }
 
         private void BindInitialData()
@@ -72,7 +48,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 string startDate = staffingDate.StartDate.ToShortDateString();
                 string endDate = staffingDate.EndDate.ToShortDateString();
 
-                if (endDate == string.Format(ConfigurationManager.AppSettings["DateTimeFormat"], DateTime.MinValue))
+                if (endDate == "01/01/0001")
                     endDate = Constants.EndDateNotSpecified;
 
                 staffingDate.DisplayPeriod = string.Format("{0} to {1}", startDate, endDate);
@@ -137,13 +113,11 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 //update
                 executionStatus = staffingDataDA.UpdateStaffingData(staffingData);
-                PopulateDataGrid();
             }
             else
             {
                 //add
-                executionStatus = staffingDataDA.AddStaffingData(staffingData);
-                PopulateDataGrid();
+                executionStatus = staffingDataDA.AddStaffingData(staffingData);                
             }
 
             DisplayMessage(executionStatus);
@@ -260,7 +234,6 @@ namespace Nhs.Staffing.DataEntry.Portal
                 if (staffingDataDA.DeleteStaffingData(staffingData))
                 {
                     DisplayMessage(true, "Record Deleted");
-                    PopulateDataGrid();
                     ClearFields();
                 }
                 else

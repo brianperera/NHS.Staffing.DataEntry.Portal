@@ -4,8 +4,14 @@
     <siteMapNode url="~/Shifts/Dashboard.aspx" title="Home"  description="Home"/>
     <siteMapNode url="~/Shifts/DataEntry/ShiftDataEntry.aspx" roles="Admin, Super Admin, Data Entry Staff" title="Data Entry"  description="Data Entry"></siteMapNode>
     <siteMapNode roles="Super Admin, Admin" title="Settings"  description="Settings">
-      <siteMapNode url="~/Administration/DataEntry/StaffingPeriodDataEntry.aspx" title="Staffing Period Data Entry"  description="Staffing Period Data Entry"/>
-      <siteMapNode url="~/Administration/DataEntry/StaffingDataEntry.aspx" title="Staffing Data Entry"  description="Staffing Data Entry"/>
+      <siteMapNode roles="Super Admin, Admin" title="Staffing Period Data Entry"  description="Staffing Period Data Entry">
+        <siteMapNode url="~/Administration/DataEntry/StaffingPeriodDataEntry.aspx?action=add" title="Add"  description="Add"/>
+        <siteMapNode url="~/Administration/DataEntry/StaffingPeriodSearch.aspx" title="Update"  description="Update"/>
+      </siteMapNode>
+      <siteMapNode roles="Super Admin, Admin" title="Staffing Data Entry"  description="Staffing Data Entry">
+        <siteMapNode url="~/Administration/DataEntry/StaffingDataEntry.aspx?action=add" title="Add"  description="Add"/>
+        <siteMapNode url="~/Administration/DataEntry/StaffingDataSearch.aspx" title="Update"  description="Update"/>
+      </siteMapNode>
       <siteMapNode roles="Super Admin, Admin" title="Ward"  description="Ward">
         <siteMapNode url="~/Administration/DataEntry/WardLookUpDataEntry.aspx?action=add" title="Add"  description="Add"/>
         <siteMapNode url="~/Administration/DataEntry/WardSearch.aspx" title="Update"  description="Update"/>

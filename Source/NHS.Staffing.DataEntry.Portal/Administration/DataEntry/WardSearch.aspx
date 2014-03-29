@@ -36,7 +36,7 @@
                         <asp:HyperLinkField HeaderText="Ward Name" DataTextField="WardName" DataNavigateUrlFormatString="WardLookUpDataEntry.aspx?action=update&id={0}"
                             DataNavigateUrlFields="WardCode" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
-                        <asp:BoundField DataField="Division" HeaderText="Devision" />
+                        <asp:BoundField DataField="Division" HeaderText="Division" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

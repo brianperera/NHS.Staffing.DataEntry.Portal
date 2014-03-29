@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using System.Data;
+using System.Web.UI.HtmlControls;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
@@ -148,5 +147,32 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             return (todayTrust + todayBank + todayNonTrust >= optimumStaffing) ? "Yes" : "No";
         }
-    }
+
+        protected void cdcatalog_ItemDataBound(object sender, RepeaterItemEventArgs e)
+        {
+            if (e.Item.ItemType == ListItemType.Item || e.Item.ItemType == ListItemType.AlternatingItem)
+            {
+                HtmlTableCell minSafeStaffingRNText = e.Item.FindControl("minSafeStaffingRN") as HtmlTableCell;
+
+                string minSafeStaffingBackgroundClass = string.Empty;
+
+                // If yes, green else red 
+                // at minimum safe staffing? RN
+                if (null != minSafeStaffingRNText)
+                {
+                    minSafeStaffingBackgroundClass = (minSafeStaffingRNText.InnerText.ToUpperInvariant().Contains("YES")) ? "greenBackground" : "redBackground";
+                    minSafeStaffingRNText.Attributes.Add("class", minSafeStaffingBackgroundClass);                   
+                }
+
+                // at minimum safe staffing? HCA
+                HtmlTableCell minSafeStaffingHCAText = e.Item.FindControl("minSafeStaffingHCA") as HtmlTableCell;
+
+                if (null != minSafeStaffingHCAText)
+                {
+                    minSafeStaffingBackgroundClass = (minSafeStaffingHCAText.InnerText.ToUpperInvariant().Contains("YES")) ? "greenBackground" : "redBackground";
+                    minSafeStaffingHCAText.Attributes.Add("class", minSafeStaffingBackgroundClass); 
+                }
+            }
+        }
+}
 }

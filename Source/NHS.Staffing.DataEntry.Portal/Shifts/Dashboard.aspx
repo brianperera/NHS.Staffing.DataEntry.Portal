@@ -20,7 +20,8 @@
                         <ul class="formSection noBottonBorders noPadding">
                             <li style="float: left"><span class="shortFormTitleFieldsWithoutFloat">Week Commencing</span>
                                 <span class="formFieldControl">
-                                    <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled" AutoPostBack="True"></asp:TextBox>
+                                    <asp:TextBox ID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled"
+                                        AutoPostBack="True"></asp:TextBox>
                                     <asp:CalendarExtender Animated="true" Format="dd/MM/yyyy" ID="PeriodStartDate_CalendarExtender"
                                         TargetControlID="PeriodStartDate_TextBox" runat="server" ViewStateMode="Enabled" />
                                 </span></li>
@@ -33,7 +34,7 @@
                         <div class="clear">
                         </div>
                         <div id="Div1" class="subSections" runat="server">
-                            <asp:Repeater ID="cdcatalog" runat="server">
+                            <asp:Repeater ID="cdcatalog" runat="server" OnItemDataBound="cdcatalog_ItemDataBound">
                                 <HeaderTemplate>
                                     <table class="dashBoard">
                                         <!--Table headings-->
@@ -138,7 +139,7 @@
                                                 &nbsp
                                             </th>
                                         </tr>
-                                </HeaderTemplate>                                
+                                </HeaderTemplate>
                                 <ItemTemplate>
                                     <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground hideRow'>" : ""%>
                                     <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground hideRow'>" : ""%>
@@ -174,15 +175,12 @@
                                     <td>
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA %>
                                     </td>
-
-                                    <td>
-                                    <%# GetOptimumStaffingSummary(Eval("TodayTrustRN"), Eval("TodayBankRN"), Eval("TodayNonTrustRN"), Eval("OptimumStaffingRN"))%>
+                                    <td runat="server" id="minSafeStaffingRN">
+                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustRN"), Eval("TodayBankRN"), Eval("TodayNonTrustRN"), Eval("OptimumStaffingRN"))%>
                                     </td>
-
-                                    <td>
-                                    <%# GetOptimumStaffingSummary(Eval("TodayTrustHCA"), Eval("TodayBankHCA"), Eval("TodayNonTrustHCA"), Eval("OptimumStaffingHCA")) %>
+                                    <td runat="server" id="minSafeStaffingHCA">
+                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustHCA"), Eval("TodayBankHCA"), Eval("TodayNonTrustHCA"), Eval("OptimumStaffingHCA")) %>
                                     </td>
-
                                     <td>
                                         <%# 
                 Eval("IsSafe").ToString() == "True" ? "Yes" : "No"
@@ -199,7 +197,6 @@
                                 <FooterTemplate>
                                     </table>
                                 </FooterTemplate>
-                                
                             </asp:Repeater>
                         </div>
                     </div>

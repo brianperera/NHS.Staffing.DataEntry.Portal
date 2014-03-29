@@ -13,3 +13,27 @@
 {
     table-layout: fixed;
 }
+
+.menu .dynamic
+{
+    border-bottom: 1px solid white !important;
+    cursor: pointer;  
+}
+
+.menu .static
+{
+    cursor: pointer; 
+}
+
+.menu .level2 li
+{
+    width:200px;
+    height:100%;
+    margin-bottom:-4px;
+}
+
+.menu .level3 li
+{
+    width:100px;
+    border-bottom: 1px solid white !important;
+}

@@ -72,7 +72,7 @@
                                     runat="server"></asp:TextBox>
                             </span></li>
                         </ul>
-                        <asp:Label runat="server" ID="StaffingDataEntryFound_HiddenField" CssClass="hideRow" />
+                        <asp:Label runat="server" ID="StaffingDataEntryFound_HiddenField" CssClass="hideRow_" />
                     </ContentTemplate>
                 </asp:UpdatePanel>
                 <div>

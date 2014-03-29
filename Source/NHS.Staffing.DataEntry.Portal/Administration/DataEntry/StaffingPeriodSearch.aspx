@@ -34,6 +34,8 @@
                         CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
                         OnRowDataBound="PeriodData_Grid_RowDataBound">
                         <Columns>
+                            <asp:HyperLinkField HeaderText="Period Index" DataTextField="Index" DataNavigateUrlFormatString="StaffingPeriodDataEntry.aspx?action=update&id={0}"
+                            DataNavigateUrlFields="Index" />
                             <asp:BoundField DataField="Index" HeaderText="Index" />
                             <asp:BoundField DataField="StartDate" HeaderText="Start Period" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                             <asp:BoundField DataField="EndDate" HeaderText="End Period" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />

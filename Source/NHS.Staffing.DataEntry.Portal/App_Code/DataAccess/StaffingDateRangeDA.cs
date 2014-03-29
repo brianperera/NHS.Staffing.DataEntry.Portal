@@ -121,4 +121,15 @@ public class StaffingDateRangeDA : DataAccessBase
 		// TODO: Add constructor logic here
 		//
 	}
+
+    public StaffingDateRange GetAllStaffingDateRange(int currentPeriodIndex)
+    {
+        List<StaffingDateRange> staffingDateRanges = GetAllStaffingDateRanges();
+
+        var staffingDateRange = (from p in staffingDateRanges
+                where p.Index == currentPeriodIndex
+                select p).SingleOrDefault();
+
+        return staffingDateRange;
+    }
 }

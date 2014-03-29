@@ -16,19 +16,103 @@ namespace Nhs.Staffing.DataEntry.Portal
         IList<Ward> currentWards = null;
         StaffingDataDA staffingDataDA = new StaffingDataDA();
 
+        public string ActionType
+        {
+            get
+            {
+                string actionType = Constants.Create;
+
+                if (Request.QueryString["action"] != null)
+                    actionType = Request.QueryString["action"];
+
+                return actionType;
+            }
+        }
+
+        public string WardCode
+        {
+            get
+            {
+                string wardCode = string.Empty;
+
+                if (Request.QueryString["WardCode"] != null)
+                    wardCode = Request.QueryString["WardCode"];
+
+                return wardCode;
+            }
+        }
+
+        public string Shift
+        {
+            get
+            {
+                string shift = string.Empty;
+
+                if (Request.QueryString["Shift"] != null)
+                    shift = Request.QueryString["Shift"];
+
+                return shift;
+            }
+        }
+
+        public string StaffingDate
+        {
+            get
+            {
+                string staffingDate = string.Empty;
+
+                if (Request.QueryString["StaffingDate"] != null)
+                    staffingDate = Request.QueryString["StaffingDate"];
+
+                return staffingDate;
+            }
+        }
+
+        public string StaffingDateRangeIndex
+        {
+            get
+            {
+                string staffingDateRangeIndex = string.Empty;
+
+                if (Request.QueryString["StaffingDateRangeIndex"] != null)
+                    staffingDateRangeIndex = Request.QueryString["StaffingDateRangeIndex"];
+
+                return staffingDateRangeIndex;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {           
 
             if (!IsPostBack)
             {
-                StaffingDataEntryFound_HiddenField.Text = "false";
+                if (ActionType == Constants.Update)
+                {
+                    StaffingDataEntryFound_HiddenField.Text = "true";
+                }
+                else
+                {
+                    StaffingDataEntryFound_HiddenField.Text = "false";
+                }
 
                 BindInitialData();
-
+                PopulateFields();
                 LoadDataForUpdate();
             }
 
             MessageLabel.Visible = false;
+        }
+
+        private void PopulateFields()
+        {
+            if (ActionType == Constants.Update && !string.IsNullOrEmpty(WardCode) && !string.IsNullOrEmpty(Shift) &&
+                !string.IsNullOrEmpty(StaffingDate) && !string.IsNullOrEmpty(StaffingDateRangeIndex))
+            {
+                WardName_DropDownList.SelectedValue = WardCode;
+                Shift_DropDownList.SelectedValue = Shift_DropDownList.Items.FindByText(Shift).Value;
+                Day_DropDownList.SelectedValue = StaffingDate;
+                DatePeriodRange_DropDownList.SelectedValue = StaffingDateRangeIndex;
+            }
         }
 
         private void BindInitialData()
@@ -182,11 +266,11 @@ namespace Nhs.Staffing.DataEntry.Portal
                     HCA_SafeStaffing_TextBox.Text = staffingDataItem.SafeHCA.ToString(CultureInfo.InstalledUICulture);
 
                     StaffingDataEntryFound_HiddenField.Text = "true";
-                    DeleteButton.Enabled = true;
                     break;
                 }
                 else
                 {
+                    StaffingDataEntryFound_HiddenField.Text = "false";
                     ClearFields();
                 }
             }
@@ -200,8 +284,6 @@ namespace Nhs.Staffing.DataEntry.Portal
             HCA_OptimumStaffing_TextBox.Text = string.Empty;
             RN_SafeStaffing_TextBox.Text = string.Empty;
             HCA_SafeStaffing_TextBox.Text = string.Empty;
-
-            StaffingDataEntryFound_HiddenField.Text = "false";
         }
 
         protected void StaffingData_Grid_RowDataBound(object sender, GridViewRowEventArgs e)

@@ -73,7 +73,6 @@ namespace Nhs.Staffing.DataEntry.Portal
                     Devision_TextBox.Text = ward.Division;
 
                     WardDataEntryFound_HiddenField.Text = "true";
-                    Delete_Button.Enabled = true;
                     break;
                 }
                 else

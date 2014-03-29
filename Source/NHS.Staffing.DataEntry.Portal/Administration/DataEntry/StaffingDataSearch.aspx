@@ -30,8 +30,7 @@
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
                     CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
                     OnRowDataBound="StaffingData_Grid_RowDataBound">
-                    <Columns>
-                        <asp:BoundField DataField="StaffingDateRangeIndex" HeaderText="Period" />
+                    <Columns>                        
                         <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
@@ -43,6 +42,8 @@
                         <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
                         <asp:BoundField DataField="SafeRN" HeaderText="Safe Staffing RN" />
                         <asp:BoundField DataField="SafeHCA" HeaderText="Safe Staffing HCA" />
+                        <asp:HyperLinkField HeaderText="Edit" Text="Edit"
+                        DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}" DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

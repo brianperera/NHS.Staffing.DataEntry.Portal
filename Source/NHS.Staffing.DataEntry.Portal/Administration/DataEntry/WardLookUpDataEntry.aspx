@@ -48,9 +48,6 @@
                     <span>
                         <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                             OnClick="SubmitButton_Click" />
-                    </span><span>
-                        <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="Delete_Button"
-                            Enabled="false" OnClick="Delete_Button_Click" />
                     </span>
                 </div>
             </div>

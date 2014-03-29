@@ -14,6 +14,7 @@ namespace Nhs.Staffing.DataEntry.Portal
     {
         // Bind users to Grid.
         StaffingDateRangeDA staffingDateRangeDA = new StaffingDateRangeDA();
+        StaffingDateRange record = new StaffingDateRange();
 
         public string ActionType
         {
@@ -43,26 +44,35 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            BindInitialData();
-
             if (!IsPostBack)
             {
                 PeriodStartDate_TextBox.Attributes.Add("readonly", "readonly");
                 PeriodEndDate_TextBox.Attributes.Add("readonly", "readonly");
+
+                BindInitialData();
             }
 
             MessageLabel.Visible = false;
         }
 
         private void BindInitialData()
-        {
-            
+        {            
+            if (ActionType == Constants.Update && !string.IsNullOrEmpty(ID))
+            {
+                int currentPeriodIndex = 0;
+                int.TryParse(ID, out currentPeriodIndex);
+
+                if (currentPeriodIndex > 0)
+                {
+                    record = staffingDateRangeDA.GetAllStaffingDateRange(currentPeriodIndex);
+                    PeriodStartDate_TextBox.Text = record.StartDate.ToShortDateString();
+                    PeriodEndDate_TextBox.Text = record.EndDate.ToShortDateString();
+                }
+            }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            StaffingDateRange record = new StaffingDateRange();
-
             DateTime startDate;
             DateTime.TryParse(PeriodStartDate_TextBox.Text, out startDate);
             record.StartDate = startDate;

@@ -16,10 +16,28 @@
                 <div class="grid_24 error_msg">
                     <asp:Label ID="MessageLabel" runat="server" />
                 </div>
-                <div class="gridtitle">
-                    <h3>
-                        TODO: Filter goes here</h3>
+                <div class="filterContainer">
+                    <ul class="formSection">
+                        <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
+                            <asp:DropDownList ID="WardName_DropDownList" runat="server" CssClass="defaultDropDown">
+                            </asp:DropDownList>
+                        </span></li>
+                        <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
+                            <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown">
+                            </asp:DropDownList>
+                        </span></li>
+                        <li><span class="formTitleFields">Day</span> <span class="formFieldControl">
+                            <asp:DropDownList ID="Day_DropDownList" runat="server" CssClass="defaultDropDown">
+                            </asp:DropDownList>
+                        </span></li>
+                        <li>
+                            <asp:Button CssClass="submitButton" Text="Search" runat="server" 
+                                ID="SubmitButton" onclick="SubmitButton_Click" />
+                            <span></span></li>
+                    </ul>
                 </div>
+            </div>
+            <div class="clear">
             </div>
             <div class="gridtitle">
                 <h3>
@@ -28,9 +46,10 @@
             <div class="subSections regularTable">
                 <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                     BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                    CssClass="grid" AllowPaging="True" AllowSorting="True" EnableSortingAndPagingCallbacks="True"
-                    OnRowDataBound="StaffingData_Grid_RowDataBound">
-                    <Columns>                        
+                    CssClass="grid" AllowPaging="True" AllowSorting="True" 
+                    OnRowDataBound="StaffingData_Grid_RowDataBound" 
+                    onpageindexchanging="StaffingData_Grid_PageIndexChanging" >
+                    <Columns>
                         <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
                         <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
@@ -42,8 +61,8 @@
                         <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
                         <asp:BoundField DataField="SafeRN" HeaderText="Minimum Safe Staffing RN" />
                         <asp:BoundField DataField="SafeHCA" HeaderText="Minimum Safe Staffing HCA" />
-                        <asp:HyperLinkField HeaderText="Edit" Text="Edit"
-                        DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}" DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
+                        <asp:HyperLinkField HeaderText="Edit" Text="Edit" DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}"
+                            DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />
                     <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />

@@ -18,11 +18,9 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            PopulateDataGrid();
-
             if (!IsPostBack)
             {
-
+                PopulateDataGrid();
             }
 
             MessageLabel.Visible = false;
@@ -41,12 +39,18 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             // Select rows which has WardName, ignore the rest
-            List<StaffingData> staffingDataToDisplay = staffingData.Where(data => data.WardName != string.Empty).ToList(); ;
+            List<StaffingData> staffingDataToDisplay = staffingData.Where(data => data.WardName != string.Empty).ToList();
 
             if (null != staffingDataToDisplay)
             {
                 StaffingData_Grid.DataSource = staffingDataToDisplay;
                 StaffingData_Grid.DataBind();
+
+                BindWardNames(staffingDataToDisplay);
+                BindShifts(staffingDataToDisplay);
+                BindDays();
+
+                InsertDropdownDefaultValue();
             }
         }
 
@@ -81,5 +85,114 @@ namespace Nhs.Staffing.DataEntry.Portal
                 }
             }
         }
+
+        protected void SubmitButton_Click(object sender, EventArgs e)
+        {
+            FilterDataGrid();
+        }
+
+        private void BindWardNames(IList<StaffingData> staffingData)
+        {
+            List<string> wardNames = staffingData.Select(data => data.WardName).Distinct().ToList();
+
+            if (null != wardNames)
+            {
+                WardName_DropDownList.DataSource = wardNames;
+                WardName_DropDownList.DataBind();
+            }
+        }
+
+        private void BindShifts(IList<StaffingData> staffingData)
+        {
+            List<string> shifts = staffingData.Select(data => data.Shift).Distinct().ToList();
+
+            if (null != shifts)
+            {
+                Shift_DropDownList.DataSource = shifts;
+                Shift_DropDownList.DataBind();
+            }
+        }
+
+        private void BindDays()
+        {
+            List<string> daysOfWeek = new List<string>();
+            daysOfWeek.Add(DayOfWeek.Monday.ToString());
+            daysOfWeek.Add(DayOfWeek.Tuesday.ToString());
+            daysOfWeek.Add(DayOfWeek.Wednesday.ToString());
+            daysOfWeek.Add(DayOfWeek.Thursday.ToString());
+            daysOfWeek.Add(DayOfWeek.Friday.ToString());
+            daysOfWeek.Add(DayOfWeek.Saturday.ToString());
+            daysOfWeek.Add(DayOfWeek.Sunday.ToString());
+
+            Day_DropDownList.DataSource = daysOfWeek;
+            Day_DropDownList.DataBind();
+        }
+
+        private void InsertDropdownDefaultValue()
+        {
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["DropDownAllText"]))
+            {
+                ListItem defaultItem = new ListItem(ConfigurationManager.AppSettings["DropDownAllText"]);
+
+                WardName_DropDownList.Items.Insert(0, defaultItem);
+                Shift_DropDownList.Items.Insert(0, defaultItem);
+                Day_DropDownList.Items.Insert(0, defaultItem);
+            }
+        }
+
+        private void FilterDataGrid()
+        {
+            // Bind users to Grid.
+
+            List<StaffingData> staffingData = staffingDataDA.GetAllStaffing();
+
+            //Populate the ward name
+            foreach (var item in staffingData)
+            {
+                item.WardName = staffingDataDA.GetWardNameByWardCode(item.WardCode);
+            }
+
+            // Select rows which has WardName, ignore the rest
+            List<StaffingData> staffingDataToDisplay = staffingData.Where(data => data.WardName != string.Empty).ToList();
+
+            // Filter data
+            if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["DropDownAllText"]))
+            {
+                // Filter by Ward Name
+                if (!WardName_DropDownList.SelectedValue.Equals(ConfigurationManager.AppSettings["DropDownAllText"]))
+                {
+                    staffingDataToDisplay = staffingDataToDisplay.Where(data
+                                            => data.WardName.Equals(WardName_DropDownList.SelectedValue)).ToList();
+                }
+
+                // FIlter by Shift
+                if (!Shift_DropDownList.SelectedValue.Equals(ConfigurationManager.AppSettings["DropDownAllText"]))
+                {
+                    staffingDataToDisplay = staffingDataToDisplay.Where(data
+                                            => data.Shift.Equals(Shift_DropDownList.SelectedValue)).ToList();
+                }
+
+                // Filter by Day
+                if (!Day_DropDownList.SelectedValue.Equals(ConfigurationManager.AppSettings["DropDownAllText"]))
+                {
+                    staffingDataToDisplay = staffingDataToDisplay.Where(data
+                                            => data.StaffingDate.Equals(Day_DropDownList.SelectedValue)).ToList();
+                }
+            }
+
+
+            if (null != staffingDataToDisplay)
+            {
+                StaffingData_Grid.DataSource = staffingDataToDisplay;
+                StaffingData_Grid.DataBind();
+            }
+        }
+
+        protected void StaffingData_Grid_PageIndexChanging(object sender, GridViewPageEventArgs e)
+        {
+            StaffingData_Grid.PageIndex = e.NewPageIndex;
+            FilterDataGrid();
+        }
+
     }
 }

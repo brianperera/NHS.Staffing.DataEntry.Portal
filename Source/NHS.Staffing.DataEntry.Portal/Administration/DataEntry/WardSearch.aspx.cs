@@ -26,5 +26,36 @@ namespace Nhs.Staffing.DataEntry.Portal
             WardData_Grid.DataSource = currentWards;
             WardData_Grid.DataBind();
         }
+
+        protected void SubmitButton_Click(object sender, EventArgs e)
+        {
+            FilterDataGrid();
+        }
+
+        private void FilterDataGrid()
+        {
+            WardDA wda = new WardDA();
+            currentWards = wda.GetAllWard();
+
+            // Filter by ward name
+            if (!string.IsNullOrEmpty(wardNameTextbox.Text))
+            {
+                currentWards = currentWards.Where(ward 
+                        => ward.WardName.ToUpperInvariant().Contains(wardNameTextbox.Text.ToUpperInvariant())).ToList();
+            }
+
+            // Filter by ward code
+            if (!string.IsNullOrEmpty(wardCodeTextbox.Text))
+            {
+                currentWards = currentWards.Where(ward 
+                        => ward.WardCode.ToUpperInvariant().Contains(wardCodeTextbox.Text.ToUpperInvariant())).ToList();
+            }
+
+            if (null != currentWards)
+            {
+                WardData_Grid.DataSource = currentWards;
+                WardData_Grid.DataBind();
+            }
+        }
     }
 }

@@ -9,10 +9,14 @@
     width: auto;
 }
 
-
+.regularTable table
+{
+    table-layout: fixed;
+}
 
 .menu .dynamic
 {
+    border-bottom: 1px solid white !important;
     cursor: pointer;  
 }
 
@@ -30,7 +34,6 @@
 
 .menu .level3 li
 {
-    width:80px;
+    width:100px;
     border-bottom: 1px solid white !important;
-    border-top: 1px solid white !important;
 }

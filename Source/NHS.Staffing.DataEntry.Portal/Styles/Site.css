@@ -121,7 +121,7 @@ ul
     vertical-align: middle;
     padding: 4px 6px;
     width:50px;
-    text-align:left;
+	text-align:left;
 }
 
 /* regular table*/
@@ -153,9 +153,7 @@ ul
 .tableColumnLargeWidth
 {
     width:150px !important;
-}
-
-.aquaBackground
+}.aquaBackground
 {
     background-color:#0083f0;
     font-weight:bold;
@@ -1107,12 +1105,12 @@ label, span
 
 .greenBackgroundDashboard
 {
-    background-color: #049A51;
+    background-color: Green;
     font-weight:bold !important;    
 }
 
 .redBackgroundDashboard
 {
-    background-color:#DE3C3C;    
+    background-color:Red;    
     font-weight:bold !important;
 }

@@ -18,9 +18,19 @@
                 <div class="grid_24 error_msg">
                     <asp:Label ID="MessageLabel" runat="server" />
                 </div>
-                <div class="gridtitle">
-                    <h3>
-                        TODO: Filter goes here</h3>
+                <div class="filterContainer">
+                    <ul class="formSection">
+                        <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
+                            <asp:TextBox runat="server" ID="wardNameTextbox"></asp:TextBox>
+                        </span></li>
+                        <li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
+                            <asp:TextBox runat="server" ID="wardCodeTextbox"></asp:TextBox>
+                        </span></li>
+                        <li>
+                            <asp:Button CssClass="submitButton" Text="Search" runat="server" 
+                                ID="SubmitButton" onclick="SubmitButton_Click" />
+                            <span></span></li>
+                    </ul>
                 </div>
             </div>
             <div class="gridtitle">

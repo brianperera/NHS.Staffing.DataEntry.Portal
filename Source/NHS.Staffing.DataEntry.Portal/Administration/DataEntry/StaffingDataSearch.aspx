@@ -40,8 +40,8 @@
                         <asp:BoundField DataField="Beds" HeaderText="Beds" />
                         <asp:BoundField DataField="OptimumRN" HeaderText="Optimum Staffing RN" />
                         <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
-                        <asp:BoundField DataField="SafeRN" HeaderText="Safe Staffing RN" />
-                        <asp:BoundField DataField="SafeHCA" HeaderText="Safe Staffing HCA" />
+                        <asp:BoundField DataField="SafeRN" HeaderText="Minimum Safe Staffing RN" />
+                        <asp:BoundField DataField="SafeHCA" HeaderText="Minimum Safe Staffing HCA" />
                         <asp:HyperLinkField HeaderText="Edit" Text="Edit"
                         DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}" DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
                     </Columns>

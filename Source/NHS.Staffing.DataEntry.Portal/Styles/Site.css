@@ -182,13 +182,6 @@ ul
     color: #000 !important;   
 }
 
-.greenBackground
-{
-    background-color: Green;
-    font-weight:bold !important;
-    color:White !important;
-}
-
 .boldText th
 {  
     font-weight:bold !important;    
@@ -1104,4 +1097,16 @@ label, span
 .staffingPeriodDelete
 {
     display: none;
+}
+
+.greenBackgroundDashboard
+{
+    background-color: Green;
+    font-weight:bold !important;    
+}
+
+.redBackgroundDashboard
+{
+    background-color:Red;    
+    font-weight:bold !important;
 }

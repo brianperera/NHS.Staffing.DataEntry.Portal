@@ -160,7 +160,9 @@ namespace Nhs.Staffing.DataEntry.Portal
                 // at minimum safe staffing? RN
                 if (null != minSafeStaffingRNText)
                 {
-                    minSafeStaffingBackgroundClass = (minSafeStaffingRNText.InnerText.ToUpperInvariant().Contains("YES")) ? "greenBackground" : "redBackground";
+                    minSafeStaffingBackgroundClass = (minSafeStaffingRNText.InnerText.ToUpperInvariant().Contains("YES")) 
+                                                        ? "greenBackgroundDashboard" 
+                                                        : "redBackgroundDashboard";
                     minSafeStaffingRNText.Attributes.Add("class", minSafeStaffingBackgroundClass);                   
                 }
 
@@ -169,7 +171,9 @@ namespace Nhs.Staffing.DataEntry.Portal
 
                 if (null != minSafeStaffingHCAText)
                 {
-                    minSafeStaffingBackgroundClass = (minSafeStaffingHCAText.InnerText.ToUpperInvariant().Contains("YES")) ? "greenBackground" : "redBackground";
+                    minSafeStaffingBackgroundClass = (minSafeStaffingHCAText.InnerText.ToUpperInvariant().Contains("YES")) 
+                                                        ? "greenBackgroundDashboard" 
+                                                        : "redBackgroundDashboard";
                     minSafeStaffingHCAText.Attributes.Add("class", minSafeStaffingBackgroundClass); 
                 }
             }

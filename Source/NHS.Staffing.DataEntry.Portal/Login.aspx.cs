@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
+using System.Web.Security;
 
 namespace Nhs.Staffing.DataEntry.Portal
 {
@@ -19,10 +20,30 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void LoginUser_LoginError(object sender, EventArgs e)
         {
+            string errorMessage = Constants.IncorrectCredentialsErrorMessage;    
+        
+            MembershipUser userInfo = Membership.GetUser(LoginUser.UserName);
+
+            if(null != userInfo)
+            {
+                if (userInfo.IsLockedOut)
+                {
+                    errorMessage = Constants.UserLockedoutErrorMessage;
+                }
+                else if (!userInfo.IsApproved)
+                {
+                    errorMessage = Constants.UserNotActiveErrorMessage;
+                }
+                else
+                {
+                    errorMessage = Constants.IncorrectCredentialsErrorMessage;
+                }
+            }
+
             // Add the failure text to the validation group
             CustomValidator failureTextValidator = new CustomValidator();
             failureTextValidator.IsValid = false;
-            failureTextValidator.ErrorMessage = LoginUser.FailureText;
+            failureTextValidator.ErrorMessage = errorMessage;
             failureTextValidator.ValidationGroup = "LoginUserValidationGroup";
             failureTextValidator.CssClass = "alert-danger";
             this.Page.Validators.Add(failureTextValidator);

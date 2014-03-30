@@ -18,11 +18,7 @@
                 <div>
                     <div class="grid_24 error_msg">
                         <asp:Label ID="MessageLabel" runat="server" />
-                    </div>
-                <div class="gridtitle">
-                    <h3>
-                        TODO: Filter goes here</h3>
-                </div>
+                    </div>               
                 </div>
                 <div class="gridtitle">
                     <h3>

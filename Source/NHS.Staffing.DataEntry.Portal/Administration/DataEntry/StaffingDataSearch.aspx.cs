@@ -185,6 +185,8 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 StaffingData_Grid.DataSource = staffingDataToDisplay;
                 StaffingData_Grid.DataBind();
+
+                StaffingData_Grid.PageIndex = 0;
             }
         }
 

@@ -44,36 +44,40 @@
                     Current Staffing Data</h3>
             </div>
             <div class="subSections regularTable">
-                <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
-                    BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
-                    CssClass="grid" AllowPaging="True" AllowSorting="True" OnRowDataBound="StaffingData_Grid_RowDataBound"
-                    OnPageIndexChanging="StaffingData_Grid_PageIndexChanging">
-                    <Columns>
-                        <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
-                        <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
-                        <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
-                        <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
-                        <asp:BoundField DataField="Shift" HeaderText="Shift" />
-                        <asp:BoundField DataField="StaffingDate" HeaderText="Day" />
-                        <asp:BoundField DataField="Beds" HeaderText="Beds" />
-                        <asp:BoundField DataField="OptimumRN" HeaderText="Optimum Staffing RN" />
-                        <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
-                        <asp:BoundField DataField="SafeRN" HeaderText="Minimum Safe Staffing RN" />
-                        <asp:BoundField DataField="SafeHCA" HeaderText="Minimum Safe Staffing HCA" />
-                        <asp:HyperLinkField HeaderText="Edit" Text="Edit" DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}"
-                            DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
-                    </Columns>
-                    <FooterStyle BackColor="White" ForeColor="#000066" />
-                    <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                    <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
-                    <RowStyle ForeColor="#000066" />
-                    <AlternatingRowStyle CssClass="altrow" />
-                    <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
-                    <SortedAscendingCellStyle BackColor="#F1F1F1" />
-                    <SortedAscendingHeaderStyle BackColor="#007DBB" />
-                    <SortedDescendingCellStyle BackColor="#CAC9C9" />
-                    <SortedDescendingHeaderStyle BackColor="#00547E" />
-                </asp:GridView>
+                <asp:UpdatePanel>
+                    <ContentTemplate>
+                        <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
+                            BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"
+                            CssClass="grid" AllowPaging="True" AllowSorting="True" OnRowDataBound="StaffingData_Grid_RowDataBound"
+                            OnPageIndexChanging="StaffingData_Grid_PageIndexChanging">
+                            <Columns>
+                                <asp:BoundField DataField="PeriodStartDate" HeaderText="Period Start Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
+                                <asp:BoundField DataField="PeriodEndDate" HeaderText="Period End Date" DataFormatString="<%$ AppSettings:DateTimeFormat %>" />
+                                <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
+                                <asp:BoundField DataField="WardName" HeaderText="Ward Name" />
+                                <asp:BoundField DataField="Shift" HeaderText="Shift" />
+                                <asp:BoundField DataField="StaffingDate" HeaderText="Day" />
+                                <asp:BoundField DataField="Beds" HeaderText="Beds" />
+                                <asp:BoundField DataField="OptimumRN" HeaderText="Optimum Staffing RN" />
+                                <asp:BoundField DataField="OptimumHCA" HeaderText="Optimum Staffing HCA" />
+                                <asp:BoundField DataField="SafeRN" HeaderText="Minimum Safe Staffing RN" />
+                                <asp:BoundField DataField="SafeHCA" HeaderText="Minimum Safe Staffing HCA" />
+                                <asp:HyperLinkField HeaderText="Edit" Text="Edit" DataNavigateUrlFormatString="StaffingDataEntry.aspx?action=update&WardCode={0}&Shift={1}&StaffingDate={2}&StaffingDateRangeIndex={3}"
+                                    DataNavigateUrlFields="WardCode,Shift,StaffingDate,StaffingDateRangeIndex" />
+                            </Columns>
+                            <FooterStyle BackColor="White" ForeColor="#000066" />
+                            <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
+                            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                            <RowStyle ForeColor="#000066" />
+                            <AlternatingRowStyle CssClass="altrow" />
+                            <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />
+                            <SortedAscendingCellStyle BackColor="#F1F1F1" />
+                            <SortedAscendingHeaderStyle BackColor="#007DBB" />
+                            <SortedDescendingCellStyle BackColor="#CAC9C9" />
+                            <SortedDescendingHeaderStyle BackColor="#00547E" />
+                        </asp:GridView>
+                    </ContentTemplate>
+                </asp:UpdatePanel>
             </div>
         </div>
     </div>

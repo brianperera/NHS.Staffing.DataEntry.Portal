@@ -67,7 +67,7 @@
                             </Columns>
                             <FooterStyle BackColor="White" ForeColor="#000066" />
                             <HeaderStyle BackColor="#006699" Font-Bold="True" ForeColor="White" />
-                            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" />
+                            <PagerStyle BackColor="White" ForeColor="#000066" HorizontalAlign="Left" CssClass="gridPagerStyle" />
                             <RowStyle ForeColor="#000066" />
                             <AlternatingRowStyle CssClass="altrow" />
                             <SelectedRowStyle BackColor="#669999" Font-Bold="True" ForeColor="White" />

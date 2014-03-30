@@ -1118,4 +1118,14 @@ label, span
 .horizontalWidth
 {
     width: 225px;
+}    
+
+.gridPagerStyle tr td, .gridPagerStyle tr td span
+{
+    width: 50px;
+}
+
+.gridPagerStyle table
+{
+    width: 550px;
 }

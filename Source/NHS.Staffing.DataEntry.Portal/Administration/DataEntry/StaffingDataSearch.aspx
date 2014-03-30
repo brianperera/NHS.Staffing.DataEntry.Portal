@@ -5,6 +5,8 @@
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
+    <asp:ScriptManager ID="ScriptManager1" runat="server">
+    </asp:ScriptManager>
     <div class="main">
         <div class="pageHeader">
             <h2>
@@ -44,7 +46,7 @@
                     Current Staffing Data</h3>
             </div>
             <div class="subSections regularTable">
-                <asp:UpdatePanel>
+                <asp:UpdatePanel runat="server">
                     <ContentTemplate>
                         <asp:GridView ID="StaffingData_Grid" AutoGenerateColumns="False" runat="server" CellPadding="3"
                             BackColor="White" BorderColor="#CCCCCC" BorderStyle="None" BorderWidth="1px"

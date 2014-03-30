@@ -1120,15 +1120,10 @@ label, span
     width: 225px;
 }    
 
-.gridPagerStyle tr td, .gridPagerStyle tr td span
+.gridPagerStyle tr td
 {
     width: 50px;
     padding-right: 0px;
     overflow: hidden;        
     height: 15px;
-}
-
-.gridPagerStyle table
-{
-    width: 550px;    
 }

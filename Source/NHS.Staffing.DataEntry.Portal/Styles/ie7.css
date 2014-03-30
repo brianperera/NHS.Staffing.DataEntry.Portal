@@ -37,3 +37,11 @@
     width:100px;
     border-bottom: 1px solid white !important;
 }
+
+.gridPagerStyle td table tbody tr td, .gridPagerStyle tr td span
+{
+    width: 50px;
+    padding-right: 0px;
+    overflow: hidden;        
+    height: 15px;
+}

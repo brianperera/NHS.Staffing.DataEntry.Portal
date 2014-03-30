@@ -7,8 +7,7 @@
     <div class="blueBackGround">
         <div class="main">
             <asp:Login ID="LoginUser" runat="server" DestinationPageUrl="~/Shifts/Dashboard.aspx"
-                EnableViewState="false" RenderOuterTable="false" 
-                OnLoginError="LoginUser_LoginError">
+                EnableViewState="false" RenderOuterTable="false" OnLoginError="LoginUser_LoginError">
                 <LayoutTemplate>
                     <div class="login_container">
                         <img class="lock" src="Images/lock.png" alt="">
@@ -19,7 +18,7 @@
                             <div class="clear-fix" />
                             <div class="error_msg">
                                 <asp:ValidationSummary ID="LoginUserValidationSummary" runat="server" CssClass="alert-danger"
-                                    ValidationGroup="LoginUserValidationGroup" />                                
+                                    ValidationGroup="LoginUserValidationGroup" />
                             </div>
                             <div class="fieldSeperator">
                                 <span class="fieldName"><i class="icon-user"></i>username</span> <span>

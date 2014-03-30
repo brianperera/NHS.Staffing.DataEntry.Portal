@@ -22,10 +22,7 @@
                     <ul class="formSection">
                         <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
                             <asp:TextBox runat="server" ID="wardNameTextbox"></asp:TextBox>
-                        </span></li>
-                        <li><span class="formTitleFields">Ward Code</span> <span class="formFieldControl">
-                            <asp:TextBox runat="server" ID="wardCodeTextbox"></asp:TextBox>
-                        </span></li>
+                        </span></li>                        
                         <li>
                             <asp:Button CssClass="submitButton" Text="Search" runat="server" 
                                 ID="SubmitButton" onclick="SubmitButton_Click" />
@@ -44,8 +41,7 @@
                     PageSize="50">
                     <Columns>
                         <asp:HyperLinkField HeaderText="Ward Name" DataTextField="WardName" DataNavigateUrlFormatString="WardLookUpDataEntry.aspx?action=update&id={0}"
-                            DataNavigateUrlFields="WardCode" />
-                        <asp:BoundField DataField="WardCode" HeaderText="Ward Code" />
+                            DataNavigateUrlFields="WardCode" />                        
                         <asp:BoundField DataField="Division" HeaderText="Division" />
                     </Columns>
                     <FooterStyle BackColor="White" ForeColor="#000066" />

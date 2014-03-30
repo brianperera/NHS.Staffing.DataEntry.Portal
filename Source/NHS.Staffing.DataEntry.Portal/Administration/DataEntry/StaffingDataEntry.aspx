@@ -21,17 +21,20 @@
                             <asp:Label ID="MessageLabel" runat="server" />
                         </div>
                         <ul class="formSection">
-                            <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
+                            <li><span class="formTitleFields horizontalWidth">Ward Name</span> <span class="formTitleFields horizontalWidth">Shift</span>
+                                <span class="formTitleFields horizontalWidth">Day</span> </li>
+                            <li>
+                                <br />
+                            </li>
+                            <li><span class="formFieldControl">
                                 <asp:DropDownList ID="WardName_DropDownList" runat="server" CssClass="defaultDropDown"
                                     AutoPostBack="True" OnSelectedIndexChanged="WardName_DropDownList_SelectedIndexChanged">
                                 </asp:DropDownList>
-                            </span></li>
-                            <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
+                            </span><span class="formFieldControl">
                                 <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown"
                                     AutoPostBack="True" OnSelectedIndexChanged="Shift_DropDownList_SelectedIndexChanged">
                                 </asp:DropDownList>
-                            </span></li>
-                            <li><span class="formTitleFields">Day</span> <span class="formFieldControl">
+                            </span><span class="formFieldControl">
                                 <asp:DropDownList ID="Day_DropDownList" runat="server" CssClass="defaultDropDown"
                                     AutoPostBack="True" OnSelectedIndexChanged="Day_DropDownList_SelectedIndexChanged">
                                     <asp:ListItem>Monday</asp:ListItem>
@@ -42,7 +45,7 @@
                                     <asp:ListItem>Saturday</asp:ListItem>
                                     <asp:ListItem>Sunday</asp:ListItem>
                                 </asp:DropDownList>
-                            </span></li>
+                            </span></<li>
                         </ul>
                         <ul class="formSection">
                             <li><span class="formTitleFields">Date Range</span> <span class="formFieldControl">
@@ -80,8 +83,8 @@
                         <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                             OnClick="SubmitButton_Click" />
                     </span><span>
-                        <asp:Button CssClass="deleteButton" Text="Delete" runat="server"
-                            ID="DeleteButton" OnClick="DeleteButton_Click" Visible="false" />
+                        <asp:Button CssClass="deleteButton" Text="Delete" runat="server" ID="DeleteButton"
+                            OnClick="DeleteButton_Click" Visible="false" />
                     </span>
                 </div>
             </div>

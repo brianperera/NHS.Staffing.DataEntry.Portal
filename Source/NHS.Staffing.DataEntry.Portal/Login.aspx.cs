@@ -26,6 +26,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             failureTextValidator.ValidationGroup = "LoginUserValidationGroup";
             failureTextValidator.CssClass = "alert-danger";
             this.Page.Validators.Add(failureTextValidator);
+            
         }
     }
 }

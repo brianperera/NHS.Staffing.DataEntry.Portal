@@ -42,14 +42,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 currentWards = currentWards.Where(ward 
                         => ward.WardName.ToUpperInvariant().Contains(wardNameTextbox.Text.ToUpperInvariant())).ToList();
-            }
-
-            // Filter by ward code
-            if (!string.IsNullOrEmpty(wardCodeTextbox.Text))
-            {
-                currentWards = currentWards.Where(ward 
-                        => ward.WardCode.ToUpperInvariant().Contains(wardCodeTextbox.Text.ToUpperInvariant())).ToList();
-            }
+            }           
 
             if (null != currentWards)
             {

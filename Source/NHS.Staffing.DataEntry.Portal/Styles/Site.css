@@ -1114,3 +1114,8 @@ label, span
     background-color:Red;    
     font-weight:bold !important;
 }
+
+.horizontalWidth
+{
+    width: 225px;
+}

@@ -1123,9 +1123,12 @@ label, span
 .gridPagerStyle tr td, .gridPagerStyle tr td span
 {
     width: 50px;
+    padding-right: 0px;
+    overflow: hidden;        
+    height: 15px;
 }
 
 .gridPagerStyle table
 {
-    width: 550px;
+    width: 550px;    
 }

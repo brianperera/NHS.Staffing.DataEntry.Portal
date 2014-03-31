@@ -51,7 +51,7 @@ namespace Nhs.Staffing.DataEntry.Portal
         {
             if (e.Row.DataItem != null)
             {
-                var cellText = e.Row.Cells[3];
+                var cellText = e.Row.Cells[2];
 
                 if (cellText != null && cellText.Text.ToString() == string.Format(ConfigurationManager.AppSettings["DateTimeFormat"], DateTime.MinValue))
                 {

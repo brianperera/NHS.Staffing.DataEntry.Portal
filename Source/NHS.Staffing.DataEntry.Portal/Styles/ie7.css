@@ -45,3 +45,13 @@
     overflow: hidden;        
     height: 15px;
 }
+
+.error_msg .alert-danger 
+{
+    padding: 30px 0 10px 20px !important;    
+}
+
+.grid .altrow td
+{
+    background-color: #eff9fd;
+}

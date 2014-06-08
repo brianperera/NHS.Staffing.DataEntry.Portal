@@ -2,7 +2,7 @@
     CodeFile="ShiftDataEntry.aspx.cs" Inherits="Nhs.Staffing.DataEntry.Portal.ShiftDataEntry" %>
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
-<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">
+<asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">    
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="main">
@@ -23,20 +23,18 @@
                         <ul class="formSection">
                             <li><span class="formTitleFields">Ward Name</span> <span class="formFieldControl">
                                 <asp:DropDownList ID="WardName_DropDownList" runat="server" CssClass="defaultDropDown"
-                                    OnSelectedIndexChanged="WardName_DropDownList_SelectedIndexChanged" 
-                                    AutoPostBack="True">
+                                    OnSelectedIndexChanged="WardName_DropDownList_SelectedIndexChanged" AutoPostBack="True">
                                 </asp:DropDownList>
                             </span></li>
                             <li><span class="formTitleFields">Date</span> <span class="formFieldControl">
-                                <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" 
-                                    AutoPostBack="True" ontextchanged="Date_TextBox_TextChanged"></asp:TextBox>
+                                <asp:TextBox ID="Date_TextBox" runat="server" ViewStateMode="Enabled" AutoPostBack="True"
+                                    OnTextChanged="Date_TextBox_TextChanged"></asp:TextBox>
                                 <asp:CalendarExtender Animated="true" Format="dd/MM/yyyy" ID="CalendarExtender1"
                                     TargetControlID="Date_TextBox" runat="server" ViewStateMode="Enabled" />
                             </span></li>
                             <li><span class="formTitleFields">Shift</span> <span class="formFieldControl">
                                 <asp:DropDownList ID="Shift_DropDownList" runat="server" CssClass="defaultDropDown"
-                                    OnSelectedIndexChanged="Shift_DropDownList_SelectedIndexChanged" 
-                                    AutoPostBack="True">
+                                    OnSelectedIndexChanged="Shift_DropDownList_SelectedIndexChanged" AutoPostBack="True">
                                 </asp:DropDownList>
                             </span></li>
                             <li><span class="formTitleFields">Beds</span> <span class="formFieldControl">
@@ -83,27 +81,42 @@
                             </span></li>
                         </ul>
                         <ul class="formSection">
-                            <li><span class="formTitleFields">Safe?</span> <span class="formFieldControl">
-                                <asp:CheckBox ID="Safe_CheckBox" runat="server" />
-                            </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
-                            </li>
-                            <li><span class="formTitleFields">Mitigation action if UNSAFE</span> <span class="formFieldControl">
-                                <asp:DropDownList ID="SafeMitigation_DropDownList" runat="server" CssClass="defaultDropDown">
+                            <li><span class="formTitleFields">Is the ward currently safe?</span> <span class="formFieldControl">
+                                <asp:DropDownList runat="server" ID="safeDropdown" AutoPostBack="True" OnSelectedIndexChanged="safeDropdown_SelectedIndexChanged">
+                                    <asp:ListItem Text="Yes" Selected="True"></asp:ListItem>
+                                    <asp:ListItem Text="No"></asp:ListItem>
                                 </asp:DropDownList>
                             </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
                             </li>
-                            <li><span class="formTitleFields">Mitigation action if SAFE</span> <span class="formFieldControl">
-                                <asp:DropDownList ID="UnSafeMitigation_DropDownList" runat="server" CssClass="defaultDropDown">
-                                </asp:DropDownList>
-                            </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
-                            </li>
+                            <asp:Panel runat="server" ID="mitigationPanel" Visible="false">
+                                <li><span>Please select the mitigation action being undertaken</span></li>
+                                <li><span class="formTitleFields">Mitigation action</span> <span class="formFieldControl">
+                                    <asp:DropDownList ID="UnSafeMitigation_DropDownList" runat="server" CssClass="defaultDropDown">
+                                    </asp:DropDownList>
+                                </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
+                                </li>
+                            </asp:Panel>
                             <li><span>
                                 <asp:Button CssClass="submitButton" Text="Submit" runat="server" ID="SubmitButton"
                                     OnClick="SubmitButton_Click" />
-                                <asp:HiddenField runat="server" ID="ShiftDataEntryFound_HiddenField" />
                             </span></li>
                         </ul>
+                        <asp:HiddenField runat="server" ID="ShiftDataEntryFound_HiddenField" />
+                        <input type="hidden" id="pageValid" runat="server" value="false" />
+                        <asp:Panel runat="server" ID="modalPanel" Visible="false" CssClass="overlay">
+                            <p>
+                                This shift has been declared as unsafe and is currently trying to mitigate. Please
+                                log back in before the start of the shift to complete a final safety sign off.
+                            </p>
+                            <p>
+                                Please adjust any staffing figures above if they have changed as a result of the
+                                mitigation action.</p>
+                            <asp:Button ID="okButton" runat="server" Text="Ok" OnClick="okButton_Click" CssClass="submitButton" />
+                        </asp:Panel>
+                        <div class="fade" runat="server" id="fade">
+                        </div>
                     </div>
+                </div>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

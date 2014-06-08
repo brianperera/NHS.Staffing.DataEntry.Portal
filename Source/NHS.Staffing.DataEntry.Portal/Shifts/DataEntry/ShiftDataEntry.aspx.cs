@@ -38,10 +38,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             Shift_DropDownList.DataBind();
 
             UnSafeMitigation_DropDownList.DataSource = DataRepository.Instance.UnSafeMitigations;
-            UnSafeMitigation_DropDownList.DataBind();            
-
-            SafeMitigation_DropDownList.DataSource = DataRepository.Instance.SafeMitigations;
-            SafeMitigation_DropDownList.DataBind();
+            UnSafeMitigation_DropDownList.DataBind();
 
             // Inserting the default text to the dropdowns
             if (!string.IsNullOrEmpty(ConfigurationManager.AppSettings["DropDownDefaultText"]))
@@ -49,37 +46,28 @@ namespace Nhs.Staffing.DataEntry.Portal
                 ListItem defaultItem = new ListItem(ConfigurationManager.AppSettings["DropDownDefaultText"]);
 
                 UnSafeMitigation_DropDownList.Items.Insert(0, defaultItem);
-                SafeMitigation_DropDownList.Items.Insert(0, defaultItem);
             }
         }
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            bool executionStatus = false;
-
             // Validate before submit
-            if (string.IsNullOrEmpty(Date_TextBox.Text))
+            if (!IsFormValid())
             {
-                DisplayMessage(executionStatus, "Date is Empty");
-
+                ResetConfirmationMessage();
                 return;
             }
 
-            ShiftRecord currentRecord = GetShiftRecord();
-            ShiftRecordDA sda = new ShiftRecordDA();
-
-            string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
-
-            if (shiftDataEntryFound.Equals("true"))
+            if (safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase))
             {
-                executionStatus = sda.UpdateShiftRecord(currentRecord);
+                ShiftDataUpdate();
             }
             else
             {
-                executionStatus = sda.AddShiftRecord(currentRecord);
+                modalPanel.Visible = true;
+                modalPanel.Attributes.Add("style", "display: block;");
+                fade.Attributes.Add("style", "display: block;");
             }
-
-            DisplayMessage(executionStatus);
         }
 
         protected void ButtonSearch_Click(object sender, EventArgs e)
@@ -162,16 +150,14 @@ namespace Nhs.Staffing.DataEntry.Portal
             record.TodayNonTrustHCA = HCA_TodayNonTrust_TextBox.Text;
 
             //Safe
-            record.IsSafe = this.Safe_CheckBox.Checked;
+            record.IsSafe = (safeDropdown.Text == "Yes") ? true : false;
 
             //Safe
-            // Save an empty string if the default option is selected
-            record.SafeMitigation = (SafeMitigation_DropDownList.SelectedIndex > 0) 
-                                        ? SafeMitigation_DropDownList.SelectedValue 
-                                        : string.Empty;
+            record.SafeMitigation = string.Empty;
 
-            record.UnSafeMitigation = (UnSafeMitigation_DropDownList.SelectedIndex > 0 ) 
-                                        ? UnSafeMitigation_DropDownList.SelectedValue 
+            // Unsafe
+            record.UnSafeMitigation = (UnSafeMitigation_DropDownList.SelectedIndex > 0)
+                                        ? UnSafeMitigation_DropDownList.SelectedValue
                                         : string.Empty;
 
             record.DataEntryBy = Membership.GetUser().UserName + " : " + DateTime.Now.ToString();
@@ -190,10 +176,11 @@ namespace Nhs.Staffing.DataEntry.Portal
             if (UnSafeMitigation_DropDownList.Items.Count > 0)
                 UnSafeMitigation_DropDownList.SelectedIndex = 0;
 
-            if (SafeMitigation_DropDownList.Items.Count > 0)
-                SafeMitigation_DropDownList.SelectedIndex = 0;
+            //if (SafeMitigation_DropDownList.Items.Count > 0)
+            //    SafeMitigation_DropDownList.SelectedIndex = 0;
 
-            Safe_CheckBox.Checked = false;
+            //Safe_CheckBox.Checked = false;
+            safeDropdown.SelectedIndex = 0;
 
             Beds_TextBox.Text = string.Empty;
 
@@ -273,18 +260,16 @@ namespace Nhs.Staffing.DataEntry.Portal
             //TodayNonTrustHCA
             HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
             //Safe
-            Safe_CheckBox.Checked = record.IsSafe;
-
-            //SafeMitigation
-            if (SafeMitigation_DropDownList.Items.FindByValue(record.SafeMitigation) != null)
+            if (record.IsSafe)
             {
-                SafeMitigation_DropDownList.SelectedValue = record.SafeMitigation;
+                safeDropdown.SelectedIndex = 0;
             }
             else
             {
-                SafeMitigation_DropDownList.SelectedIndex = 0;
+                safeDropdown.SelectedIndex = 1;
+                mitigationPanel.Visible = true;
             }
-            
+
             //UnSafeMitigation
             if (UnSafeMitigation_DropDownList.Items.FindByValue(record.UnSafeMitigation) != null)
             {
@@ -294,7 +279,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 UnSafeMitigation_DropDownList.SelectedIndex = 0;
             }
-            
+
 
             string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
 
@@ -358,6 +343,63 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 return dateToCheck >= startDate && dateToCheck <= endDate;
             }
+        }
+
+        protected void safeDropdown_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            mitigationPanel.Visible = safeDropdown.SelectedItem.Text.Equals("Yes", StringComparison.OrdinalIgnoreCase) ? false : true;
+        }
+
+        protected void okButton_Click(object sender, EventArgs e)
+        {
+            ShiftDataUpdate();
+        }
+
+        private void ShiftDataUpdate()
+        {
+            bool executionStatus = false;
+
+            ShiftRecord currentRecord = GetShiftRecord();
+            ShiftRecordDA sda = new ShiftRecordDA();
+
+            string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
+
+            if (shiftDataEntryFound.Equals("true"))
+            {
+                executionStatus = sda.UpdateShiftRecord(currentRecord);
+            }
+            else
+            {
+                executionStatus = sda.AddShiftRecord(currentRecord);
+            }
+
+            DisplayMessage(executionStatus);
+
+            ResetConfirmationMessage();
+        }
+
+        private bool IsFormValid()
+        {
+            if (string.IsNullOrEmpty(Date_TextBox.Text))
+            {
+                DisplayMessage(false, "Date is Empty");
+                return false;
+            }
+
+            if (mitigationPanel.Visible == true && UnSafeMitigation_DropDownList.SelectedIndex == 0)
+            {
+                DisplayMessage(false, "Please select a mitigation action");
+                return false;
+            }
+
+            return true;
+        }
+
+        private void ResetConfirmationMessage()
+        {
+            modalPanel.Visible = false;
+            modalPanel.Attributes.Add("style", "display: none;");
+            fade.Attributes.Add("style", "display: none;");
         }
     }
 }

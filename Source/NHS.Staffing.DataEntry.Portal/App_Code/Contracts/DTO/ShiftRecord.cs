@@ -87,6 +87,7 @@ namespace Nhs.Staffing.DataEntry
         public string TodayNonTrustHCA { get; set; }
         public string DataEntryBy { get; set; }
         public bool IsSafe { get; set; }
+        public bool? IsSafeAfterMitigation { get; set; }
         public string UnSafeMitigation { get; set; }
         public string SafeMitigation { get; set; }
 

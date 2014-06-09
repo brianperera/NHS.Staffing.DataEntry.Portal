@@ -1161,8 +1161,7 @@ label, span
     padding: 25px;
     border: 2px solid black;
     background-color: #ffffff;
-    width: 50%;
-    height: 30%;
+    width: 40%;
     z-index: 100; /* makes the div the top layer, so it’ll lay on top of the other content */
 }
 

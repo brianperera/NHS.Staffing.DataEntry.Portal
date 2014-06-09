@@ -60,12 +60,12 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             if (safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase))
             {
-                ShiftDataUpdate();
+                ShiftDataUpdate(false);
             }
             else
             {
-                modalPanel.Visible = true;
-                modalPanel.Attributes.Add("style", "display: block;");
+                unsafeSubmitConfirmationPanel.Visible = true;
+                unsafeSubmitConfirmationPanel.Attributes.Add("style", "display: block;");
                 fade.Attributes.Add("style", "display: block;");
             }
         }
@@ -89,7 +89,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             MessageLabel.CssClass = executionStatus == true ? "alert-success" : "alert-danger";
         }
 
-        private ShiftRecord GetShiftRecord()
+        private ShiftRecord GetShiftRecord(bool overrideStaffingData)
         {
             ShiftRecord record = new ShiftRecord();
 
@@ -132,30 +132,44 @@ namespace Nhs.Staffing.DataEntry.Portal
             record.SafeStaffingHCA = sshca;
 
             //TodayTrustRN
-            record.TodayTrustRN = RN_TodayTrust_TextBox.Text;
+            record.TodayTrustRN = overrideStaffingData ? Overrride_RN_TodayTrust_TextBox.Text : RN_TodayTrust_TextBox.Text;
 
             //TodayTrustHCA
-            record.TodayTrustHCA = HCA_TodayTrust_TextBox.Text;
+            record.TodayTrustHCA = overrideStaffingData ? Overrride_HCA_TodayTrust_TextBox.Text : HCA_TodayTrust_TextBox.Text;
 
             //TodayBankRN
-            record.TodayBankRN = RN_TodayBank_TextBox.Text;
+            record.TodayBankRN = overrideStaffingData ? Overrride_RN_TodayBank_TextBox.Text : RN_TodayBank_TextBox.Text;
 
             //TodayBankHCA
-            record.TodayBankHCA = HCA_TodayBank_TextBox.Text;
+            record.TodayBankHCA = overrideStaffingData ? Overrride_HCA_TodayBank_TextBox.Text : HCA_TodayBank_TextBox.Text;
 
             //TodayNonTrustRN
-            record.TodayNonTrustRN = RN_TodayNonTrust_TextBox.Text;
+            record.TodayNonTrustRN = overrideStaffingData ? Overrride_RN_TodayNonTrust_TextBox.Text : RN_TodayNonTrust_TextBox.Text;
 
             //TodayNonTrustHCA
-            record.TodayNonTrustHCA = HCA_TodayNonTrust_TextBox.Text;
+            record.TodayNonTrustHCA = overrideStaffingData ? Overrride_HCA_TodayNonTrust_TextBox.Text : HCA_TodayNonTrust_TextBox.Text;
 
             //Safe
-            record.IsSafe = (safeDropdown.Text == "Yes") ? true : false;
+            if ((safeDropdown.Text == "Yes") || Overrride_safeDropdown.Text == "Yes")
+            {
+                record.IsSafe = true;
+                record.IsSafeAfterMitigation = true;
+                Overrride_safeDropdown.Text = "Yes";
+            }
+            else if((safeDropdown.Text == "No" || Overrride_safeDropdown.Text == "No"))
+            {
+                record.IsSafe = false;
+                record.IsSafeAfterMitigation = false;
+            }
+            else
+            {
+                record.IsSafeAfterMitigation = null;
+            }
 
             //Safe
             record.SafeMitigation = string.Empty;
 
-            // Unsafe
+            //Unsafe
             record.UnSafeMitigation = (UnSafeMitigation_DropDownList.SelectedIndex > 0)
                                         ? UnSafeMitigation_DropDownList.SelectedValue
                                         : string.Empty;
@@ -249,25 +263,47 @@ namespace Nhs.Staffing.DataEntry.Portal
             //Fix if defualt value is 0, empty string will be displayed.
             //TodayTrustRN
             RN_TodayTrust_TextBox.Text = record.TodayTrustRN;
+            Overrride_RN_TodayTrust_TextBox.Text = record.TodayTrustRN;
             //TodayTrustHCA
             HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA;
+            Overrride_HCA_TodayTrust_TextBox.Text = record.TodayTrustHCA;
             //TodayBankRN
             RN_TodayBank_TextBox.Text = record.TodayBankRN;
+            Overrride_RN_TodayBank_TextBox.Text = record.TodayBankRN;
             //TodayBankHCA
             HCA_TodayBank_TextBox.Text = record.TodayBankHCA;
+            Overrride_HCA_TodayBank_TextBox.Text = record.TodayBankHCA;
             //TodayNonTrustRN
             RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN;
+            Overrride_RN_TodayNonTrust_TextBox.Text = record.TodayNonTrustRN;
             //TodayNonTrustHCA
             HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
+            Overrride_HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
+
             //Safe
             if (record.IsSafe)
             {
                 safeDropdown.SelectedIndex = 0;
+                mitigationPanel.Visible = false;
             }
             else
             {
                 safeDropdown.SelectedIndex = 1;
                 mitigationPanel.Visible = true;
+            }
+
+            //Check if the ward is unsafe and display the staffing adjustment panel
+            if (record.IsSafeAfterMitigation == true)
+            {
+                Overrride_safeDropdown.SelectedIndex = 1;
+            }
+            else if(record.IsSafeAfterMitigation == false)
+            {
+                adjustStaffingFiguresPanel.Visible = true;
+                adjustStaffingFiguresPanel.Attributes.Add("style", "display: block;");
+                fade.Attributes.Add("style", "display: block;");
+
+                Overrride_safeDropdown.SelectedIndex = 0;
             }
 
             //UnSafeMitigation
@@ -352,14 +388,20 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void okButton_Click(object sender, EventArgs e)
         {
-            ShiftDataUpdate();
+            ShiftDataUpdate(false);
         }
 
-        private void ShiftDataUpdate()
+        protected void staffingOverrrideButton_Click(object sender, EventArgs e)
+        {
+            ShiftDataUpdate(true);
+        }
+
+        private void ShiftDataUpdate(bool overrideRecord)
         {
             bool executionStatus = false;
 
-            ShiftRecord currentRecord = GetShiftRecord();
+            ShiftRecord currentRecord = GetShiftRecord(overrideRecord);
+
             ShiftRecordDA sda = new ShiftRecordDA();
 
             string shiftDataEntryFound = ShiftDataEntryFound_HiddenField.Value;
@@ -372,6 +414,9 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 executionStatus = sda.AddShiftRecord(currentRecord);
             }
+
+            //Update the staffing data again
+            LoadDataForUpdate();
 
             DisplayMessage(executionStatus);
 
@@ -397,8 +442,12 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private void ResetConfirmationMessage()
         {
-            modalPanel.Visible = false;
-            modalPanel.Attributes.Add("style", "display: none;");
+            unsafeSubmitConfirmationPanel.Visible = false;
+            unsafeSubmitConfirmationPanel.Attributes.Add("style", "display: none;");
+            fade.Attributes.Add("style", "display: none;");
+
+            adjustStaffingFiguresPanel.Visible = false;
+            adjustStaffingFiguresPanel.Attributes.Add("style", "display: none;");
             fade.Attributes.Add("style", "display: none;");
         }
     }

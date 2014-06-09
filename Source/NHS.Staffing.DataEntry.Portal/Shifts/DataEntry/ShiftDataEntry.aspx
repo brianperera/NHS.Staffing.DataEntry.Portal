@@ -86,14 +86,14 @@
                                     <asp:ListItem Text="Yes" Selected="True"></asp:ListItem>
                                     <asp:ListItem Text="No"></asp:ListItem>
                                 </asp:DropDownList>
-                            </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
+                            </span>
                             </li>
                             <asp:Panel runat="server" ID="mitigationPanel" Visible="false">
                                 <li><span>Please select the mitigation action being undertaken</span></li>
                                 <li><span class="formTitleFields">Mitigation action</span> <span class="formFieldControl">
                                     <asp:DropDownList ID="UnSafeMitigation_DropDownList" runat="server" CssClass="defaultDropDown">
                                     </asp:DropDownList>
-                                </span><span class="formFieldControlHelpText">Matron or bleep holder to complete </span>
+                                </span>
                                 </li>
                             </asp:Panel>
                             <li><span>
@@ -103,15 +103,53 @@
                         </ul>
                         <asp:HiddenField runat="server" ID="ShiftDataEntryFound_HiddenField" />
                         <input type="hidden" id="pageValid" runat="server" value="false" />
-                        <asp:Panel runat="server" ID="modalPanel" Visible="false" CssClass="overlay">
-                            <p>
-                                This shift has been declared as unsafe and is currently trying to mitigate. Please
-                                log back in before the start of the shift to complete a final safety sign off.
-                            </p>
-                            <p>
-                                Please adjust any staffing figures above if they have changed as a result of the
-                                mitigation action.</p>
+                        <asp:Panel runat="server" ID="unsafeSubmitConfirmationPanel" Visible="false" CssClass="overlay">
+                            <ul class="formSection shortTextBox">
+                                <li>
+                                    <span>
+                                        <p>
+                                        This shift has been declared as unsafe and is currently trying to mitigate. 
+                                        Please log back in before the start of the shift to complete a final safety sign off.
+                                        <p>
+                                        <p>
+                                        Please adjust any staffing figures above if they have changed as a result of the mitigation action.
+                                        <p>
+                                    </span>
+                                </li>    
+                            </ul>
                             <asp:Button ID="okButton" runat="server" Text="Ok" OnClick="okButton_Click" CssClass="submitButton" />
+                        </asp:Panel>
+                        <asp:Panel runat="server" ID="adjustStaffingFiguresPanel" Visible="false" CssClass="overlay">
+                            <ul class="formSection shortTextBox">
+                                <li><span class="formTitleFields">Is the ward currently safe?</span> <span class="formFieldControl">
+                                    <asp:DropDownList runat="server" ID="Overrride_safeDropdown" AutoPostBack="True" OnSelectedIndexChanged="safeDropdown_SelectedIndexChanged">
+                                        <asp:ListItem Text="No" Selected="True"></asp:ListItem>
+                                        <asp:ListItem Text="Yes"></asp:ListItem>
+                                    </asp:DropDownList>
+                                </span>
+                                </li>
+                                <li>
+                                    <span class="formFieldControlHelpText">Please adjust any staffing figures above if they have changed as a result of the mitigation action.</span>
+                                </li>
+                                <li><span class="formTitleFields">Today Trust</span> <span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_RN_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                </span><span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_HCA_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                </span></li>
+                                <li><span class="formTitleFields">Today Bank</span> <span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_RN_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                </span><span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_HCA_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                </span></li>
+                                <li><span class="formTitleFields">Today Non Trust</span> <span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_RN_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                        runat="server"></asp:TextBox>
+                                </span><span class="formFieldControl">
+                                    <asp:TextBox ID="Overrride_HCA_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                        runat="server"></asp:TextBox>
+                                </span></li>
+                            </ul>
+                            <asp:Button ID="staffingOverrrideButton" runat="server" Text="Submit" OnClick="staffingOverrrideButton_Click" CssClass="submitButton" />
                         </asp:Panel>
                         <div class="fade" runat="server" id="fade">
                         </div>

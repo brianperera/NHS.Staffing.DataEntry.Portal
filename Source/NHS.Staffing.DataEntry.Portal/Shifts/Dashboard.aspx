@@ -176,10 +176,10 @@
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).TodayNonTrustHCA %>
                                     </td>
                                     <td runat="server" id="minSafeStaffingRN">
-                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustRN"), Eval("TodayBankRN"), Eval("TodayNonTrustRN"), Eval("OptimumStaffingRN"))%>
+                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustRN"), Eval("TodayBankRN"), Eval("TodayNonTrustRN"), Eval("SafeStaffingRN"))%>
                                     </td>
                                     <td runat="server" id="minSafeStaffingHCA">
-                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustHCA"), Eval("TodayBankHCA"), Eval("TodayNonTrustHCA"), Eval("OptimumStaffingHCA")) %>
+                                        <%# GetOptimumStaffingSummary(Eval("TodayTrustHCA"), Eval("TodayBankHCA"), Eval("TodayNonTrustHCA"), Eval("SafeStaffingHCA"))%>
                                     </td>
                                     <td>
                                         <%# 

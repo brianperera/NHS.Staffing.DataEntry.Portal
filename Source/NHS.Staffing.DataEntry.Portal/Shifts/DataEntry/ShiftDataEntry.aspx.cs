@@ -51,13 +51,94 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void SubmitButton_Click(object sender, EventArgs e)
         {
-            // Validate before submit
+            //Validate before submit
             if (!IsFormValid())
             {
                 ResetConfirmationMessage();
                 return;
             }
 
+            if (!IsStaffWarningRequired(false))
+            {
+                DisplayStaffingWarningDialog(false);
+            }
+            else
+            {
+                SubmitStaffingData();
+            }
+        }
+
+        private bool IsStaffWarningRequired(bool overrrideStaffingData)
+        {
+            string wardCode = WardName_DropDownList.SelectedItem.Value;
+            DateTime currentDate;
+            ShiftRecordDA sda;
+
+            //ShiftID
+            int shiftID = -1;
+            int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
+            DateTime.TryParse(Date_TextBox.Text, out currentDate);
+
+            if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || currentDate == null)
+                return false;
+
+            sda = new ShiftRecordDA();
+            ShiftRecord record = sda.GetShiftRecord(currentDate, wardCode, shiftID);
+
+            int todayTrustHCA;
+            int todayBankHCA;
+            int todayNonTrustHCA;
+            int optimumStaffingHCA;
+
+            int todayTrustRN;
+            int todayBankRN;
+            int todayNonTrustRN;
+            int optimumStaffingRN;
+
+            int.TryParse(HCA_SafeStaffing_TextBox.Text, out optimumStaffingHCA);
+            int.TryParse(RN_SafeStaffing_TextBox.Text, out optimumStaffingRN);
+
+            if (overrrideStaffingData)
+            {
+                int.TryParse(Overrride_HCA_TodayTrust_TextBox.Text, out todayTrustHCA);
+                int.TryParse(Overrride_HCA_TodayBank_TextBox.Text, out todayBankHCA);
+                int.TryParse(Overrride_HCA_TodayNonTrust_TextBox.Text, out todayNonTrustHCA);
+                
+                int.TryParse(Overrride_RN_TodayTrust_TextBox.Text, out todayTrustRN);
+                int.TryParse(Overrride_RN_TodayBank_TextBox.Text, out todayBankRN);
+                int.TryParse(Overrride_RN_TodayNonTrust_TextBox.Text, out todayNonTrustRN);
+            }
+            else
+            {
+                int.TryParse(HCA_TodayTrust_TextBox.Text, out todayTrustHCA);
+                int.TryParse(HCA_TodayBank_TextBox.Text, out todayBankHCA);
+                int.TryParse(HCA_TodayNonTrust_TextBox.Text, out todayNonTrustHCA);
+
+                int.TryParse(RN_TodayTrust_TextBox.Text, out todayTrustRN);
+                int.TryParse(RN_TodayBank_TextBox.Text, out todayBankRN);
+                int.TryParse(RN_TodayNonTrust_TextBox.Text, out todayNonTrustRN);
+            }
+
+            //HCA
+            return (todayNonTrustHCA + todayBankHCA + todayTrustHCA >= record.SafeStaffingHCA) && (todayNonTrustRN + todayBankRN + todayTrustRN >= optimumStaffingRN);
+        }
+
+        protected void StaffingWarnningButton_Click(object sender, EventArgs e)
+        {
+            ResetConfirmationMessage();
+            SubmitStaffingData();
+        }
+
+        //TODO
+        protected void StaffingOverrideWarnningButton_Click(object sender, EventArgs e)
+        {
+            //Brian
+            ResetConfirmationMessage();
+            ShiftDataUpdate(true);
+        }
+
+        private void SubmitStaffingData()
+        {
             if (safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase))
             {
                 ShiftDataUpdate(false);
@@ -68,6 +149,28 @@ namespace Nhs.Staffing.DataEntry.Portal
                 unsafeSubmitConfirmationPanel.Attributes.Add("style", "display: block;");
                 fade.Attributes.Add("style", "display: block;");
             }
+        }
+
+        private void DisplayStaffingWarningDialog(bool overrrideStaffingData)
+        {
+            ResetConfirmationMessage();
+
+            if (overrrideStaffingData)
+            {
+                //Show the overrride OK button
+                StaffingWarnningButton.Visible = false;
+                StaffingOverrideWarnningButton.Visible = true;
+            }
+            else
+            {
+                //Show the submit OK button
+                StaffingWarnningButton.Visible = true;
+                StaffingOverrideWarnningButton.Visible = false;
+            }
+
+            StaffingWarningPanel.Visible = true;
+            StaffingWarningPanel.Attributes.Add("style", "display: block;");
+            fade.Attributes.Add("style", "display: block;");
         }
 
         protected void ButtonSearch_Click(object sender, EventArgs e)
@@ -149,7 +252,39 @@ namespace Nhs.Staffing.DataEntry.Portal
             //TodayNonTrustHCA
             record.TodayNonTrustHCA = overrideStaffingData ? Overrride_HCA_TodayNonTrust_TextBox.Text : HCA_TodayNonTrust_TextBox.Text;
 
-            //Safe
+            //Safe logic
+            if (overrideStaffingData)
+            {
+                if (Overrride_safeDropdown.Text == "Yes")
+                {
+                    record.IsSafe = true;
+                    record.IsSafeAfterMitigation = true;
+                    safeDropdown.Text = "Yes";
+                }
+                else
+                {
+                    record.IsSafe = false;
+                    record.IsSafeAfterMitigation = false;
+                    safeDropdown.Text = "No";
+                }
+            }
+            else
+            {
+                if (safeDropdown.Text == "Yes")
+                {
+                    record.IsSafe = true;
+                    record.IsSafeAfterMitigation = true;
+                    Overrride_safeDropdown.Text = "Yes";
+                } 
+                else
+                {
+                    record.IsSafe = false;
+                    record.IsSafeAfterMitigation = false;
+                    Overrride_safeDropdown.Text = "No";
+                }
+            }
+
+           /*
             if ((safeDropdown.Text == "Yes") || Overrride_safeDropdown.Text == "Yes")
             {
                 record.IsSafe = true;
@@ -166,6 +301,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 record.IsSafeAfterMitigation = null;
             }
 
+            */
             //Safe
             record.SafeMitigation = string.Empty;
 
@@ -393,7 +529,20 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         protected void staffingOverrrideButton_Click(object sender, EventArgs e)
         {
-            ShiftDataUpdate(true);
+            //brian
+            if (!IsStaffWarningRequired(true))
+            {
+                DisplayStaffingWarningDialog(true);
+            }
+            else
+            {
+                ShiftDataUpdate(true);
+            }
+        }
+
+        protected void cancelPopupButton_Click(object sender, EventArgs e)
+        {
+            ResetConfirmationMessage();
         }
 
         private void ShiftDataUpdate(bool overrideRecord)
@@ -448,6 +597,10 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             adjustStaffingFiguresPanel.Visible = false;
             adjustStaffingFiguresPanel.Attributes.Add("style", "display: none;");
+            fade.Attributes.Add("style", "display: none;");
+
+            StaffingWarningPanel.Visible = false;
+            StaffingWarningPanel.Attributes.Add("style", "display: none;");
             fade.Attributes.Add("style", "display: none;");
         }
     }

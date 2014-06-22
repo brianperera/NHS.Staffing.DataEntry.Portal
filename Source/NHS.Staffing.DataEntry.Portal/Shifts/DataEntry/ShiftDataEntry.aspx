@@ -3,6 +3,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">    
+
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="main">
@@ -131,6 +132,8 @@
                                 <li>
                                     <span class="formFieldControlHelpText">Please adjust any staffing figures above if they have changed as a result of the mitigation action.</span>
                                 </li>
+                                <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
+                                RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>
                                 <li><span class="formTitleFields">Today Trust</span> <span class="formFieldControl">
                                     <asp:TextBox ID="Overrride_RN_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
                                 </span><span class="formFieldControl">
@@ -150,11 +153,24 @@
                                 </span></li>
                             </ul>
                             <asp:Button ID="staffingOverrrideButton" runat="server" Text="Submit" OnClick="staffingOverrrideButton_Click" CssClass="submitButton" />
+                            <asp:Button ID="cancelPopupButton" runat="server" Text="Cancel" OnClick="cancelPopupButton_Click" CssClass="submitButton" />
+                        </asp:Panel>
+                        <asp:Panel runat="server" ID="StaffingWarningPanel" Visible="false" CssClass="smallOverlay">
+                            <div style="width:100px; float:left">
+                                <asp:Image ID="WarningImage" ImageUrl="~/Images/WarningIcon.jpg" Width="80" Height="80" runat="server" />
+                            </div>
+                            <div style="margin-top:20px">
+                                <span class="formFieldControlHelpText">Staffing level has not met the minimum safe staffing requirements.</span>
+                            </div>
+                            <div class="clear"></div>
+                            <div style="padding-left:80%">
+                                <asp:Button ID="StaffingWarnningButton" Visible="false" runat="server" Text="OK" OnClick="StaffingWarnningButton_Click" CssClass="submitButton" />
+                                <asp:Button ID="StaffingOverrideWarnningButton" Visible="false" runat="server" Text="OK" OnClick="StaffingOverrideWarnningButton_Click" CssClass="submitButton" />
+                            </div>
                         </asp:Panel>
                         <div class="fade" runat="server" id="fade">
                         </div>
                     </div>
-                </div>
                 </div>
             </ContentTemplate>
         </asp:UpdatePanel>

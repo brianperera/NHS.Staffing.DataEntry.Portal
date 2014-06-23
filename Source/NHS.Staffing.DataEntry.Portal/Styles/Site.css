@@ -97,8 +97,14 @@ ul
     text-align: center;
 }
 
-.dashBoard tr
+.dashBoard td
 {
+    text-align: center;
+}
+
+.leftAlign
+{
+    text-align: left !important;
 }
 
 .dashBoard tr th
@@ -119,7 +125,6 @@ ul
     vertical-align: middle;
     padding: 4px 6px;
     width: 50px;
-    text-align: left;
 }
 
 /* regular table*/

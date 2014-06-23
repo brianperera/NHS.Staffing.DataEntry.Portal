@@ -157,7 +157,7 @@
                         </asp:Panel>
                         <asp:Panel runat="server" ID="StaffingWarningPanel" Visible="false" CssClass="smallOverlay">
                             <div style="width:100px; float:left">
-                                <asp:Image ID="WarningImage" ImageUrl="~/Images/WarningIcon.jpg" Width="80" Height="80" runat="server" />
+                                <asp:Image ID="WarningImage" ImageUrl="~/Images/WarningIcon1.jpg" Width="80" Height="80" runat="server" />
                             </div>
                             <div style="margin-top:20px">
                                 <span class="formFieldControlHelpText">Staffing level has not met the minimum safe staffing requirements.</span>

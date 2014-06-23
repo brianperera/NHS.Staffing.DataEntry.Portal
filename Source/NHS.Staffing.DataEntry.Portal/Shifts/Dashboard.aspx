@@ -75,9 +75,6 @@
                                             <th class="tableColumnLargeWidth">
                                                 Mitigation action if UNSAFE
                                             </th>
-                                            <th class="tableColumnLargeWidth">
-                                                Mitigation action if SAFE
-                                            </th>
                                         </tr>
                                         <!--Table headings-->
                                         <tr class="boldText">
@@ -135,9 +132,6 @@
                                             <th>
                                                 &nbsp
                                             </th>
-                                            <th>
-                                                &nbsp
-                                            </th>
                                         </tr>
                                 </HeaderTemplate>
                                 <ItemTemplate>
@@ -186,11 +180,8 @@
                 Eval("IsSafe").ToString() == "True" ? "Yes" : "No"
                                         %>
                                     </td>
-                                    <td class="tableColumnLargeWidth">
+                                    <td class="tableColumnLargeWidth leftAlign">
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).UnSafeMitigation%>
-                                    </td>
-                                    <td class="tableColumnLargeWidth">
-                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeMitigation%>
                                     </td>
                                     </tr>
                                 </ItemTemplate>

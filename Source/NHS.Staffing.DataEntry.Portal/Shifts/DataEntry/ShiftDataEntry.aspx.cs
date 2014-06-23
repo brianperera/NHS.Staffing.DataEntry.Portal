@@ -70,30 +70,15 @@ namespace Nhs.Staffing.DataEntry.Portal
 
         private bool IsStaffWarningRequired(bool overrrideStaffingData)
         {
-            string wardCode = WardName_DropDownList.SelectedItem.Value;
-            DateTime currentDate;
-            ShiftRecordDA sda;
-
-            //ShiftID
-            int shiftID = -1;
-            int.TryParse(Shift_DropDownList.SelectedItem.Value, out shiftID);
-            DateTime.TryParse(Date_TextBox.Text, out currentDate);
-
-            if (string.IsNullOrWhiteSpace(wardCode) || shiftID < 0 || currentDate == null)
-                return false;
-
-            sda = new ShiftRecordDA();
-            ShiftRecord record = sda.GetShiftRecord(currentDate, wardCode, shiftID);
-
             int todayTrustHCA;
             int todayBankHCA;
             int todayNonTrustHCA;
             int optimumStaffingHCA;
-
             int todayTrustRN;
             int todayBankRN;
             int todayNonTrustRN;
             int optimumStaffingRN;
+            bool isSafe = false;
 
             int.TryParse(HCA_SafeStaffing_TextBox.Text, out optimumStaffingHCA);
             int.TryParse(RN_SafeStaffing_TextBox.Text, out optimumStaffingRN);
@@ -103,10 +88,12 @@ namespace Nhs.Staffing.DataEntry.Portal
                 int.TryParse(Overrride_HCA_TodayTrust_TextBox.Text, out todayTrustHCA);
                 int.TryParse(Overrride_HCA_TodayBank_TextBox.Text, out todayBankHCA);
                 int.TryParse(Overrride_HCA_TodayNonTrust_TextBox.Text, out todayNonTrustHCA);
-                
+
                 int.TryParse(Overrride_RN_TodayTrust_TextBox.Text, out todayTrustRN);
                 int.TryParse(Overrride_RN_TodayBank_TextBox.Text, out todayBankRN);
                 int.TryParse(Overrride_RN_TodayNonTrust_TextBox.Text, out todayNonTrustRN);
+
+                isSafe = Overrride_safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase);
             }
             else
             {
@@ -117,10 +104,15 @@ namespace Nhs.Staffing.DataEntry.Portal
                 int.TryParse(RN_TodayTrust_TextBox.Text, out todayTrustRN);
                 int.TryParse(RN_TodayBank_TextBox.Text, out todayBankRN);
                 int.TryParse(RN_TodayNonTrust_TextBox.Text, out todayNonTrustRN);
+
+                isSafe = safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase);
             }
 
+            if (isSafe)
+                return isSafe;
+
             //HCA
-            return (todayNonTrustHCA + todayBankHCA + todayTrustHCA >= record.SafeStaffingHCA) && (todayNonTrustRN + todayBankRN + todayTrustRN >= optimumStaffingRN);
+            return (todayNonTrustHCA + todayBankHCA + todayTrustHCA >= optimumStaffingHCA) && (todayNonTrustRN + todayBankRN + todayTrustRN >= optimumStaffingRN);
         }
 
         protected void StaffingWarnningButton_Click(object sender, EventArgs e)
@@ -275,7 +267,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                     record.IsSafe = true;
                     record.IsSafeAfterMitigation = true;
                     Overrride_safeDropdown.Text = "Yes";
-                } 
+                }
                 else
                 {
                     record.IsSafe = false;
@@ -284,24 +276,24 @@ namespace Nhs.Staffing.DataEntry.Portal
                 }
             }
 
-           /*
-            if ((safeDropdown.Text == "Yes") || Overrride_safeDropdown.Text == "Yes")
-            {
-                record.IsSafe = true;
-                record.IsSafeAfterMitigation = true;
-                Overrride_safeDropdown.Text = "Yes";
-            }
-            else if((safeDropdown.Text == "No" || Overrride_safeDropdown.Text == "No"))
-            {
-                record.IsSafe = false;
-                record.IsSafeAfterMitigation = false;
-            }
-            else
-            {
-                record.IsSafeAfterMitigation = null;
-            }
+            /*
+             if ((safeDropdown.Text == "Yes") || Overrride_safeDropdown.Text == "Yes")
+             {
+                 record.IsSafe = true;
+                 record.IsSafeAfterMitigation = true;
+                 Overrride_safeDropdown.Text = "Yes";
+             }
+             else if((safeDropdown.Text == "No" || Overrride_safeDropdown.Text == "No"))
+             {
+                 record.IsSafe = false;
+                 record.IsSafeAfterMitigation = false;
+             }
+             else
+             {
+                 record.IsSafeAfterMitigation = null;
+             }
 
-            */
+             */
             //Safe
             record.SafeMitigation = string.Empty;
 
@@ -433,7 +425,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 Overrride_safeDropdown.SelectedIndex = 1;
             }
-            else if(record.IsSafeAfterMitigation == false)
+            else if (record.IsSafeAfterMitigation == false)
             {
                 adjustStaffingFiguresPanel.Visible = true;
                 adjustStaffingFiguresPanel.Attributes.Add("style", "display: block;");

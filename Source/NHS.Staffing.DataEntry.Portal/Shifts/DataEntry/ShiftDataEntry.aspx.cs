@@ -58,7 +58,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 return;
             }
 
-            if (!IsStaffWarningRequired(false))
+            if (IsStaffWarningRequired(false))
             {
                 DisplayStaffingWarningDialog(false);
             }
@@ -73,15 +73,15 @@ namespace Nhs.Staffing.DataEntry.Portal
             int todayTrustHCA;
             int todayBankHCA;
             int todayNonTrustHCA;
-            int optimumStaffingHCA;
             int todayTrustRN;
             int todayBankRN;
             int todayNonTrustRN;
-            int optimumStaffingRN;
+            int minimumSafeStaffingRN;
+            int minimumSafeStaffingHCA;
             bool isSafe = false;
 
-            int.TryParse(HCA_SafeStaffing_TextBox.Text, out optimumStaffingHCA);
-            int.TryParse(RN_SafeStaffing_TextBox.Text, out optimumStaffingRN);
+            int.TryParse(HCA_SafeStaffing_TextBox.Text, out minimumSafeStaffingHCA);
+            int.TryParse(RN_SafeStaffing_TextBox.Text, out minimumSafeStaffingRN);
 
             if (overrrideStaffingData)
             {
@@ -108,11 +108,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 isSafe = safeDropdown.SelectedValue.Equals("Yes", StringComparison.OrdinalIgnoreCase);
             }
 
-            if (isSafe)
-                return isSafe;
-
-            //HCA
-            return (todayNonTrustHCA + todayBankHCA + todayTrustHCA >= optimumStaffingHCA) && (todayNonTrustRN + todayBankRN + todayTrustRN >= optimumStaffingRN);
+            return (isSafe && ((todayNonTrustHCA + todayBankHCA + todayTrustHCA < minimumSafeStaffingHCA) || (todayNonTrustRN + todayBankRN + todayTrustRN < minimumSafeStaffingRN)));
         }
 
         protected void StaffingWarnningButton_Click(object sender, EventArgs e)
@@ -522,7 +518,7 @@ namespace Nhs.Staffing.DataEntry.Portal
         protected void staffingOverrrideButton_Click(object sender, EventArgs e)
         {
             //brian
-            if (!IsStaffWarningRequired(true))
+            if (IsStaffWarningRequired(true))
             {
                 DisplayStaffingWarningDialog(true);
             }

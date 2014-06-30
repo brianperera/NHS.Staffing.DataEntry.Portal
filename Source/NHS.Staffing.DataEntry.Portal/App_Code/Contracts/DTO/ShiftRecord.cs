@@ -77,6 +77,8 @@ namespace Nhs.Staffing.DataEntry
         public int Beds { get; set; }
         public int OptimumStaffingRN { get; set; }
         public int OptimumStaffingHCA { get; set; }
+        public string PlannedNumberRN { get; set; }
+        public string PlannedNumberHCA { get; set; }
         public int SafeStaffingRN { get; set; }
         public int SafeStaffingHCA { get; set; }
         public string TodayTrustRN { get; set; }
@@ -102,10 +104,12 @@ namespace Nhs.Staffing.DataEntry
         {
             get 
             {
-                if (shiftID == 1)
-                    return displayDate;
-                else
-                    return string.Empty;
+                //if (shiftID == 1)
+                //    return displayDate;
+                //else
+                //    return string.Empty;
+
+                return displayDate;
             }
         }
 
@@ -124,10 +128,11 @@ namespace Nhs.Staffing.DataEntry
             set { day = value; }
             get 
             {
-                if (shiftID == 1)
-                    return day; 
-                else
-                    return string.Empty;
+                //if (shiftID == 1)
+                //    return day; 
+                //else
+                //    return string.Empty;
+                return day; 
             }
         }
 

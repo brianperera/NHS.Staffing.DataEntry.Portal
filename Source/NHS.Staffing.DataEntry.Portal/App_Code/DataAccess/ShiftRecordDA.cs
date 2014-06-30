@@ -58,11 +58,14 @@ namespace Nhs.Staffing.DataEntry
                         shift.OptimumStaffingRN = tempInt;
                         int.TryParse(results["OptimumStaffingHCA"].ToString(), out tempInt);
                         shift.OptimumStaffingHCA = tempInt;
+
+                        shift.PlannedNumberRN = results["PlannedNumberRN"].ToString();
+                        shift.PlannedNumberHCA = results["PlannedNumberHCA"].ToString();
+
                         int.TryParse(results["SafeStaffingRN"].ToString(), out tempInt);
                         shift.SafeStaffingRN = tempInt;
                         int.TryParse(results["SafeStaffingHCA"].ToString(), out tempInt);
                         shift.SafeStaffingHCA = tempInt;
-                        
                         
                         shift.TodayTrustRN = results["TodayTrustRN"].ToString();
                         shift.TodayTrustHCA = results["TodayTrustHCA"].ToString();
@@ -120,11 +123,16 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(GetParameter("@ShiftDate", SqlDbType.VarChar, isoDateTime));
                 command.Parameters.Add(GetParameter("@ShiftID", SqlDbType.VarChar, record.ShiftID));
                 command.Parameters.Add(GetParameter("@Beds", SqlDbType.VarChar, record.Beds));
+                
                 command.Parameters.Add(GetParameter("@OptimumStaffingRN ", SqlDbType.VarChar, record.OptimumStaffingRN));
                 command.Parameters.Add(GetParameter("@OptimumStaffingHCA", SqlDbType.VarChar, record.OptimumStaffingHCA));
 
+                command.Parameters.Add(GetParameter("@PlannedNumberRN ", SqlDbType.VarChar, record.PlannedNumberRN));
+                command.Parameters.Add(GetParameter("@PlannedNumberHCA", SqlDbType.VarChar, record.PlannedNumberHCA));
+
                 command.Parameters.Add(GetParameter("@SafeStaffingRN", SqlDbType.VarChar, record.SafeStaffingRN));
                 command.Parameters.Add(GetParameter("@SafeStaffingHCA", SqlDbType.VarChar, record.SafeStaffingHCA));
+                
                 command.Parameters.Add(GetParameter("@TodayTrustRN", SqlDbType.VarChar, record.TodayTrustRN));
                 command.Parameters.Add(GetParameter("@TodayTrustHCA", SqlDbType.VarChar, record.TodayTrustHCA));
                 command.Parameters.Add(GetParameter("@TodayBankRN", SqlDbType.VarChar, record.TodayBankRN));
@@ -218,6 +226,10 @@ namespace Nhs.Staffing.DataEntry
                         shift.OptimumStaffingRN = tempInt;
                         int.TryParse(results["OptimumStaffingHCA"].ToString(), out tempInt);
                         shift.OptimumStaffingHCA = tempInt;
+                        
+                        shift.PlannedNumberRN = results["PlannedNumberRN"].ToString();
+                        shift.PlannedNumberHCA = results["PlannedNumberHCA"].ToString();
+
                         int.TryParse(results["SafeStaffingRN"].ToString(), out tempInt);
                         shift.SafeStaffingRN = tempInt;
                         int.TryParse(results["SafeStaffingHCA"].ToString(), out tempInt);

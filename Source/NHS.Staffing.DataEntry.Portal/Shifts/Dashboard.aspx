@@ -55,6 +55,9 @@
                                                 Optimum staffing
                                             </th>
                                             <th colspan="2">
+                                                Planned Number
+                                            </th>
+                                            <th colspan="2">
                                                 Minimum Safe Staffing
                                             </th>
                                             <th colspan="2">
@@ -127,6 +130,12 @@
                                                 HCA
                                             </th>
                                             <th>
+                                                RN
+                                            </th>
+                                            <th>
+                                                HCA
+                                            </th>
+                                            <th>
                                                 &nbsp
                                             </th>
                                             <th>
@@ -138,12 +147,18 @@
                                     <%# Eval("IsDaySummary").ToString() == "True" ? "<tr class='grayBackground hideRow'>" : ""%>
                                     <%# Eval("IsWeekSummary").ToString() == "True" ? "<tr class='darkGrayBackground hideRow'>" : ""%>
                                     <%# GetRowSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString())%>
-                                    <%# GetColumnSummaryHtml(Eval("IsDaySummary").ToString(), Eval("IsWeekSummary").ToString(), Eval("Day").ToString(), Eval("DisplayDate").ToString(), Eval("Shift"), Eval("Beds").ToString())%>
+                                    <%# GetColumnSummaryHtml(Eval("IsDaySummary"), Eval("IsWeekSummary"), Eval("Day"), Eval("DisplayDate"), Eval("Shift"), Eval("Beds"))%>
                                     <td class="aquaBackground">
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingRN%>
                                     </td>
                                     <td class="aquaBackground">
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).OptimumStaffingHCA%>
+                                    </td>
+                                    <td class="aquaBackground">
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).PlannedNumberRN%>
+                                    </td>
+                                    <td class="aquaBackground">
+                                        <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).PlannedNumberHCA%>
                                     </td>
                                     <td class="aquaBackground">
                                         <%# ((Nhs.Staffing.DataEntry.ShiftRecord)Container.DataItem).SafeStaffingRN%>

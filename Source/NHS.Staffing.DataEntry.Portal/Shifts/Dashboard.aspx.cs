@@ -26,11 +26,7 @@ namespace Nhs.Staffing.DataEntry.Portal
         private void LoadData()
         {
             Dictionary<DateTime, ShiftRecord> records = new Dictionary<DateTime, ShiftRecord>();
-            ShiftRecord daySummary = null;
-            ShiftRecord weekSummary = new ShiftRecord();
-            weekSummary.IsWeekSummary = true;
             List<ShiftRecord> modifiedList = new List<ShiftRecord>();
-
             ShiftRecordDA sda = new ShiftRecordDA();
 
             DateTime SelectedDateTime = DateTime.Now;
@@ -46,40 +42,77 @@ namespace Nhs.Staffing.DataEntry.Portal
             var shiftRecords = sda.GetShiftRecordsForDate(SelectedDateTime, SelectedDateTime.AddDays(7));
             string selectedWard = WardName_DropDownList.SelectedItem.Text;
 
+            List<DateTime> currentDateTimes = new List<DateTime>();
+            currentDateTimes.Clear();
+
+            //shiftRecords.
+
             foreach (var item in shiftRecords)
             {
                 if (item.WardName.Equals(selectedWard))
                 {
-
-                    if (records.ContainsKey(item.Date))
+                    modifiedList.Add(new ShiftRecord
                     {
-                    }
-                    else
-                    {
-                        records.Add(item.Date, item);
+                        Beds = item.Beds,
+                        DataEntryBy = item.DataEntryBy,
+                        Date = currentDateTimes.Contains(item.Date) ? new DateTime() : item.Date,
+                        Day = currentDateTimes.Contains(item.Date) ? string.Empty : item.Day,
+                        IsDaySummary = item.IsDaySummary,
+                        IsSafe = item.IsSafe,
+                        IsSafeAfterMitigation = item.IsSafeAfterMitigation,
+                        IsWeekSummary = item.IsWeekSummary,
+                        OptimumStaffingHCA = item.OptimumStaffingHCA,
+                        OptimumStaffingRN = item.OptimumStaffingRN,
+                        PlannedNumberRN = item.PlannedNumberRN,
+                        PlannedNumberHCA = item.PlannedNumberHCA,
+                        SafeMitigation = item.SafeMitigation,
+                        SafeStaffingHCA = item.SafeStaffingHCA,
+                        SafeStaffingRN = item.SafeStaffingRN,
+                        ShiftID = item.ShiftID,
+                        ShiftRecordExists = item.ShiftRecordExists,
+                        TodayBankHCA = item.TodayBankHCA,
+                        TodayBankRN = item.TodayBankRN,
+                        TodayNonTrustHCA = item.TodayNonTrustHCA,
+                        TodayNonTrustRN = item.TodayNonTrustRN,
+                        TodayTrustHCA = item.TodayTrustHCA,
+                        TodayTrustRN = item.TodayTrustRN,
+                        UnSafeMitigation = item.UnSafeMitigation,
+                        WardCode = item.WardCode,
+                    });
 
-                        if (modifiedList.Count > 1)
-                        {
-                            modifiedList.Add(daySummary);
-                            AddData(weekSummary, daySummary);
-                        }
+                    currentDateTimes.Add(item.Date);
 
-                        daySummary = new ShiftRecord();
-                        daySummary.IsDaySummary = true;
-                    }
+                    //currentDateTimes.Add(item.Date);
 
-                    AddData(daySummary, item);
-                    modifiedList.Add(item);
+                    //if (records.ContainsKey(item.Date))
+                    //{
+                    //}
+                    //else
+                    //{
+                    //    records.Add(item.Date, item);
+
+                    //    //if (modifiedList.Count > 1)
+                    //    //{
+                    //    //    modifiedList.Add(daySummary);
+                    //    //    AddData(weekSummary, daySummary);
+                    //    //}
+
+                    //    daySummary = new ShiftRecord();
+                    //    daySummary.IsDaySummary = true;
+                    //}
+
+                    //AddData(daySummary, item);
+                    //modifiedList.Add(item);
 
                 }
             }
 
-            if (modifiedList.Count > 1)
-            {
-                modifiedList.Add(daySummary);
-                AddData(weekSummary, daySummary);
-                modifiedList.Add(weekSummary);
-            }
+            //if (modifiedList.Count > 1)
+            //{
+            //    modifiedList.Add(daySummary);
+            //    AddData(weekSummary, daySummary);
+            //    modifiedList.Add(weekSummary);
+            //}
 
             this.cdcatalog.DataSource = modifiedList;
             this.cdcatalog.DataBind();
@@ -97,9 +130,9 @@ namespace Nhs.Staffing.DataEntry.Portal
             summaryRecord.TodayNonTrustHCA += dataRecord.TodayNonTrustHCA;
         }
 
-        protected string GetColumnSummaryHtml(string IsDaySummary, string IsWeekSummary, string day, string displayDate, object shift, string beds)
+        protected string GetColumnSummaryHtml(object IsDaySummary, object IsWeekSummary, object day, object displayDate, object shift, object beds)
         {
-            if (string.IsNullOrEmpty(day) && string.IsNullOrEmpty(displayDate) && shift == null && string.IsNullOrEmpty(beds))
+            if (day == null && displayDate == null && shift == null && beds == null)
             {
                 return string.Empty;
             }

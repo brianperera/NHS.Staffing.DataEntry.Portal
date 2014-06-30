@@ -23,6 +23,122 @@ namespace Nhs.Staffing.DataEntry.Portal
             MessageLabel.Visible = false;
         }
 
+        private void SetEntryAreaBckground()
+        {
+            if(RN_PlannedNumber_TextBox.Text == "" || RN_PlannedNumber_TextBox.Text == "0")
+                RN_PlannedNumber_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_PlannedNumber_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (HCA_PlannedNumber_TextBox.Text == "" || HCA_PlannedNumber_TextBox.Text == "0")
+                HCA_PlannedNumber_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_PlannedNumber_TextBox.BackColor = System.Drawing.Color.LightBlue;    
+
+
+            if (HCA_TodayNonTrust_TextBox.Text == "" || HCA_TodayNonTrust_TextBox.Text == "0")
+                HCA_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (RN_TodayNonTrust_TextBox.Text == "" || RN_TodayNonTrust_TextBox.Text == "0")
+                RN_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (HCA_TodayBank_TextBox.Text == "" || HCA_TodayBank_TextBox.Text == "0")
+                HCA_TodayBank_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_TodayBank_TextBox.BackColor = System.Drawing.Color.LightBlue;
+                
+
+
+            if (RN_TodayBank_TextBox.Text == "" || RN_TodayBank_TextBox.Text == "0")
+                RN_TodayBank_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_TodayBank_TextBox.BackColor = System.Drawing.Color.LightBlue;    
+
+
+            if (HCA_TodayTrust_TextBox.Text == "" || HCA_TodayTrust_TextBox.Text == "0")
+                HCA_TodayTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_TodayTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (RN_TodayTrust_TextBox.Text == "" || RN_TodayTrust_TextBox.Text == "0")
+                RN_TodayTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_TodayTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (Overrride_HCA_TodayNonTrust_TextBox.Text == "" || Overrride_HCA_TodayNonTrust_TextBox.Text == "0")
+                Overrride_HCA_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                Overrride_HCA_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (Overrride_RN_TodayNonTrust_TextBox.Text == "" || Overrride_RN_TodayNonTrust_TextBox.Text == "0")
+                Overrride_RN_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                Overrride_RN_TodayNonTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+                
+            if (Overrride_HCA_TodayBank_TextBox.Text == "" || Overrride_HCA_TodayBank_TextBox.Text == "0")
+                Overrride_HCA_TodayBank_TextBox.BackColor = System.Drawing.Color.White;    
+            else
+                Overrride_HCA_TodayBank_TextBox.BackColor = System.Drawing.Color.LightBlue;    
+            
+
+
+            if (Overrride_RN_TodayBank_TextBox.Text == "" || Overrride_RN_TodayBank_TextBox.Text == "0")
+                Overrride_RN_TodayBank_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                Overrride_RN_TodayBank_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (Overrride_HCA_TodayTrust_TextBox.Text == "" || Overrride_HCA_TodayTrust_TextBox.Text == "0")
+                Overrride_HCA_TodayTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                Overrride_HCA_TodayTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;    
+
+
+            if (Overrride_RN_TodayTrust_TextBox.Text == "" || Overrride_RN_TodayTrust_TextBox.Text == "0")
+                Overrride_RN_TodayTrust_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                Overrride_RN_TodayTrust_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (RN_OptimumStaffing_TextBox.Text == "" || RN_OptimumStaffing_TextBox.Text == "0")
+                RN_OptimumStaffing_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_OptimumStaffing_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (HCA_OptimumStaffing_TextBox.Text == "" || HCA_OptimumStaffing_TextBox.Text == "0")
+                HCA_OptimumStaffing_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_OptimumStaffing_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (RN_SafeStaffing_TextBox.Text == "" || RN_SafeStaffing_TextBox.Text == "0")
+                RN_SafeStaffing_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                RN_SafeStaffing_TextBox.BackColor = System.Drawing.Color.LightBlue;
+
+
+            if (HCA_SafeStaffing_TextBox.Text == "" || HCA_SafeStaffing_TextBox.Text == "0")
+                HCA_SafeStaffing_TextBox.BackColor = System.Drawing.Color.White;
+            else
+                HCA_SafeStaffing_TextBox.BackColor = System.Drawing.Color.LightBlue;
+        }
+
+        protected void EntryArea_TextBox_TextChanged(object sender, EventArgs e)
+        {
+            SetEntryAreaBckground();
+        }
+
         private void BindInitialData()
         {
             ShiftDataEntryFound_HiddenField.Value = "false";
@@ -117,10 +233,9 @@ namespace Nhs.Staffing.DataEntry.Portal
             SubmitStaffingData();
         }
 
-        //TODO
+        
         protected void StaffingOverrideWarnningButton_Click(object sender, EventArgs e)
         {
-            //Brian
             ResetConfirmationMessage();
             ShiftDataUpdate(true);
         }
@@ -211,6 +326,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             int oshca;
             int.TryParse(HCA_OptimumStaffing_TextBox.Text, out oshca);
             record.OptimumStaffingHCA = oshca;
+
+
+            //Planned Number RN
+            record.PlannedNumberRN = RN_PlannedNumber_TextBox.Text;
+
+            //Planned Number HCA
+            record.PlannedNumberHCA = HCA_PlannedNumber_TextBox.Text;
 
             //SafeStaffingRN
             int ssrn;
@@ -324,6 +446,8 @@ namespace Nhs.Staffing.DataEntry.Portal
 
             RN_OptimumStaffing_TextBox.Text = string.Empty;
             HCA_OptimumStaffing_TextBox.Text = string.Empty;
+            RN_PlannedNumber_TextBox.Text = string.Empty;
+            HCA_PlannedNumber_TextBox.Text = string.Empty;
             RN_SafeStaffing_TextBox.Text = string.Empty;
             HCA_SafeStaffing_TextBox.Text = string.Empty;
             RN_TodayTrust_TextBox.Text = string.Empty;
@@ -378,6 +502,10 @@ namespace Nhs.Staffing.DataEntry.Portal
             RN_OptimumStaffing_TextBox.Text = record.OptimumStaffingRN.ToString();
             //OptimumStaffingHCA
             HCA_OptimumStaffing_TextBox.Text = record.OptimumStaffingHCA.ToString();
+            //PlannedNumberRN
+            RN_PlannedNumber_TextBox.Text = record.PlannedNumberRN;
+            //PlannedNumberHCA
+            HCA_PlannedNumber_TextBox.Text = record.PlannedNumberHCA;
             //SafeStaffingRN
             RN_SafeStaffing_TextBox.Text = record.SafeStaffingRN.ToString();
             //SafeStaffingHCA
@@ -490,6 +618,7 @@ namespace Nhs.Staffing.DataEntry.Portal
                 HCA_SafeStaffing_TextBox.Text = staffingDataRecord.SafeHCA.ToString();
             }
 
+            SetEntryAreaBckground();
         }
 
         private bool IsCurrentDateInSpecifiedDatePeriod(DateTime dateToCheck, DateTime startDate, DateTime endDate)
@@ -590,6 +719,6 @@ namespace Nhs.Staffing.DataEntry.Portal
             StaffingWarningPanel.Visible = false;
             StaffingWarningPanel.Attributes.Add("style", "display: none;");
             fade.Attributes.Add("style", "display: none;");
-        }
-    }
+        }        
+}
 }

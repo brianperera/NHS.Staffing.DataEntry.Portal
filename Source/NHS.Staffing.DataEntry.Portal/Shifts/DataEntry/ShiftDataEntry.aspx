@@ -3,7 +3,7 @@
 
 <%@ Register Assembly="AjaxControlToolkit" Namespace="AjaxControlToolkit" TagPrefix="asp" %>
 <asp:Content ID="HeaderContent" runat="server" ContentPlaceHolderID="HeadContent">    
-
+    <script src="../../Scripts/ClientSideUtility.js" type="text/javascript"></script>
 </asp:Content>
 <asp:Content ID="BodyContent" runat="server" ContentPlaceHolderID="MainContent">
     <div class="main">
@@ -50,34 +50,41 @@
                             <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
                                 RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>
                             <li><span class="formTitleFields">Optimum Staffing</span> <span class="formFieldControl">
-                                <asp:TextBox ID="RN_OptimumStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
-                                    runat="server"></asp:TextBox>
+                                <asp:TextBox ID="RN_OptimumStaffing_TextBox" CssClass="TextBoxBackground" ontextchanged="EntryArea_TextBox_TextChanged" ReadOnly="true" onkeypress="return isNumberKey(event)"
+                                    runat="server" ></asp:TextBox>
                             </span><span class="formFieldControl">
-                                <asp:TextBox ID="HCA_OptimumStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
+                                <asp:TextBox ID="HCA_OptimumStaffing_TextBox" CssClass="TextBoxBackground" ontextchanged="EntryArea_TextBox_TextChanged" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span></li>
+                            <li><span class="formTitleFields">Planned Number</span> <span class="formFieldControl">
+                                <asp:TextBox ID="RN_PlannedNumber_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)"
+                                    runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
+                            </span><span class="formFieldControl">
+                                <asp:TextBox ID="HCA_PlannedNumber_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)"
+                                    runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
+                            </span></li>
                             <li><span class="formTitleFields">Minimum Safe Staffing</span> <span class="formFieldControl">
-                                <asp:TextBox ID="RN_SafeStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
+                                <asp:TextBox ID="RN_SafeStaffing_TextBox" CssClass="TextBoxBackground" ontextchanged="EntryArea_TextBox_TextChanged" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span><span class="formFieldControl">
-                                <asp:TextBox ID="HCA_SafeStaffing_TextBox" ReadOnly="true" onkeypress="return isNumberKey(event)"
+                                <asp:TextBox ID="HCA_SafeStaffing_TextBox" CssClass="TextBoxBackground" ontextchanged="EntryArea_TextBox_TextChanged" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span></li>
                             <li><span class="formTitleFields">Today Trust</span> <span class="formFieldControl">
-                                <asp:TextBox ID="RN_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="RN_TodayTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                             </span><span class="formFieldControl">
-                                <asp:TextBox ID="HCA_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="HCA_TodayTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                             </span></li>
                             <li><span class="formTitleFields">Today Bank</span> <span class="formFieldControl">
-                                <asp:TextBox ID="RN_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="RN_TodayBank_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                             </span><span class="formFieldControl">
-                                <asp:TextBox ID="HCA_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                <asp:TextBox ID="HCA_TodayBank_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                             </span></li>
                             <li><span class="formTitleFields">Today Non Trust</span> <span class="formFieldControl">
-                                <asp:TextBox ID="RN_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                <asp:TextBox ID="RN_TodayNonTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" ontextchanged="EntryArea_TextBox_TextChanged"
                                     runat="server"></asp:TextBox>
                             </span><span class="formFieldControl">
-                                <asp:TextBox ID="HCA_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                <asp:TextBox ID="HCA_TodayNonTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" ontextchanged="EntryArea_TextBox_TextChanged"
                                     runat="server"></asp:TextBox>
                             </span></li>
                         </ul>
@@ -135,20 +142,20 @@
                                 <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
                                 RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>
                                 <li><span class="formTitleFields">Today Trust</span> <span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_RN_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="Overrride_RN_TodayTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                                 </span><span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_HCA_TodayTrust_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="Overrride_HCA_TodayTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                                 </span></li>
                                 <li><span class="formTitleFields">Today Bank</span> <span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_RN_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="Overrride_RN_TodayBank_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                                 </span><span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_HCA_TodayBank_TextBox" onkeypress="return isNumberKey(event)" runat="server"></asp:TextBox>
+                                    <asp:TextBox ID="Overrride_HCA_TodayBank_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                                 </span></li>
                                 <li><span class="formTitleFields">Today Non Trust</span> <span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_RN_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                    <asp:TextBox ID="Overrride_RN_TodayNonTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" ontextchanged="EntryArea_TextBox_TextChanged"
                                         runat="server"></asp:TextBox>
                                 </span><span class="formFieldControl">
-                                    <asp:TextBox ID="Overrride_HCA_TodayNonTrust_TextBox" onkeypress="return isNumberKey(event)"
+                                    <asp:TextBox ID="Overrride_HCA_TodayNonTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" ontextchanged="EntryArea_TextBox_TextChanged"
                                         runat="server"></asp:TextBox>
                                 </span></li>
                             </ul>

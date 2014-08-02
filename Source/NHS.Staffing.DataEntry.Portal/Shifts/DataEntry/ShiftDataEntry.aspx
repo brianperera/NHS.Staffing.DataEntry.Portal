@@ -56,7 +56,7 @@
                                 <asp:TextBox ID="HCA_OptimumStaffing_TextBox" CssClass="TextBoxBackground" ontextchanged="EntryArea_TextBox_TextChanged" ReadOnly="true" onkeypress="return isNumberKey(event)"
                                     runat="server"></asp:TextBox>
                             </span></li>
-                            <li><span class="formTitleFields">Planned Number</span> <span class="formFieldControl">
+                            <li><span class="formTitleFields">Planned Staffing</span> <span class="formFieldControl">
                                 <asp:TextBox ID="RN_PlannedNumber_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)"
                                     runat="server" ontextchanged="EntryArea_TextBox_TextChanged"></asp:TextBox>
                             </span><span class="formFieldControl">
@@ -86,6 +86,10 @@
                             </span><span class="formFieldControl">
                                 <asp:TextBox ID="HCA_TodayNonTrust_TextBox" CssClass="TextBoxBackground" onkeypress="return isNumberKey(event)" ontextchanged="EntryArea_TextBox_TextChanged"
                                     runat="server"></asp:TextBox>
+                            </span></li>
+                            <li><span class="formTitleFields">Comments</span> <span class="formFieldControl">
+                                <asp:TextBox ID="Comments_TextBox" runat="server" TextMode="MultiLine" 
+                                    Width="200px" Height="86px"></asp:TextBox>
                             </span></li>
                         </ul>
                         <ul class="formSection">
@@ -137,7 +141,7 @@
                                 </span>
                                 </li>
                                 <li>
-                                    <span class="formFieldControlHelpText">Please adjust any staffing figures above if they have changed as a result of the mitigation action.</span>
+                                    <span class="formFieldControlHelpText">Please adjust any staffing figures below if they have changed as a result of the mitigation action.</span>
                                 </li>
                                 <li><span class="formTitleFields">&nbsp</span> <span class="formTitleFieldsCenterText shortSpan">
                                 RN</span> <span class="formTitleFieldsWithoutFloat shortSpan">HCA</span> </li>

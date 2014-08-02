@@ -55,7 +55,7 @@
                                                 Optimum staffing
                                             </th>
                                             <th colspan="2">
-                                                Planned Number
+                                                Planned Staffing
                                             </th>
                                             <th colspan="2">
                                                 Minimum Safe Staffing
@@ -192,7 +192,7 @@
                                     </td>
                                     <td>
                                         <%# 
-                Eval("IsSafe").ToString() == "True" ? "Yes" : "No"
+                Eval("IsSafeAfterMitigation").ToString() == "True" ? "Yes" : "No"
                                         %>
                                     </td>
                                     <td class="tableColumnLargeWidth leftAlign">

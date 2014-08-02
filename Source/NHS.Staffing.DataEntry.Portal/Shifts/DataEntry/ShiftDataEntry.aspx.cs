@@ -367,13 +367,13 @@ namespace Nhs.Staffing.DataEntry.Portal
             {
                 if (Overrride_safeDropdown.Text == "Yes")
                 {
-                    record.IsSafe = true;
+                    //record.IsSafe = true;
                     record.IsSafeAfterMitigation = true;
                     safeDropdown.Text = "Yes";
                 }
                 else
                 {
-                    record.IsSafe = false;
+                    //record.IsSafe = false;
                     record.IsSafeAfterMitigation = false;
                     safeDropdown.Text = "No";
                 }
@@ -394,24 +394,6 @@ namespace Nhs.Staffing.DataEntry.Portal
                 }
             }
 
-            /*
-             if ((safeDropdown.Text == "Yes") || Overrride_safeDropdown.Text == "Yes")
-             {
-                 record.IsSafe = true;
-                 record.IsSafeAfterMitigation = true;
-                 Overrride_safeDropdown.Text = "Yes";
-             }
-             else if((safeDropdown.Text == "No" || Overrride_safeDropdown.Text == "No"))
-             {
-                 record.IsSafe = false;
-                 record.IsSafeAfterMitigation = false;
-             }
-             else
-             {
-                 record.IsSafeAfterMitigation = null;
-             }
-
-             */
             //Safe
             record.SafeMitigation = string.Empty;
 
@@ -421,6 +403,8 @@ namespace Nhs.Staffing.DataEntry.Portal
                                         : string.Empty;
 
             record.DataEntryBy = Membership.GetUser().UserName + " : " + DateTime.Now.ToString();
+
+            record.Comments = Comments_TextBox.Text;
 
             return record;
         }
@@ -531,26 +515,36 @@ namespace Nhs.Staffing.DataEntry.Portal
             //TodayNonTrustHCA
             HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
             Overrride_HCA_TodayNonTrust_TextBox.Text = record.TodayNonTrustHCA;
+            //Comments
+            Comments_TextBox.Text = record.Comments;
 
-            //Safe
-            if (record.IsSafe)
+            if (record.IsSafeAfterMitigation == null)
             {
-                safeDropdown.SelectedIndex = 0;
-                mitigationPanel.Visible = false;
-            }
-            else
-            {
-                safeDropdown.SelectedIndex = 1;
-                mitigationPanel.Visible = true;
+                //Safe
+                if (record.IsSafe)
+                {
+                    safeDropdown.SelectedIndex = 0;
+                    mitigationPanel.Visible = false;
+                }
+                else
+                {
+                    safeDropdown.SelectedIndex = 1;
+                    mitigationPanel.Visible = true;
+                }
             }
 
             //Check if the ward is unsafe and display the staffing adjustment panel
             if (record.IsSafeAfterMitigation == true)
             {
+                safeDropdown.SelectedIndex = 0;
+                mitigationPanel.Visible = false;
                 Overrride_safeDropdown.SelectedIndex = 1;
             }
             else if (record.IsSafeAfterMitigation == false)
             {
+                safeDropdown.SelectedIndex = 1;
+                mitigationPanel.Visible = true;
+
                 adjustStaffingFiguresPanel.Visible = true;
                 adjustStaffingFiguresPanel.Attributes.Add("style", "display: block;");
                 fade.Attributes.Add("style", "display: block;");

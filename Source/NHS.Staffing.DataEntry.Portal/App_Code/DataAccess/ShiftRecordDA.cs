@@ -85,6 +85,8 @@ namespace Nhs.Staffing.DataEntry
                         bool.TryParse(results["IsSafeAfterMitigation"].ToString(), out tempBool);
                         shift.IsSafeAfterMitigation = tempBool;
 
+                        shift.Comments = results["Comments"].ToString();
+
                         shifts.Add(shift);
                     }
                 }
@@ -145,6 +147,7 @@ namespace Nhs.Staffing.DataEntry
                 command.Parameters.Add(GetParameter("@UnSafeMitigation", SqlDbType.VarChar, record.UnSafeMitigation));
                 command.Parameters.Add(GetParameter("@SafeMitigation", SqlDbType.VarChar, record.SafeMitigation));
                 command.Parameters.Add(GetParameter("@IsSafeAfterMitigation", SqlDbType.VarChar, record.IsSafeAfterMitigation));
+                command.Parameters.Add(GetParameter("@Comments", SqlDbType.Text, record.Comments));
 
                 var results = command.ExecuteNonQuery();
 
@@ -254,6 +257,7 @@ namespace Nhs.Staffing.DataEntry
                         bool.TryParse(results["IsSafeAfterMitigation"].ToString(), out tempBool);
                         shift.IsSafeAfterMitigation = tempBool;
 
+                        shift.Comments = results["Comments"].ToString();
                     }
                 }
                 else

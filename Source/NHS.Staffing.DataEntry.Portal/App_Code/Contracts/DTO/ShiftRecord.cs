@@ -92,6 +92,7 @@ namespace Nhs.Staffing.DataEntry
         public bool? IsSafeAfterMitigation { get; set; }
         public string UnSafeMitigation { get; set; }
         public string SafeMitigation { get; set; }
+        public string Comments { get; set; }
 
         private string wardName;
         public string WardName

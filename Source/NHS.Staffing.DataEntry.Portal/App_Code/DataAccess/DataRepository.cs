@@ -14,7 +14,7 @@ public class DataRepository
     public IList<Ward> AllWards;
     public IList<ShiftType> AllShiftTypes;
     public IList<StaffingData> AllStaffing;
-    public List<string> SafeMitigations;
+    //public List<string> SafeMitigations;
     public List<string> UnSafeMitigations;
     public List<StaffingDateRange> AllStaffingDateRanges;
 
@@ -47,13 +47,18 @@ public class DataRepository
         StaffingDateRangeDA stfda = new StaffingDateRangeDA();
         AllStaffingDateRanges = stfda.GetAllStaffingDateRanges();
 
-        string safeMitigations = WebConfigurationManager.AppSettings["SafeMitigationActions"];
-        this.SafeMitigations = new List<string>();
-        this.SafeMitigations.AddRange(safeMitigations.Split('|'));
+        //string safeMitigations = WebConfigurationManager.AppSettings["SafeMitigationActions"];
+        //this.SafeMitigations = new List<string>();
+        //this.SafeMitigations.AddRange(safeMitigations.Split('|'));
 
-        string unSafeMitigations = WebConfigurationManager.AppSettings["UnsafeSafeMitigationActions"];
-        this.UnSafeMitigations = new List<string>();
-        this.UnSafeMitigations.AddRange(unSafeMitigations.Split('|'));
+        MitigationActionsDA mtada = new MitigationActionsDA();
+        this.UnSafeMitigations = mtada.GetAllMitigationActions();
+    }
+
+    public void ReloadMitigationActions()
+    {
+        MitigationActionsDA mtada = new MitigationActionsDA();
+        this.UnSafeMitigations = mtada.GetAllMitigationActions();
     }
 
     

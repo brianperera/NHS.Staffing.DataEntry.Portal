@@ -100,6 +100,10 @@ namespace Nhs.Staffing.DataEntry.Portal
                 updateStatus = staffingDateRangeDA.AddStaffingDateRange(record);
             }
 
+            //Refresh the existing DB instance
+            if (updateStatus)
+                DataRepository.Instance.RefreshPeriodData();
+
             DisplayMessage(updateStatus);
             ClearFields();
         }

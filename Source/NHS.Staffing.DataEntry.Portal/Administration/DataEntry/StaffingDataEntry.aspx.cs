@@ -204,6 +204,10 @@ namespace Nhs.Staffing.DataEntry.Portal
                 executionStatus = staffingDataDA.AddStaffingData(staffingData);                
             }
 
+            //Refresh the existing DB instance
+            if (executionStatus)
+                DataRepository.Instance.RefreshStaffingData();
+
             DisplayMessage(executionStatus);
         }
 

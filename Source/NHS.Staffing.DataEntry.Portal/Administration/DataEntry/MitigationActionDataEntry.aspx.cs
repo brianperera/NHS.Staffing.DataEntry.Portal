@@ -75,7 +75,7 @@ namespace Nhs.Staffing.DataEntry.Portal
             }
 
             if (executionStatus)
-                DataRepository.Instance.ReloadMitigationActions();
+                DataRepository.Instance.RefreshMitigationActions();
 
             DisplayMessage(executionStatus);
         }

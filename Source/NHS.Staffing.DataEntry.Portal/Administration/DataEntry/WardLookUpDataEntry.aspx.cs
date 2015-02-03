@@ -107,6 +107,10 @@ namespace Nhs.Staffing.DataEntry.Portal
                 executionStatus = wardDA.AddWard(wardRecord);
             }
 
+            if (executionStatus)
+                DataRepository.Instance.RefreshWardData();
+
+
             DisplayMessage(executionStatus);
         }
 

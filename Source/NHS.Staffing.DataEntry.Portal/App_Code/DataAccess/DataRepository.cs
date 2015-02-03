@@ -55,11 +55,27 @@ public class DataRepository
         this.UnSafeMitigations = mtada.GetAllMitigationActions();
     }
 
-    public void ReloadMitigationActions()
+    public void RefreshMitigationActions()
     {
         MitigationActionsDA mtada = new MitigationActionsDA();
         this.UnSafeMitigations = mtada.GetAllMitigationActions();
     }
 
-    
+    public void RefreshStaffingData()
+    {
+        StaffingDataDA stda = new StaffingDataDA();
+        AllStaffing = stda.GetAllStaffing();
+    }
+
+    public void RefreshPeriodData()
+    {
+        StaffingDateRangeDA stfda = new StaffingDateRangeDA();
+        AllStaffingDateRanges = stfda.GetAllStaffingDateRanges();
+    }
+
+    public void RefreshWardData()
+    {
+        WardDA wda = new WardDA();
+        AllWards = wda.GetAllWard();
+    }
 }

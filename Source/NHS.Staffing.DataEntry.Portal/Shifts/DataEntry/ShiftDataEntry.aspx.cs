@@ -581,22 +581,35 @@ namespace Nhs.Staffing.DataEntry.Portal
                 // This is the logic that loads the optimum/safe staffing values according to the current date
 
                 int currentDatePeriodIndex = 0;
+                List<int> currentDatePeriodIndexs = new List<int>();
 
+                //foreach (StaffingDateRange item in staffingDateRange)
+                //{
+                //    if (IsCurrentDateInSpecifiedDatePeriod(currentDate, item.StartDate, item.EndDate))
+                //    {
+                //        currentDatePeriodIndex = item.Index;
+                //        break;
+                //    }
+                //}
+
+                //Support for multiple periods
                 foreach (StaffingDateRange item in staffingDateRange)
                 {
                     if (IsCurrentDateInSpecifiedDatePeriod(currentDate, item.StartDate, item.EndDate))
                     {
-                        currentDatePeriodIndex = item.Index;
-                        break;
+                        currentDatePeriodIndexs.Add(item.Index);
                     }
                 }
 
                 foreach (StaffingData item in allStaffing)
                 {
-                    if (item.StaffingDateRangeIndex == currentDatePeriodIndex && wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == currentDate.ToString("dddd"))
+                    foreach (int period in currentDatePeriodIndexs)
                     {
-                        staffingDataRecord = item;
-                        break;
+                        if (item.StaffingDateRangeIndex == period && wardCode.Equals(item.WardCode) && shiftName.Equals(item.Shift) && item.StaffingDate == currentDate.ToString("dddd"))
+                        {
+                            staffingDataRecord = item;
+                            break;
+                        }   
                     }
                 }
 
